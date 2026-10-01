@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "description": "결과 화면 '자세히 보기' 칸의 안내 문구·공식 링크 (web/ 가 읽음). 참고 자료(care-result-pages.zip)의 구성을 참고하되, 내용은 아래 출처를 2026-09-30 직접 확인한 것과 legal_rules.json 규칙만 사용했다.",
+    "sources": ["SRC-NHIS-RCGT-GUIDE", "SRC-NHIS-DOCTOR-SEARCH", "SRC-NHIS-BRANCH", "SRC-NHIS-FORMS", "SRC-NHIS-RESULT", "SRC-NHIS-APPEAL", "SRC-NHIS-ONLINE-APPLY", "SRC-NHIS-CONTACT"],
+    "checked_at": "2026-09-30",
+    "updated_at": "2026-09-30"
+  },
+  "links": {
+    "apply": { "label": "공식 신청 화면", "url": "https://www.longtermcare.or.kr/npbs/u/b/101/openLtcRcgtAplyPttnChoice.web?aplyTypeScr=appltit&menuId=npe0000002763", "source": "SRC-NHIS-ONLINE-APPLY" },
+    "guide": { "label": "공단 인정절차 안내", "url": "https://www.longtermcare.or.kr/npbs/e/b/201/npeb201m01.web?menuId=npe0000002728", "source": "SRC-NHIS-RCGT-GUIDE" },
+    "hospital": { "label": "의사소견서 발급 병원 찾기", "url": "https://www.longtermcare.or.kr/npbs/e/b/201/selectDodEduCpetMdcAdminList", "source": "SRC-NHIS-DOCTOR-SEARCH" },
+    "branch": { "label": "가까운 지사 찾기 (주소·팩스)", "url": "https://www.nhis.or.kr/nhis/about/retrieveBranchList.do", "source": "SRC-NHIS-BRANCH" },
+    "forms": { "label": "신청서 양식 내려받기 (서식자료실)", "url": "https://www.longtermcare.or.kr/npbs/d/m/000/moveBoardView?menuId=npe0000002790&bKey=B0017", "source": "SRC-NHIS-FORMS" },
+    "result": { "label": "등급판정 결과 조회", "url": "https://www.longtermcare.or.kr/npbs/u/e/201/openGjuRsltRissuePttn.web?menuId=npe0000002816", "source": "SRC-NHIS-RESULT" },
+    "appeal": { "label": "심사청구(이의신청) 안내", "url": "https://www.longtermcare.or.kr/npbs/e/b/104/npeb104m01.web?menuId=npe0000002725", "source": "SRC-NHIS-APPEAL" },
+    "law_act": { "label": "노인장기요양보험법", "url": "https://www.law.go.kr/법령/노인장기요양보험법", "source": "SRC-LAW-ACT" },
+    "law_rule": { "label": "노인장기요양보험법 시행규칙", "url": "https://www.law.go.kr/법령/노인장기요양보험법시행규칙", "source": "SRC-LAW-RULE" },
+    "home": { "label": "노인장기요양보험 누리집", "url": "https://www.longtermcare.or.kr/npbs/", "source": "SRC-NHIS-RCGT-GUIDE" },
+    "tel": { "label": "1577-1000 전화하기", "url": "tel:15771000", "source": "SRC-NHIS-CONTACT" }
+  },
+  "channels": {
+    "online": "공식 화면에서 신청인 유형(본인·대리인) → 대리인 관계 확인 → 신청 종류 → 신청서 작성 순서로 진행해요. 본인 또는 대리인 인증서가 필요해요.",
+    "under65_blocked": "65세 미만의 처음 신청·재신청은 인터넷·앱으로 할 수 없어요. 지사에 방문하거나 우편·팩스로 내세요.",
+    "cards": [
+      { "t": "방문", "d": "가까운 공단 지사(장기요양 운영센터)에 신청서와 신분증을 가져가세요." },
+      { "t": "우편·팩스", "d": "지사 주소·팩스번호를 찾아 신청서와 신분증 사본을 보내고, 접수됐는지 전화로 확인하세요." },
+      { "t": "앱·정부24", "d": "「건강보험25시」 앱으로도 신청할 수 있어요. 처음 신청은 정부24에서도 돼요." },
+      { "t": "전화", "d": "갱신 신청만 통화자 신분 확인 후 전화로 할 수 있어요. 처음 신청은 전화 상담만 돼요." }
+    ],
+    "branch_note": "강남동부·강남북부·서초북부·영등포북부지사와 광산출장소에는 장기요양 운영센터가 없어요.",
+    "call_hours": "공단 대표전화 · 평일 09~18시 · 유료",
+    "call_script": "장기요양 인정신청 담당 운영센터로 연결해 주세요.",
+    "acute": "최근 6개월 안에 입원·수술·골절 치료를 받으셨거나 상태가 갑자기 나빠진 경우라면, 6개월 이상 도움이 필요한지 판단하기 어려워 심의가 보류되거나 기각될 수 있어요. 신청 시기를 운영센터에 먼저 물어보세요."
+  },
+  "roles": {
+    "options": [
+      { "value": "self", "label": "어르신 본인" },
+      { "value": "family", "label": "가족·친족" },
+      { "value": "other", "label": "그 밖의 대리인" }
+    ],
+    "other_options": [
+      { "value": "interested", "label": "이해관계인 (이웃 등)" },
+      { "value": "official", "label": "사회복지전담공무원" },
+      { "value": "center", "label": "치매안심센터의 장" },
+      { "value": "designated", "label": "시장·군수·구청장이 지정한 사람" }
+    ],
+    "id_docs": {
+      "self": { "name": "어르신 본인 신분증", "where": "방문 때 보여주고, 우편·팩스는 사본" },
+      "family": { "name": "대리하는 가족·친족의 신분증", "where": "방문 때 보여주고, 우편·팩스는 사본" },
+      "interested": { "name": "이해관계인(대리인)의 신분증", "where": "방문 때 보여주고, 우편·팩스는 사본" },
+      "official": { "name": "공무원임을 증명하는 신분증", "where": "사회복지전담공무원이 대리할 때" },
+      "center": { "name": "대리인 신분증 + 치매안심센터의 장임을 증명하는 서류", "where": "치매 어르신만 대리할 수 있어요" },
+      "designated": { "name": "대리인 신분증", "where": "지정 대리인" }
+    },
+    "rules": ["R-APPLY-04"]
+  },
+  "forms_note": "서식자료실에서 '장기요양인정신청서' 또는 '별지 제1호의2'를 찾아 내려받아요. 의사소견서 발급의뢰서는 직접 쓰는 양식이 아니라 공단이 주는 문서예요.",
+  "doctor": {
+    "flow": ["공단에 신청", "방문조사 후 발급의뢰서 받기", "병원에서 진찰·발급", "기한 안에 공단에 제출"],
+    "over65": "65세 이상은 신청서부터 내면 돼요. 방문조사 뒤 공단이 주는 '의사소견서 발급의뢰서'와 제출기한에 맞춰 병원에서 받아 내세요.",
+    "under65": "65세 미만은 신청할 때 의사소견서나 노인성 질병 진단서를 함께 내야 해요.",
+    "change_grade": "등급 변경 신청에는 의사소견서를 함께 내요.",
+    "validity": "의사소견서는 발급일부터 30일 동안 유효해요. 너무 일찍 받아 두지 마세요.",
+    "search_note": "'일반'으로 조회되는 병원은 최근 1년 인터넷 발급 이력이 있는 곳이에요. 목록에 없어도 의사·한의사가 있는 의료기관이면 발급할 수 있으니 전화로 먼저 물어보세요.",
+    "script": "안녕하세요. {who} 노인장기요양보험 의사소견서(별지 제2호) 발급을 받으려고 합니다. 원래 진료받던 환자도 발급되나요? 진료 예약이 필요한가요? 공단 발급의뢰서 말고 가져갈 것이 있나요? 이동이 어려운데 가능한 진찰 방법이 있을까요? 비용과 공단 전산 제출 여부도 알려 주세요.",
+    "checklist": [
+      "공단에서 받은 발급의뢰서와 제출 마감일",
+      "어르신 신분증, 복용약 목록, 진료 자료",
+      "어르신이 직접 진찰받아야 하는지, 이동이 어려울 때 방법",
+      "병원이 공단에 전산으로 내는지, 종이로 직접 내야 하는지",
+      "발급 뒤 공단에 접수됐는지 확인"
+    ],
+    "cost": [
+      { "who": "일반", "pay": "본인 20%" },
+      { "who": "저소득·생계곤란 경감 대상", "pay": "본인 10%" },
+      { "who": "의료급여 (기초생활수급 외)", "pay": "본인 10%" },
+      { "who": "의료급여 (기초생활수급)", "pay": "본인 부담 없음" }
+    ],
+    "cost_note": "발급의뢰서 없이 먼저 받으면 비용 전액을 내요. 처음·갱신 신청이거나 수급자로 결정되면 공단 부담분을 나중에 청구할 수 있으니 영수증을 보관하세요.",
+    "exempt": "거동이 매우 불편하거나 도서·벽지에 사시면 소견서 제출이 빠질 수 있는데, 이것은 공단이 조사 후 알려줘요. 임의로 빼지 마세요.",
+    "rules": ["R-APPLY-02", "R-APPLY-03", "R-DOCFEE-01"]
+  },
+  "visit": {
+    "intro": "공단 직원이 집(또는 계신 곳)에 와서 어르신 상태를 직접 확인해요. 날짜·장소는 공단 직원과 협의해 바꿀 수 있어요.",
+    "base": [
+      "최근 한 달 동안 식사·씻기·옷 입기에서 누가, 어떤 도움을, 얼마나 자주 드렸는지",
+      "최근 2주 동안 집에서 한 의료 처치, 복용약 목록, 진단서·퇴원 자료"
+    ],
+    "body": "이동·화장실: 부축·옮겨 앉기·보조기구 사용, 최근 넘어지신 일",
+    "mind": "기억력·행동: 실제로 있었던 날짜·시간·횟수와 어떻게 도와드렸는지",
+    "care": "돌봄 사정: 어르신이 혼자 계시는 시간, 돌보는 가족의 직장·건강 사정, 계단·화장실 같은 집 상황",
+    "hospital": "요양병원에 계시면: 조사 장소를 공단과 미리 협의하세요",
+    "example": "기록 예) 9월 28일 아침, 침대에서 일어나실 때 팔을 잡아 일으켜 드림. 화장실 갈 때 부축함. 좋은 날과 나쁜 날의 차이도 함께 적으세요.",
+    "rules": ["R-PROC-02"]
+  },
+  "admission": {
+    "intro": "요양원 입소는 등급을 받은 뒤, 요양원과 계약해서 시작해요. 자리가 있는지와 입소 수락은 요양원마다 따로 확인해요.",
+    "common": [
+      { "id": "adm-cert", "t": "장기요양인정서·개인별장기요양이용계획서", "d": "유효기간과 급여 종류(시설급여)를 요양원과 함께 확인" },
+      { "id": "adm-contract", "t": "급여 계약서 1부 받기", "d": "계약기간, 본인부담, 식재료비·상급침실 등 추가 비용을 설명 듣고 확인" },
+      { "id": "adm-out", "t": "입원·외박할 때 비용 계산 방식", "d": "계약 때 미리 설명 듣기" }
+    ],
+    "medaid": { "id": "adm-medaid", "t": "시·군·구청에 입소·이용신청서 내기", "d": "의료급여 수급권자는 시·군·구를 거쳐 입소해요" },
+    "facility_intro": "아래는 요양원마다 필요한 서류·검사 항목·발급 시점이 달라요. 입소할 요양원에 먼저 물어보세요.",
+    "facility": [
+      { "id": "fac-health", "t": "건강진단서·결핵 등 검사 결과" },
+      { "id": "fac-meds", "t": "처방전·복용약 목록·진료 기록" },
+      { "id": "fac-family", "t": "가족관계증명서·주민등록등본·보호자 연락처·준비물" }
+    ],
+    "rules": ["R-CONTRACT-01", "R-COST-02", "R-FAC-08"]
+  },
+  "situations": {
+    "out_of_grade": {
+      "title": "다시 신청할까, 이의신청할까",
+      "reapply": "상태가 그 뒤로 나빠졌다면: 지금 상태로 다시 인정신청을 해요.",
+      "appeal": "판정이 잘못됐다고 생각하면: 통지서의 이유를 확인하고 심사청구(이의신청)를 해요. 결과 통지를 받은 날부터 90일 안에, 방문·우편·팩스·온라인으로 낼 수 있어요. 결정은 보통 접수 후 60일 안에 나와요.",
+      "rules": ["R-APPEAL-01", "R-APPEAL-02"]
+    },
+    "pending": {
+      "title": "결과를 기다리는 동안",
+      "text": "판정은 신청일부터 30일 안에 나와요(늦어지면 최대 30일 연장, 연장되면 알려줘요). 결과는 우편으로 오고 누리집에서도 볼 수 있어요.",
+      "rules": ["R-PROC-01"]
+    },
+    "expired": {
+      "title": "유효기간이 지났다면",
+      "text": "지난 인정서로는 급여를 받을 수 없어요. 갱신이 이미 접수됐는지, 새로 신청해야 하는지 운영센터에 확인하세요.",
+      "rules": ["R-FAC-04", "R-VALID-02"]
+    }
+  }
+}

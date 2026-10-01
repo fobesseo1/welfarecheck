@@ -1,0 +1,3178 @@
+{
+ "_meta": {
+  "title": "장기요양등급판정기준 고시 [별표1] 8개 서비스군 수형분석도 (HWP 도형·WMF 좌표에서 자동 복원)",
+  "source": "sources_raw/05_장기요양등급판정기준_고시_2018-08-01.hwp",
+  "generator": "tools/hwp_trees.py",
+  "status": "RECONSTRUCTED_UNVERIFIED",
+  "status_note": "자동 검증(마디 수·최종마디 수·본문 예시 점수·본문 첫 분할·조건 상호배타/완전성·부모 점수 범위)을 통과했더라도, 사람이 원문 그림과 docs/trees_review.md 를 대조하기 전까지 RECONSTRUCTED_UNVERIFIED. 대조 후 status 를 OFFICIAL_VERIFIED 로 바꾸면 채점 엔진이 트리 점수를 주 추정치로 사용한다.",
+  "predicate_format": "split.var = {type:'domain', domain:PHY|COG|BEH|NUR|REH} (영역별 100점 환산점수) 또는 {type:'item', item:항목ID} (신체·재활 항목=1/2/3 척도, 인지·행동·간호 항목=1(예/있다)/0). cond 는 {le|lt|ge|gt|eq: 값} 또는 {in: [척도값]}",
+  "all_automatic_checks_passed": true
+ },
+ "trees": {
+  "청결": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "group",
+   "source": "HWP 본문 도형",
+   "text_targets": {
+    "leaves": 13,
+    "total": 24,
+    "example_node": 15,
+    "example_score": 1.2
+   },
+   "nodes": {
+    "0": {
+     "score": 9.4,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "34.15 이하",
+       "cond": {
+        "le": 34.15
+       }
+      },
+      {
+       "node": 2,
+       "label": "34.15 초과",
+       "cond": {
+        "gt": 34.15
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 3.9,
+     "split": {
+      "label": "신체기능 영역 100점 환산 점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "17.72 이하",
+       "cond": {
+        "le": 17.72
+       }
+      },
+      {
+       "node": 4,
+       "label": "17.72 초과",
+       "cond": {
+        "gt": 17.72
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 14.3,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 5,
+       "label": "완전자립,부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 6,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 2.6,
+     "split": {
+      "label": "인지기능 영역 100점 환산 점수",
+      "var": {
+       "type": "domain",
+       "domain": "COG"
+      }
+     },
+     "children": [
+      {
+       "node": 7,
+       "label": "9.86 이하",
+       "cond": {
+        "le": 9.86
+       }
+      },
+      {
+       "node": 8,
+       "label": "9.86 초과",
+       "cond": {
+        "gt": 9.86
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 6.5,
+     "split": {
+      "label": "나이∙생년월일 불인지",
+      "var": {
+       "type": "item",
+       "item": "COG-04"
+      }
+     },
+     "children": [
+      {
+       "node": 9,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 10,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "5": {
+     "score": 11.2,
+     "split": {
+      "label": "화장실사용하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-10"
+      }
+     },
+     "children": [
+      {
+       "node": 11,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 12,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "6": {
+     "score": 16.4,
+     "split": {
+      "label": "화장실사용하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-10"
+      }
+     },
+     "children": [
+      {
+       "node": 13,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 14,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 1.7,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 15,
+       "label": "6.59 이하",
+       "cond": {
+        "le": 6.59
+       }
+      },
+      {
+       "node": 16,
+       "label": "6.59 초과",
+       "cond": {
+        "gt": 6.59
+       }
+      }
+     ]
+    },
+    "8": {
+     "score": 3.4,
+     "split": {
+      "label": "인지기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "COG"
+      }
+     },
+     "children": [
+      {
+       "node": 17,
+       "label": "39.21 이하",
+       "cond": {
+        "le": 39.21
+       }
+      },
+      {
+       "node": 18,
+       "label": "39.21 초과",
+       "cond": {
+        "gt": 39.21
+       }
+      }
+     ]
+    },
+    "9": {
+     "score": 5.3
+    },
+    "10": {
+     "score": 8.0
+    },
+    "11": {
+     "score": 8.6
+    },
+    "12": {
+     "score": 11.9,
+     "split": {
+      "label": "날짜 불인지",
+      "var": {
+       "type": "item",
+       "item": "COG-02"
+      }
+     },
+     "children": [
+      {
+       "node": 19,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 20,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "13": {
+     "score": 11.6
+    },
+    "14": {
+     "score": 16.8,
+     "split": {
+      "label": "재활 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "REH"
+      }
+     },
+     "children": [
+      {
+       "node": 21,
+       "label": "40.16 이하",
+       "cond": {
+        "le": 40.16
+       }
+      },
+      {
+       "node": 22,
+       "label": "40.16 초과",
+       "cond": {
+        "gt": 40.16
+       }
+      }
+     ]
+    },
+    "15": {
+     "score": 1.2
+    },
+    "16": {
+     "score": 3.0
+    },
+    "17": {
+     "score": 2.9
+    },
+    "18": {
+     "score": 4.1
+    },
+    "19": {
+     "score": 9.0
+    },
+    "20": {
+     "score": 13.0
+    },
+    "21": {
+     "score": 16.4,
+     "split": {
+      "label": "행동변화 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 23,
+       "label": "60.34 이하",
+       "cond": {
+        "le": 60.34
+       }
+      },
+      {
+       "node": 24,
+       "label": "60.34 초과",
+       "cond": {
+        "gt": 60.34
+       }
+      }
+     ]
+    },
+    "22": {
+     "score": 17.2
+    },
+    "23": {
+     "score": 15.4
+    },
+    "24": {
+     "score": 19.6
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "25개, 최대 24"
+    },
+    {
+     "check": "마디 수 = 본문 24개",
+     "ok": true,
+     "detail": "번호 최대 24, 개수 25"
+    },
+    {
+     "check": "최종마디 수 = 본문 13개",
+     "ok": true,
+     "detail": "복원 13개"
+    },
+    {
+     "check": "본문 예시: 마디 15 = 1.2점 (최종마디)",
+     "ok": true,
+     "detail": "복원 1.2"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH', 'COG', 'COG-02', 'COG-04', 'PHY', 'PHY-10', 'REH'] / 복원 ['BEH', 'COG', 'COG-02', 'COG-04', 'PHY', 'PHY-10', 'REH']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "배설": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "loose",
+   "source": "HWP 본문 도형",
+   "text_targets": {
+    "leaves": 17,
+    "total": 33,
+    "example_node": 30,
+    "example_score": 0.3
+   },
+   "nodes": {
+    "0": {
+     "score": 5.6,
+     "split": {
+      "label": "체위변경하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-06"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 2,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 3.3,
+     "split": {
+      "label": "소변조절하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-12"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 4,
+       "label": "부분도움",
+       "cond": {
+        "in": [
+         2
+        ]
+       }
+      },
+      {
+       "node": 5,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 11.9,
+     "split": {
+      "label": "식사하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-05"
+      }
+     },
+     "children": [
+      {
+       "node": 6,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 7,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 1.2,
+     "split": {
+      "label": "옷 벗고 입기",
+      "var": {
+       "type": "item",
+       "item": "PHY-01"
+      }
+     },
+     "children": [
+      {
+       "node": 8,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 9,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 4.8,
+     "split": {
+      "label": "옮겨앉기",
+      "var": {
+       "type": "item",
+       "item": "PHY-08"
+      }
+     },
+     "children": [
+      {
+       "node": 10,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 11,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "5": {
+     "score": 10.8,
+     "split": {
+      "label": "밖으로 나가려함",
+      "var": {
+       "type": "item",
+       "item": "BEH-09"
+      }
+     },
+     "children": [
+      {
+       "node": 12,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 13,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "6": {
+     "score": 6.8
+    },
+    "7": {
+     "score": 12.9,
+     "split": {
+      "label": "욕창간호",
+      "var": {
+       "type": "item",
+       "item": "NUR-04"
+      }
+     },
+     "children": [
+      {
+       "node": 14,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 15,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "8": {
+     "score": 0.9,
+     "split": {
+      "label": "신체기능 영역 100점 환산 점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 16,
+       "label": "0 점",
+       "cond": {
+        "eq": 0.0
+       }
+      },
+      {
+       "node": 17,
+       "label": "0 초과",
+       "cond": {
+        "gt": 0.0
+       }
+      }
+     ]
+    },
+    "9": {
+     "score": 2.6
+    },
+    "10": {
+     "score": 3.8,
+     "split": {
+      "label": "화장실 사용하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-10"
+      }
+     },
+     "children": [
+      {
+       "node": 18,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 19,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "11": {
+     "score": 8.3
+    },
+    "12": {
+     "score": 9.0,
+     "split": {
+      "label": "세수하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-02"
+      }
+     },
+     "children": [
+      {
+       "node": 20,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 21,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "13": {
+     "score": 15.0
+    },
+    "14": {
+     "score": 11.8,
+     "split": {
+      "label": "대변 조절하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-11"
+      }
+     },
+     "children": [
+      {
+       "node": 22,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 23,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "15": {
+     "score": 15.8,
+     "split": {
+      "label": "슬픈상태, 울기도함",
+      "var": {
+       "type": "item",
+       "item": "BEH-03"
+      }
+     },
+     "children": [
+      {
+       "node": 24,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 25,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "16": {
+     "score": 0.5,
+     "split": {
+      "label": "상황 판단력 감퇴",
+      "var": {
+       "type": "item",
+       "item": "COG-06"
+      }
+     },
+     "children": [
+      {
+       "node": 26,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 27,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "17": {
+     "score": 1.3,
+     "split": {
+      "label": "무릎 관절",
+      "var": {
+       "type": "item",
+       "item": "REH-09"
+      }
+     },
+     "children": [
+      {
+       "node": 28,
+       "label": "제한없음",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 29,
+       "label": "한쪽관절제한, 양관절제한",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "18": {
+     "score": 2.9
+    },
+    "19": {
+     "score": 5.0
+    },
+    "20": {
+     "score": 5.3
+    },
+    "21": {
+     "score": 10.2
+    },
+    "22": {
+     "score": 8.8
+    },
+    "23": {
+     "score": 12.5
+    },
+    "24": {
+     "score": 12.8
+    },
+    "25": {
+     "score": 18.7
+    },
+    "26": {
+     "score": 0.4,
+     "split": {
+      "label": "행동변화영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 30,
+       "label": "15.58 이하",
+       "cond": {
+        "le": 15.58
+       }
+      },
+      {
+       "node": 31,
+       "label": "15.58 초과",
+       "cond": {
+        "gt": 15.58
+       }
+      }
+     ]
+    },
+    "27": {
+     "score": 1.2
+    },
+    "28": {
+     "score": 1.0
+    },
+    "29": {
+     "score": 1.8,
+     "split": {
+      "label": "날짜 불인지",
+      "var": {
+       "type": "item",
+       "item": "COG-02"
+      }
+     },
+     "children": [
+      {
+       "node": 32,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 33,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "30": {
+     "score": 0.3
+    },
+    "31": {
+     "score": 0.7
+    },
+    "32": {
+     "score": 1.2
+    },
+    "33": {
+     "score": 2.5
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "34개, 최대 33"
+    },
+    {
+     "check": "마디 수 = 본문 33개",
+     "ok": true,
+     "detail": "번호 최대 33, 개수 34"
+    },
+    {
+     "check": "최종마디 수 = 본문 17개 (원문 번호 중복 보정 반영)",
+     "ok": true,
+     "detail": "복원 18개 = 서로 다른 원문 번호 17개 + 보정 마디 [9]"
+    },
+    {
+     "check": "본문 예시: 마디 30 = 0.3점 (최종마디)",
+     "ok": true,
+     "detail": "복원 0.3"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH', 'BEH-03', 'BEH-09', 'COG-02', 'COG-06', 'NUR-04', 'PHY', 'PHY-01', 'PHY-02', 'PHY-08', 'PHY-10', 'PHY-11', 'REH-09'] / 복원 ['BEH', 'BEH-03', 'BEH-09', 'COG-02', 'COG-06', 'NUR-04', 'PHY', 'PHY-01', 'PHY-02', 'PHY-08', 'PHY-10', 'PHY-11', 'REH-09']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [
+    "원문 그림에 \"마디 8\" 이(가) 두 번 표기되고 \"마디 9\" 이(가) 없음 → 오른쪽 상자(점수 2.6)를 마디 9 로 보정 (원문 표기 오류로 추정, 사람 확인 필요)"
+   ],
+   "all_checks_passed": true
+  },
+  "식사": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "loose",
+   "source": "HWP 본문 도형",
+   "text_targets": {
+    "leaves": 11,
+    "total": 20,
+    "example_node": 11,
+    "example_score": 7.1
+   },
+   "nodes": {
+    "0": {
+     "score": 15.2,
+     "split": {
+      "label": "식사하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-05"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 2,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 12.7,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 4,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 35.6,
+     "split": {
+      "label": "재활 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "REH"
+      }
+     },
+     "children": [
+      {
+       "node": 5,
+       "label": "41.21 이하",
+       "cond": {
+        "le": 41.21
+       }
+      },
+      {
+       "node": 6,
+       "label": "41.21 초과",
+       "cond": {
+        "gt": 41.21
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 10.1,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 7,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 8,
+       "label": "부분도움",
+       "cond": {
+        "in": [
+         2
+        ]
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 20.1,
+     "split": {
+      "label": "화장실사용하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-10"
+      }
+     },
+     "children": [
+      {
+       "node": 9,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 10,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "5": {
+     "score": 31.7
+    },
+    "6": {
+     "score": 37.6
+    },
+    "7": {
+     "score": 8.3,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 11,
+       "label": "6.59 이하",
+       "cond": {
+        "le": 6.59
+       }
+      },
+      {
+       "node": 12,
+       "label": "6.59 초과",
+       "cond": {
+        "gt": 6.59
+       }
+      }
+     ]
+    },
+    "8": {
+     "score": 12.9,
+     "split": {
+      "label": "일어나 앉기",
+      "var": {
+       "type": "item",
+       "item": "PHY-07"
+      }
+     },
+     "children": [
+      {
+       "node": 13,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 14,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "9": {
+     "score": 16.1,
+     "split": {
+      "label": "대변조절하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-11"
+      }
+     },
+     "children": [
+      {
+       "node": 15,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 16,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "10": {
+     "score": 23.4
+    },
+    "11": {
+     "score": 7.1
+    },
+    "12": {
+     "score": 9.4
+    },
+    "13": {
+     "score": 12.2,
+     "split": {
+      "label": "밖으로 나가려함",
+      "var": {
+       "type": "item",
+       "item": "BEH-09"
+      }
+     },
+     "children": [
+      {
+       "node": 17,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 18,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "14": {
+     "score": 15.1
+    },
+    "15": {
+     "score": 13.9
+    },
+    "16": {
+     "score": 18.7,
+     "split": {
+      "label": "재활 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "REH"
+      }
+     },
+     "children": [
+      {
+       "node": 19,
+       "label": "30.77 이하",
+       "cond": {
+        "le": 30.77
+       }
+      },
+      {
+       "node": 20,
+       "label": "30.77 초과",
+       "cond": {
+        "gt": 30.77
+       }
+      }
+     ]
+    },
+    "17": {
+     "score": 11.5
+    },
+    "18": {
+     "score": 14.3
+    },
+    "19": {
+     "score": 17.5
+    },
+    "20": {
+     "score": 21.4
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "21개, 최대 20"
+    },
+    {
+     "check": "마디 수 = 본문 20개",
+     "ok": true,
+     "detail": "번호 최대 20, 개수 21"
+    },
+    {
+     "check": "최종마디 수 = 본문 11개",
+     "ok": true,
+     "detail": "복원 11개"
+    },
+    {
+     "check": "본문 예시: 마디 11 = 7.1점 (최종마디)",
+     "ok": true,
+     "detail": "복원 7.1"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH-09', 'PHY', 'PHY-03', 'PHY-07', 'PHY-10', 'PHY-11', 'REH'] / 복원 ['BEH-09', 'PHY', 'PHY-03', 'PHY-07', 'PHY-10', 'PHY-11', 'REH']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "기능보조": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "picture",
+   "source": "BIN0002.wmf",
+   "text_targets": {
+    "leaves": 12,
+    "total": 22,
+    "example_node": 7,
+    "example_score": 1.2
+   },
+   "nodes": {
+    "0": {
+     "score": 7.2,
+     "split": {
+      "label": "신체기능 영역100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "47.64 이하",
+       "cond": {
+        "le": 47.64
+       }
+      },
+      {
+       "node": 2,
+       "label": "47.64 초과",
+       "cond": {
+        "gt": 47.64
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 3.5,
+     "split": {
+      "label": "신체기능 영역100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "25.14 이하",
+       "cond": {
+        "le": 25.14
+       }
+      },
+      {
+       "node": 4,
+       "label": "25.14 초과",
+       "cond": {
+        "gt": 25.14
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 13.3,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 5,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 6,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 2.0,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 7,
+       "label": "6.59 이하",
+       "cond": {
+        "le": 6.59
+       }
+      },
+      {
+       "node": 8,
+       "label": "6.59 초과",
+       "cond": {
+        "gt": 6.59
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 6.0,
+     "split": {
+      "label": "화장실 사용하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-10"
+      }
+     },
+     "children": [
+      {
+       "node": 9,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 10,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "5": {
+     "score": 8.6,
+     "split": {
+      "label": "일어나 앉기",
+      "var": {
+       "type": "item",
+       "item": "PHY-07"
+      }
+     },
+     "children": [
+      {
+       "node": 11,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 12,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "6": {
+     "score": 15.1,
+     "split": {
+      "label": "욕창간호",
+      "var": {
+       "type": "item",
+       "item": "NUR-04"
+      }
+     },
+     "children": [
+      {
+       "node": 13,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 14,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 1.2
+    },
+    "8": {
+     "score": 2.7
+    },
+    "9": {
+     "score": 4.9,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 15,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 16,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "10": {
+     "score": 7.8,
+     "split": {
+      "label": "의미없거나 부적절한 행동",
+      "var": {
+       "type": "item",
+       "item": "BEH-11"
+      }
+     },
+     "children": [
+      {
+       "node": 17,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 18,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "11": {
+     "score": 7.9,
+     "split": {
+      "label": "행동변화 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 19,
+       "label": "28.83 이하",
+       "cond": {
+        "le": 28.83
+       }
+      },
+      {
+       "node": 20,
+       "label": "28.83 초과",
+       "cond": {
+        "gt": 28.83
+       }
+      }
+     ]
+    },
+    "12": {
+     "score": 10.9
+    },
+    "13": {
+     "score": 14.0
+    },
+    "14": {
+     "score": 18.7
+    },
+    "15": {
+     "score": 4.3,
+     "split": {
+      "label": "우측하지",
+      "var": {
+       "type": "item",
+       "item": "REH-02"
+      }
+     },
+     "children": [
+      {
+       "node": 21,
+       "label": "운동장애없음",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 22,
+       "label": "불완전운동장애, 완전운동장애",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "16": {
+     "score": 6.8
+    },
+    "17": {
+     "score": 6.6
+    },
+    "18": {
+     "score": 9.2
+    },
+    "19": {
+     "score": 6.4
+    },
+    "20": {
+     "score": 9.3
+    },
+    "21": {
+     "score": 3.6
+    },
+    "22": {
+     "score": 6.0
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "23개, 최대 22"
+    },
+    {
+     "check": "마디 수 = 본문 22개",
+     "ok": true,
+     "detail": "번호 최대 22, 개수 23"
+    },
+    {
+     "check": "최종마디 수 = 본문 12개",
+     "ok": true,
+     "detail": "복원 12개"
+    },
+    {
+     "check": "본문 예시: 마디 7 = 1.2점 (최종마디)",
+     "ok": true,
+     "detail": "복원 1.2"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH', 'BEH-11', 'NUR-04', 'PHY', 'PHY-03', 'PHY-07', 'PHY-10', 'REH-02'] / 복원 ['BEH', 'BEH-11', 'NUR-04', 'PHY', 'PHY-03', 'PHY-07', 'PHY-10', 'REH-02']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "행동변화대응": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "group",
+   "source": "HWP 본문 도형",
+   "text_targets": {
+    "leaves": 8,
+    "total": 14,
+    "example_node": 7,
+    "example_score": 0.6
+   },
+   "nodes": {
+    "0": {
+     "score": 1.3,
+     "split": {
+      "label": "행동변화영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "34.69 이하",
+       "cond": {
+        "le": 34.69
+       }
+      },
+      {
+       "node": 2,
+       "label": "34.69 초과",
+       "cond": {
+        "gt": 34.69
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 0.9,
+     "split": {
+      "label": "행동변화영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "7.79 이하",
+       "cond": {
+        "le": 7.79
+       }
+      },
+      {
+       "node": 4,
+       "label": "7.79 초과",
+       "cond": {
+        "gt": 7.79
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 1.9,
+     "split": {
+      "label": "인지기능영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "COG"
+      }
+     },
+     "children": [
+      {
+       "node": 5,
+       "label": "39.21 이하",
+       "cond": {
+        "le": 39.21
+       }
+      },
+      {
+       "node": 6,
+       "label": "39.21 초과",
+       "cond": {
+        "gt": 39.21
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 0.7,
+     "split": {
+      "label": "신체기능영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 7,
+       "label": "17.71 이하",
+       "cond": {
+        "le": 17.71
+       }
+      },
+      {
+       "node": 8,
+       "label": "17.71 초과",
+       "cond": {
+        "gt": 17.71
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 1.1,
+     "split": {
+      "label": "인지기능영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "COG"
+      }
+     },
+     "children": [
+      {
+       "node": 9,
+       "label": "60.24 이하",
+       "cond": {
+        "le": 60.24
+       }
+      },
+      {
+       "node": 10,
+       "label": "60.24 초과",
+       "cond": {
+        "gt": 60.24
+       }
+      }
+     ]
+    },
+    "5": {
+     "score": 1.4
+    },
+    "6": {
+     "score": 2.0,
+     "split": {
+      "label": "밖으로 나가려함",
+      "var": {
+       "type": "item",
+       "item": "BEH-09"
+      }
+     },
+     "children": [
+      {
+       "node": 11,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 12,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 0.6
+    },
+    "8": {
+     "score": 0.8
+    },
+    "9": {
+     "score": 0.9
+    },
+    "10": {
+     "score": 1.3
+    },
+    "11": {
+     "score": 1.6
+    },
+    "12": {
+     "score": 2.6,
+     "split": {
+      "label": "세수하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-02"
+      }
+     },
+     "children": [
+      {
+       "node": 13,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 14,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "13": {
+     "score": 2.2
+    },
+    "14": {
+     "score": 3.2
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "15개, 최대 14"
+    },
+    {
+     "check": "마디 수 = 본문 14개",
+     "ok": true,
+     "detail": "번호 최대 14, 개수 15"
+    },
+    {
+     "check": "최종마디 수 = 본문 8개",
+     "ok": true,
+     "detail": "복원 8개"
+    },
+    {
+     "check": "본문 예시: 마디 7 = 0.6점 (최종마디)",
+     "ok": true,
+     "detail": "복원 0.6"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH-09', 'COG', 'PHY', 'PHY-02'] / 복원 ['BEH-09', 'COG', 'PHY', 'PHY-02']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "간접지원": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "picture",
+   "source": "BIN0003.wmf",
+   "text_targets": {
+    "leaves": 9,
+    "total": 16,
+    "example_node": 3,
+    "example_score": 12.5
+   },
+   "nodes": {
+    "0": {
+     "score": 18.9,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "25.14 이하",
+       "cond": {
+        "le": 25.14
+       }
+      },
+      {
+       "node": 2,
+       "label": "25.14 초과",
+       "cond": {
+        "gt": 25.14
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 14.7,
+     "split": {
+      "label": "신체기능 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "PHY"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "6.59 이하",
+       "cond": {
+        "le": 6.59
+       }
+      },
+      {
+       "node": 4,
+       "label": "6.59 초과",
+       "cond": {
+        "gt": 6.59
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 21.5,
+     "split": {
+      "label": "밖으로 나가려함",
+      "var": {
+       "type": "item",
+       "item": "BEH-09"
+      }
+     },
+     "children": [
+      {
+       "node": 5,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 6,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 12.5
+    },
+    "4": {
+     "score": 16.9
+    },
+    "5": {
+     "score": 20.3,
+     "split": {
+      "label": "소변 조절하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-12"
+      }
+     },
+     "children": [
+      {
+       "node": 7,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 8,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "6": {
+     "score": 26.1,
+     "split": {
+      "label": "행동변화 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "BEH"
+      }
+     },
+     "children": [
+      {
+       "node": 9,
+       "label": "56.0 이하",
+       "cond": {
+        "le": 56.0
+       }
+      },
+      {
+       "node": 10,
+       "label": "56.0 초과",
+       "cond": {
+        "gt": 56.0
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 17.6
+    },
+    "8": {
+     "score": 21.2,
+     "split": {
+      "label": "슬픈 상태, 울기도 함",
+      "var": {
+       "type": "item",
+       "item": "BEH-03"
+      }
+     },
+     "children": [
+      {
+       "node": 11,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 12,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "9": {
+     "score": 21.7
+    },
+    "10": {
+     "score": 28.4
+    },
+    "11": {
+     "score": 19.8,
+     "split": {
+      "label": "식사하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-05"
+      }
+     },
+     "children": [
+      {
+       "node": 13,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 14,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "12": {
+     "score": 23.0
+    },
+    "13": {
+     "score": 17.3
+    },
+    "14": {
+     "score": 21.0,
+     "split": {
+      "label": "불규칙수면, 주야혼돈",
+      "var": {
+       "type": "item",
+       "item": "BEH-04"
+      }
+     },
+     "children": [
+      {
+       "node": 15,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 16,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "15": {
+     "score": 19.7
+    },
+    "16": {
+     "score": 23.6
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "17개, 최대 16"
+    },
+    {
+     "check": "마디 수 = 본문 16개",
+     "ok": true,
+     "detail": "번호 최대 16, 개수 17"
+    },
+    {
+     "check": "최종마디 수 = 본문 9개",
+     "ok": true,
+     "detail": "복원 9개"
+    },
+    {
+     "check": "본문 예시: 마디 3 = 12.5점 (최종마디)",
+     "ok": true,
+     "detail": "복원 12.5"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH', 'BEH-03', 'BEH-04', 'PHY-05', 'PHY-12'] / 복원 ['BEH', 'BEH-03', 'BEH-04', 'PHY-05', 'PHY-12']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "간호처치": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "picture",
+   "source": "BIN0001.wmf",
+   "text_targets": {
+    "leaves": 10,
+    "total": 17,
+    "example_node": 14,
+    "example_score": 6.7
+   },
+   "nodes": {
+    "0": {
+     "score": 9.3,
+     "split": {
+      "label": "욕창간호",
+      "var": {
+       "type": "item",
+       "item": "NUR-04"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 2,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 8.7,
+     "split": {
+      "label": "간호처치 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "NUR"
+      }
+     },
+     "children": [
+      {
+       "node": 3,
+       "label": "0 점",
+       "cond": {
+        "eq": 0.0
+       }
+      },
+      {
+       "node": 4,
+       "label": "19.84 점",
+       "cond": {
+        "eq": 19.84
+       }
+      },
+      {
+       "node": 5,
+       "label": "19.84 초과",
+       "cond": {
+        "gt": 19.84
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 15.4,
+     "split": {
+      "label": "식사하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-05"
+      }
+     },
+     "children": [
+      {
+       "node": 6,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 7,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 8.3,
+     "split": {
+      "label": "불규칙수면, 주야혼돈",
+      "var": {
+       "type": "item",
+       "item": "BEH-04"
+      }
+     },
+     "children": [
+      {
+       "node": 8,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 9,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 9.6
+    },
+    "5": {
+     "score": 14.6
+    },
+    "6": {
+     "score": 12.4,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 10,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 11,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 22.5
+    },
+    "8": {
+     "score": 7.6,
+     "split": {
+      "label": "좌측상지",
+      "var": {
+       "type": "item",
+       "item": "REH-03"
+      }
+     },
+     "children": [
+      {
+       "node": 12,
+       "label": "운동장애없음",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 13,
+       "label": "불완전운동장애, 완전운동장애",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "9": {
+     "score": 9.7
+    },
+    "10": {
+     "score": 9.6
+    },
+    "11": {
+     "score": 14.7
+    },
+    "12": {
+     "score": 7.1,
+     "split": {
+      "label": "길을 잃음",
+      "var": {
+       "type": "item",
+       "item": "BEH-07"
+      }
+     },
+     "children": [
+      {
+       "node": 14,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 15,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "13": {
+     "score": 9.5,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 16,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 17,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "14": {
+     "score": 6.7
+    },
+    "15": {
+     "score": 8.1
+    },
+    "16": {
+     "score": 7.4
+    },
+    "17": {
+     "score": 11.6
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "18개, 최대 17"
+    },
+    {
+     "check": "마디 수 = 본문 17개",
+     "ok": true,
+     "detail": "번호 최대 17, 개수 18"
+    },
+    {
+     "check": "최종마디 수 = 본문 10개",
+     "ok": true,
+     "detail": "복원 10개"
+    },
+    {
+     "check": "본문 예시: 마디 14 = 6.7점 (최종마디)",
+     "ok": true,
+     "detail": "복원 6.7"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['BEH-04', 'BEH-07', 'PHY-03', 'REH-03'] / 복원 ['BEH-04', 'BEH-07', 'PHY-03', 'REH-03']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  },
+  "재활훈련": {
+   "status": "RECONSTRUCTED_UNVERIFIED",
+   "source_kind": "picture",
+   "source": "BIN0004.wmf",
+   "text_targets": {
+    "leaves": 11,
+    "total": 19,
+    "example_node": 4,
+    "example_score": 2.5
+   },
+   "nodes": {
+    "0": {
+     "score": 4.3,
+     "split": {
+      "label": "재활 영역 100점 환산점수",
+      "var": {
+       "type": "domain",
+       "domain": "REH"
+      }
+     },
+     "children": [
+      {
+       "node": 1,
+       "label": "0점",
+       "cond": {
+        "eq": 0.0
+       }
+      },
+      {
+       "node": 2,
+       "label": "0 초과, 39.46 이하",
+       "cond": {
+        "gt": 0.0,
+        "le": 39.46
+       }
+      },
+      {
+       "node": 3,
+       "label": "39.46 초과",
+       "cond": {
+        "gt": 39.46
+       }
+      }
+     ]
+    },
+    "1": {
+     "score": 3.0,
+     "split": {
+      "label": "길을 잃음",
+      "var": {
+       "type": "item",
+       "item": "BEH-07"
+      }
+     },
+     "children": [
+      {
+       "node": 4,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 5,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "2": {
+     "score": 4.3,
+     "split": {
+      "label": "세수하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-02"
+      }
+     },
+     "children": [
+      {
+       "node": 6,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 7,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "3": {
+     "score": 5.5,
+     "split": {
+      "label": "슬픈 상태, 울기도 함",
+      "var": {
+       "type": "item",
+       "item": "BEH-03"
+      }
+     },
+     "children": [
+      {
+       "node": 8,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 9,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "4": {
+     "score": 2.5
+    },
+    "5": {
+     "score": 3.7
+    },
+    "6": {
+     "score": 4.6,
+     "split": {
+      "label": "옮겨 앉기",
+      "var": {
+       "type": "item",
+       "item": "PHY-08"
+      }
+     },
+     "children": [
+      {
+       "node": 10,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 11,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "7": {
+     "score": 3.1,
+     "split": {
+      "label": "일어나 앉기",
+      "var": {
+       "type": "item",
+       "item": "PHY-07"
+      }
+     },
+     "children": [
+      {
+       "node": 12,
+       "label": "완전자립, 부분도움",
+       "cond": {
+        "in": [
+         1,
+         2
+        ]
+       }
+      },
+      {
+       "node": 13,
+       "label": "완전도움",
+       "cond": {
+        "in": [
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "8": {
+     "score": 4.8
+    },
+    "9": {
+     "score": 6.3
+    },
+    "10": {
+     "score": 4.1,
+     "split": {
+      "label": "장소불인지",
+      "var": {
+       "type": "item",
+       "item": "COG-03"
+      }
+     },
+     "children": [
+      {
+       "node": 14,
+       "label": "무",
+       "cond": {
+        "eq": 0
+       }
+      },
+      {
+       "node": 15,
+       "label": "유",
+       "cond": {
+        "eq": 1
+       }
+      }
+     ]
+    },
+    "11": {
+     "score": 6.3
+    },
+    "12": {
+     "score": 2.1
+    },
+    "13": {
+     "score": 4.2
+    },
+    "14": {
+     "score": 4.5,
+     "split": {
+      "label": "양치질하기",
+      "var": {
+       "type": "item",
+       "item": "PHY-03"
+      }
+     },
+     "children": [
+      {
+       "node": 16,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 17,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "15": {
+     "score": 3.2,
+     "split": {
+      "label": "옷 벗고 입기",
+      "var": {
+       "type": "item",
+       "item": "PHY-01"
+      }
+     },
+     "children": [
+      {
+       "node": 18,
+       "label": "완전자립",
+       "cond": {
+        "in": [
+         1
+        ]
+       }
+      },
+      {
+       "node": 19,
+       "label": "부분도움, 완전도움",
+       "cond": {
+        "in": [
+         2,
+         3
+        ]
+       }
+      }
+     ]
+    },
+    "16": {
+     "score": 4.0
+    },
+    "17": {
+     "score": 5.7
+    },
+    "18": {
+     "score": 3.8
+    },
+    "19": {
+     "score": 2.7
+    }
+   },
+   "checks": [
+    {
+     "check": "마디 번호 0..N 연속·중복 없음",
+     "ok": true,
+     "detail": "20개, 최대 19"
+    },
+    {
+     "check": "마디 수 = 본문 19개",
+     "ok": true,
+     "detail": "번호 최대 19, 개수 20"
+    },
+    {
+     "check": "최종마디 수 = 본문 11개",
+     "ok": true,
+     "detail": "복원 11개"
+    },
+    {
+     "check": "본문 예시: 마디 4 = 2.5점 (최종마디)",
+     "ok": true,
+     "detail": "복원 2.5"
+    },
+    {
+     "check": "부모 1개씩, 뿌리=마디 0",
+     "ok": true,
+     "detail": "{}"
+    },
+    {
+     "check": "모든 마디 점수 있음",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 가)~라) 첫 분할과 일치",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "본문 \"그 다음 단계\" 변수 목록 = 복원된 하위 분할 변수",
+     "ok": true,
+     "detail": "본문 ['COG-03', 'PHY-01', 'PHY-03', 'PHY-07', 'PHY-08'] / 복원 ['COG-03', 'PHY-01', 'PHY-03', 'PHY-07', 'PHY-08']"
+    },
+    {
+     "check": "각 분할 조건이 모든 값에서 정확히 하나만 성립",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "부모 점수가 자식 점수 범위 안 (평균 성질)",
+     "ok": true,
+     "detail": ""
+    },
+    {
+     "check": "해석 실패 없음",
+     "ok": true,
+     "detail": ""
+    }
+   ],
+   "problems": [],
+   "corrections": [],
+   "all_checks_passed": true
+  }
+ }
+}

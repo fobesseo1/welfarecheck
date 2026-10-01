@@ -1,0 +1,11 @@
+﻿kind,id,item,status,next_action
+source_article,SRC-NOTICE-BENEFIT,"재가급여 월 한도액·시설급여 1일 비용 금액표(서비스 범위 밖, 미사용)",UNVERIFIED,law.go.kr 원문 대조
+source_article,SRC-NOTICE-GRADING,별표1 수형분석도 트리 연결구조(그림),UNVERIFIED,law.go.kr 원문 대조
+source_article,SRC-NOTICE-GRADING,별표2 '일상생활점수'·'행동점수' 정의,UNVERIFIED,law.go.kr 원문 대조
+source,SRC-PIPC-GENAI,생성형 인공지능(AI) 개발·활용을 위한 개인정보 처리 안내서,UNVERIFIED,1차 출처 확보
+source,SRC-2ND-FACILITY-CHANGE,장기요양등급 급여종류 변경(재가→시설) 안내 게시글,SECONDARY_ONLY,1차 출처 확보
+source,SRC-2ND-VALIDITY,[이용교 복지상식] 장기요양등급 유효기간이 연장된다,SECONDARY_ONLY,1차 출처 확보
+source,SRC-2ND-APPEAL,장기요양 등급외 판정 시 심사청구 90일 안내,SECONDARY_ONLY,1차 출처 확보
+source,SRC-2ND-GRADING-ULEX,"장기요양등급판정기준에 관한 고시 (U-LEX 게재본, 2016.12.23 판)",SECONDARY_ONLY,1차 출처 확보
+document,DOC-07,가족관계 확인 서류(가족관계증명서 등),UNVERIFIED,공단 지사·원문 확인
+assessment,R-CONFLICT-01,점수 산정 적용 항목 52 vs 65,CONFLICT,복지부·공단 확인

@@ -1,0 +1,2796 @@
+{
+ "_meta": {
+  "description": "장기요양인정조사 평가 항목 데이터 구조",
+  "status": "항목명·척도 원문 대조 완료. v52/v65 병행 구조",
+  "count": 65,
+  "domain_counts": {
+   "신체기능": 13,
+   "인지기능": 10,
+   "행동변화": 22,
+   "간호처치": 10,
+   "재활": 10
+  },
+  "count_2018_scoring": 52,
+  "known_conflict": "R-CONFLICT-01",
+  "rule": "보호자 답변은 항목에 '매핑 후보'로만 연결. 점수 계산 금지(R-GRADE-03)",
+  "gate_b": {
+   "date": "2026-09-29",
+   "scope": "보호자 질문 ↔ 현행 조사표(별지 제5호) 65개 항목 연결. 점수 산정 매핑은 범위 밖(R-CONFLICT-01)",
+   "result": {
+    "PASS": 35,
+    "FIXED": 9,
+    "EXPERT_REVIEW": 21
+   }
+  },
+  "versions": {
+   "v52": {
+    "basis": "장기요양등급판정기준 고시(현행, 2018 시행본) 제2조",
+    "count": 52
+   },
+   "v65": {
+    "basis": "공단 안내(5개 영역 65개 항목) + 현행 조사표",
+    "count": 65
+   },
+   "overlap": "v52의 52개 항목은 모두 v65에 포함. v65 추가 13개: PHY-13, COG-08, COG-09, COG-10, BEH-15, BEH-16, BEH-17, BEH-18, BEH-19, BEH-20, BEH-21, BEH-22, NUR-10",
+   "usage": "보호자 질문은 65개로 한 번만 받고, 결과는 v52 기준·v65 기준 두 가지로 모두 정리. 어느 쪽이 공식 산정 기준인지와 무관하게 동작"
+  }
+ },
+ "items": [
+  {
+   "id": "PHY-01",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "혼자 옷을 갈아입으실 수 있나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "옷 벗고 입기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "① 옷 벗고 입기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-02",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "세수는 혼자 하시나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "세수하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "② 세수하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-03",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "양치질은 혼자 하시나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "양치질하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "③ 양치질하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-04",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "목욕이나 샤워는 어떻게 하시나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "목욕하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "④ 목욕하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-05",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "식사는 혼자 드시나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "식사하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑤ 식사하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-06",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "누워 계실 때 혼자 몸을 돌려 누우실 수 있나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "체위변경하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑥ 체위 변경하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-07",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "누운 상태에서 혼자 일어나 앉으실 수 있나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "일어나 앉기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑦ 일어나 앉기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-08",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "침대에서 의자나 휠체어로 혼자 옮겨 앉으실 수 있나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "옮겨 앉기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑧ 옮겨 앉기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-09",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "방 밖으로 혼자 나오실 수 있나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "방 밖으로 나오기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑨ 방 밖으로 나오기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-10",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "화장실은 혼자 가서 볼일을 보시나요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "화장실 사용하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑩ 화장실 사용하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-11",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "대변 실수가 있으신가요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "대변 조절하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑪ 대변 조절하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-12",
+   "domain": "신체기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "소변 실수가 있으신가요?",
+   "follow_up": [
+    "누가 옆에서 도와드리나요? 말로 알려드리면 되나요, 몸을 잡아드려야 하나요?",
+    "최근 한 달 동안 늘 그런가요, 가끔인가요?",
+    "도움이 필요한 이유가 무엇인가요(마비·통증·어지럼·기억 문제 등)?"
+   ],
+   "ambiguous_answers": [
+    "가끔 도와드려요",
+    "천천히 하면 하세요",
+    "제가 해드리는 게 빨라서 해드려요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "소변 조절하기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑫ 소변 조절하기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-01",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "방금 드신 식사나 방금 한 대화를 기억하시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "단기 기억장애",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "방금 전에 들었던 이야기나 일을 잊는다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-02",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "오늘이 몇 월 며칠인지 아시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "날짜불인지",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "오늘이 몇 월 며칠인지 모른다.",
+   "gate_b_fix": "질문에 '요일'이 들어가 조사표 문구(몇 월 며칠)와 달랐음",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-03",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "지금 계신 곳이 어디인지 아시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "장소불인지",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "자신이 있는 장소를 알지 못한다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-04",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "본인 나이나 생일을 아시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "나이·생년월일 불인지",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "자신의 나이와 생일을 모른다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-05",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "'손 들어 보세요' 같은 간단한 말을 알아듣고 따라 하시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "지시불인지",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "지시를 이해하지 못한다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-06",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "평소 상황에 맞게 판단하시나요? 예를 들어 날씨에 맞게 행동하거나, 낯선 사람에게 문을 열어주지 않으시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "상황 판단력 감퇴",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "주어진 상황에 대한 판단력이 떨어져 있다.",
+   "gate_b_fix": "'가스불' 예시가 행동변화 ⑮(화기 관리)와 겹쳐 중복 기록 위험",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "COG-07",
+   "domain": "인지기능",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "원하는 것을 말로 전하실 수 있나요?",
+   "follow_up": [
+    "최근 한 달 사이에 그런 적이 있었나요?",
+    "얼마나 자주 그러시나요?"
+   ],
+   "ambiguous_answers": [
+    "가끔 헷갈리세요",
+    "컨디션에 따라 달라요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "의사소통·전달 장애",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "의사소통이나 전달에 장애가 있다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-01",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "누가 물건을 훔쳐갔다고 하시거나, 누가 해치려 한다고 사실과 다르게 믿으시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "망상",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "사람들이 무엇을 훔쳤다고 믿거나 자기를 해하려 한다고 잘못 믿고 있다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "FIXED",
+   "gate_b_fix": "조사표의 '자기를 해하려 한다고 잘못 믿음' 요소 누락",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-02",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "없는 소리를 듣거나 없는 것을 보신다고 하시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "환각, 환청",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "헛것을 보거나 환청을 듣는다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-03",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "자주 슬퍼하시거나 우시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "슬픈 상태, 울기도 함",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "슬퍼 보이거나 기분이 처져 있으며 때로 울기도 한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-04",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "밤에 자다 깨서 가족을 깨우거나 너무 일찍 일어나시나요? 아니면 낮에 너무 많이 주무시고 밤에 못 주무시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "불규칙수면, 주야혼돈",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "밤에 자다가 일어나 주위 사람을 깨우거나 아침에 너무 일찍 일어난다. 또는 낮에는 지나치게 잠을 자고 밤에는 잠을 이루지 못한다.",
+   "gate_b_fix": "조사표의 두 가지 양상 반영",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-05",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "씻기거나 옷 갈아입히려 하면 거부하시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "도움에 저항",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "주위사람이 도와주려 할 때 도와주는 것에 저항한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-06",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "안절부절못하고 계속 서성이시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "서성거림, 안절부절못함",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "한군데 가만히 있지 못하고 서성거리거나 왔다 갔다 하며 안절부절 못한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-07",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "길을 잃거나 헤매신 적이 있나요? 밖에 나가시면 혼자 집으로 돌아오실 수 있나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "길을 잃음",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "길을 잃거나 헤맨 적이 있다. 외출하면 집이나 병원, 시설로 혼자 들어올 수 없다.",
+   "gate_b_fix": "조사표의 '혼자 들어올 수 없다' 요소 누락",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-08",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "화를 내며 욕하거나 때리려 하신 적이 있나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "폭언, 위협행동",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "화를 내며 폭언이나 폭행을 하는 등 위협적인 행동을 보인다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-09",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "자꾸 집 밖으로 나가시려 하나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "밖으로 나가려함",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "혼자서 밖으로 나가려고 해서 눈을 뗄 수가 없다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-10",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "물건을 부수거나 망가뜨리시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "물건 망가트리기",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "물건을 망가뜨리거나 부순다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-11",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "의미 없는 행동을 반복하시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "의미 없거나 부적절한 행동",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "의미 없거나 부적절한 행동을 자주 보인다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-12",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "돈이나 물건을 숨기시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "돈·물건 감추기",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "돈이나 물건을 장롱같이 찾기 어려운 곳에 감춘다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-13",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "계절이나 상황에 맞지 않게 옷을 입으시나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "부적절한 옷 입기",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "옷을 부적절하게 입는다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-14",
+   "domain": "행동변화",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "대소변을 손으로 만지거나 벽·옷에 묻히신 적이 있나요?",
+   "follow_up": [
+    "최근 한 달 사이에 있었나요?",
+    "얼마나 자주요(매일/주 1~2회/드물게)?"
+   ],
+   "ambiguous_answers": [
+    "예전에 그랬어요",
+    "심하지는 않아요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "대소변 불결행위",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "대소변을 벽이나 옷에 바르는 등의 행위를 한다.",
+   "gate_b_fix": "'아무 데나 보시나요'는 대소변 실수(신체기능 ⑪⑫)와 혼동",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-01",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "목에 호흡용 관(기관절개관)이 있으신가요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "기관지 절개관 간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "기관지 절개관 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-02",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "가래를 기계로 빼드려야 하나요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "흡인",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "흡인",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-03",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "산소를 사용하시나요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "산소요법",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "산소요법",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-04",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "욕창(오래 누워 생긴 상처)이 있으신가요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "욕창간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "욕창 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-05",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "콧줄이나 배에 연결된 관으로 식사하시나요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "경관 영양",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "경관 영양",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-06",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "암 때문에 생긴 통증을 따로 관리하고 계신가요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "암성통증간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "암성통증 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-07",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "소변줄을 사용하시나요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "도뇨관리",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "도뇨(導尿) 관리",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-08",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "배에 인공항문(장루)이 있으신가요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "장루간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "장루(창자샛길) 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-09",
+   "domain": "간호처치",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "투석을 받으시나요?",
+   "follow_up": [
+    "최근 2주 사이에도 해당되나요?",
+    "병원에서 받으시나요, 집에서 하시나요?"
+   ],
+   "ambiguous_answers": [
+    "병원에서 한 번 했어요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "투석간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "투석 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-01",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "오른팔을(를) 움직이기 어려우신가요?",
+   "follow_up": [
+    "전혀 못 움직이시나요, 일부만 불편하신가요?"
+   ],
+   "ambiguous_answers": [
+    "좀 약해요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "운동장애-우측상지",
+   "answer_scale": [
+    "운동장애 없음",
+    "불완전 운동장애",
+    "완전 운동장애"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "① 우측상지",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-02",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "오른다리을(를) 움직이기 어려우신가요?",
+   "follow_up": [
+    "전혀 못 움직이시나요, 일부만 불편하신가요?"
+   ],
+   "ambiguous_answers": [
+    "좀 약해요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "운동장애-우측하지",
+   "answer_scale": [
+    "운동장애 없음",
+    "불완전 운동장애",
+    "완전 운동장애"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "③ 우측하지",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-03",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "왼팔을(를) 움직이기 어려우신가요?",
+   "follow_up": [
+    "전혀 못 움직이시나요, 일부만 불편하신가요?"
+   ],
+   "ambiguous_answers": [
+    "좀 약해요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "운동장애-좌측상지",
+   "answer_scale": [
+    "운동장애 없음",
+    "불완전 운동장애",
+    "완전 운동장애"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "② 좌측상지",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-04",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "왼다리을(를) 움직이기 어려우신가요?",
+   "follow_up": [
+    "전혀 못 움직이시나요, 일부만 불편하신가요?"
+   ],
+   "ambiguous_answers": [
+    "좀 약해요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "운동장애-좌측하지",
+   "answer_scale": [
+    "운동장애 없음",
+    "불완전 운동장애",
+    "완전 운동장애"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "④ 좌측하지",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-05",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "어깨 관절이 굳어서 잘 안 굽혀지거나 펴지나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-어깨관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑤ 어깨관절",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-06",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "팔꿈치 관절이 굳어서 잘 안 굽혀지거나 펴지나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-팔꿈치관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑥ 팔꿈치관절",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-07",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "손목이나 손가락 관절이 굳어서 잘 안 굽혀지거나 펴지나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-손목 및 수지관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑦ 손목 및 수지관절",
+   "gate_b_fix": "'수지'는 어려운 말",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-08",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "엉덩이(고관절) 관절이 굳어서 다리를 잘 못 벌리거나 굽히시나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-고관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑧ 엉덩관절 (2018 고시 표기: 고관절)",
+   "gate_b_fix": "조사표 표기 '엉덩관절' 반영",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "FIXED",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-09",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "무릎 관절이 굳어서 잘 안 굽혀지거나 펴지나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-무릎관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑨ 무릎관절",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "REH-10",
+   "domain": "재활",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "항목명·척도는 등급판정기준 고시(제2018-146호) 제2조 52개 항목표와 대조 완료. 현행 조사표(별지 제5호)에도 있는 항목",
+   "guardian_question": "발목 관절이 굳어서 잘 안 굽혀지거나 펴지나요?",
+   "follow_up": [
+    "한쪽인가요, 양쪽인가요?"
+   ],
+   "ambiguous_answers": [
+    "아프다고만 하세요"
+   ],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원 관찰·면담",
+   "when_unknown": "unknown으로 저장하고 방문조사 전 관찰 포인트로 안내",
+   "sources": [
+    {
+     "src": "SRC-NOTICE-GRADING",
+     "article": "제2조 52개 항목표"
+    },
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "official_item_name": "관절제한-발목관절",
+   "answer_scale": [
+    "제한 없음",
+    "한쪽 관절 제한",
+    "양쪽 관절 제한"
+   ],
+   "in_2018_scoring_52": true,
+   "form5_wording": "⑩ 발목관절",
+   "polarity": "observed",
+   "answer_mapping": {
+    "note": "조사표상 조사원이 신청인에게 직접 수행시켜 판단 → 보호자 진술은 관찰 포인트 참고용, 값 후보로 저장하지 않음"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": true,
+   "in_v65": true
+  },
+  {
+   "id": "PHY-13",
+   "domain": "신체기능",
+   "official_item_name": "머리감기",
+   "answer_scale": [
+    "완전자립",
+    "부분도움",
+    "완전도움"
+   ],
+   "guardian_question": "머리는 혼자 감으시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "⑬ 머리감기",
+   "polarity": "level",
+   "answer_mapping": {
+    "혼자 한다": "완전자립 후보",
+    "일부 도움(지켜봄·말로 안내·부분 부축 등)": "부분도움 후보 — 경계 기준 전문가 확인",
+    "전부 도와드림": "완전도움 후보"
+   },
+   "gate_b": "EXPERT_REVIEW",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "COG-08",
+   "domain": "인지기능",
+   "official_item_name": "계산을 하지 못한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "간단한 돈 계산(거스름돈 등)을 하시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "계산을 하지 못한다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "COG-09",
+   "domain": "인지기능",
+   "official_item_name": "하루 일과를 이해하지 못한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "하루 일정(식사·약·외출 시간)을 이해하시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "하루 일과를 이해하지 못한다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "COG-10",
+   "domain": "인지기능",
+   "official_item_name": "가족이나 친척을 알아보지 못한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "가족이나 친척을 알아보시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "가족이나 친척을 알아보지 못한다.",
+   "polarity": "inverted",
+   "answer_mapping": {
+    "예(할 수 있다/안다)": "증상 아니오 후보",
+    "아니오(못 한다/모른다)": "증상 예 후보",
+    "가끔/헷갈린다": "followup: 최근 한 달 빈도"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-15",
+   "domain": "행동변화",
+   "official_item_name": "가스불이나 담뱃불, 연탄불과 같은 화기를 관리할 수 없다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "가스불이나 담뱃불 같은 불을 켜 놓고 잊으시거나, 불 관리를 혼자 못 하시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "가스불이나 담뱃불, 연탄불과 같은 화기를 관리할 수 없다.",
+   "gate_b_fix": "문구 명확화",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "FIXED",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-16",
+   "domain": "행동변화",
+   "official_item_name": "혼자 있는 것을 두려워하여 누군가 옆에 있어야 한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "혼자 계시는 걸 무서워해서 누군가 늘 옆에 있어야 하나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "혼자 있는 것을 두려워하여 누군가 옆에 있어야 한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-17",
+   "domain": "행동변화",
+   "official_item_name": "이유 없이 크게 소리치고 고함을 친다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "이유 없이 크게 소리치시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "이유 없이 크게 소리치고 고함을 친다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-18",
+   "domain": "행동변화",
+   "official_item_name": "공공장소에서 부적절한 성적 행동을 한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "사람들 앞에서 부적절한 성적 행동을 하신 적이 있나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "공공장소에서 부적절한 성적 행동을 한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-19",
+   "domain": "행동변화",
+   "official_item_name": "음식이 아닌 물건 등을 먹는다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "음식이 아닌 물건을 드시려 한 적이 있나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "음식이 아닌 물건 등을 먹는다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-20",
+   "domain": "행동변화",
+   "official_item_name": "쓸데없이 간섭하거나 참견한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "주변 일에 지나치게 참견하시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "쓸데없이 간섭하거나 참견한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-21",
+   "domain": "행동변화",
+   "official_item_name": "식습관 및 식욕변화를 보이거나 이유 없이 식사를 거부한다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "식사량이 크게 변했거나 이유 없이 식사를 거부하시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "식습관 및 식욕변화를 보이거나 이유 없이 식사를 거부한다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "BEH-22",
+   "domain": "행동변화",
+   "official_item_name": "귀찮을 정도로 붙어서 따라 다닌다",
+   "answer_scale": [
+    "예",
+    "아니오"
+   ],
+   "guardian_question": "귀찮을 정도로 계속 붙어서 따라다니시나요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "귀찮을 정도로 붙어서 따라 다닌다.",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "증상 예 후보",
+    "아니오": "증상 아니오 후보",
+    "예전에 그랬다": "followup: 최근 한 달 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  },
+  {
+   "id": "NUR-10",
+   "domain": "간호처치",
+   "official_item_name": "당뇨발 간호",
+   "answer_scale": [
+    "있다",
+    "없다"
+   ],
+   "guardian_question": "당뇨 때문에 발에 상처가 있어 관리하고 계신가요?",
+   "follow_up": [
+    "최근 한 달(간호처치는 2주) 사이에 있었나요?",
+    "얼마나 자주요?"
+   ],
+   "ambiguous_answers": [],
+   "info_type": "보호자 진술(사전 정보) - 공식 판단은 공단 조사원",
+   "when_unknown": "unknown 저장",
+   "verification_status": "OFFICIAL_VERIFIED",
+   "verification_note": "현행 조사표(시행규칙 별지 제5호, 제1138호 판본)에 있는 평가 항목. 2018 고시의 52개 항목에는 없음. 언제 조사표에 추가됐는지, 점수 산정에 쓰이는지는 공식 확인 안 됨",
+   "in_2018_scoring_52": false,
+   "sources": [
+    {
+     "src": "SRC-LAW-RULE-FORM5",
+     "article": "별지 제5호"
+    }
+   ],
+   "form5_wording": "당뇨발 간호",
+   "polarity": "direct",
+   "answer_mapping": {
+    "예": "있다 후보",
+    "아니오": "없다 후보",
+    "병원에서만/한 번": "followup: 최근 2주 내 여부"
+   },
+   "gate_b": "PASS",
+   "in_v52": false,
+   "in_v65": true
+  }
+ ],
+ "context_items": {
+  "사회생활기능(수단적 일상생활기능, 조사표 나.)": [
+   "집안일 하기",
+   "식사 준비하기",
+   "빨래하기",
+   "금전 관리",
+   "물건 사기",
+   "전화 사용하기",
+   "교통수단 이용하기",
+   "근거리 외출하기",
+   "몸 단장하기",
+   "약 챙겨먹기"
+  ],
+  "일상생활자립도": {
+   "장애노인(와상도)": [
+    "정상",
+    "생활 자립",
+    "준 와상 상태",
+    "완전 와상 상태"
+   ],
+   "치매노인(인지증)": [
+    "자립",
+    "불완전 자립",
+    "부분 의존",
+    "완전 의존"
+   ]
+  },
+  "지원형태": [
+   "주 수발자",
+   "주 수발자의 도움영역(신체기능/사회생활기능/정서적 지지)",
+   "하루 종일 혼자 있음(예/아니오)"
+  ],
+  "환경평가": [
+   "조명",
+   "바닥과 벽지",
+   "계단",
+   "주방",
+   "문턱",
+   "난방과 환기",
+   "화장실 세면대",
+   "좌변기",
+   "온수"
+  ],
+  "note": "점수 산정 항목은 아니나 시설급여 예외 사유(①주수발 곤란 ②주거환경 열악) 판단 정보로 사용. 인지증 자립도는 치매 보정(고시 제2조제5호) 요건"
+ }
+}

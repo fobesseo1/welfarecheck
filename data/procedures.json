@@ -1,0 +1,154 @@
+{
+  "_meta": {
+    "description": "행정절차 정의. 판단 엔진이 상황 코드(situation)를 결정하면, 해당 절차의 단계·서류(지금/나중)·근거 규칙을 여기서 가져온다. 기준이 바뀌면 이 파일만 수정한다.",
+    "version": "1.0",
+    "updated_at": "2026-09-29"
+  },
+  "procedures": [
+    {
+      "id": "PROC-INITIAL",
+      "title": "장기요양인정 최초 신청",
+      "steps": [
+        {"id": "S-APPLY", "text": "국민건강보험공단에 장기요양인정 신청서 제출 (방문·우편·팩스·온라인)", "rules": ["R-APPLY-01", "R-APPLY-05"]},
+        {"id": "S-VISIT", "text": "공단 직원 방문조사 (일시·장소를 미리 통보받음)", "rules": ["R-PROC-02"]},
+        {"id": "S-OPINION", "text": "공단이 발부한 발급의뢰서로 의사소견서를 받아 제출 (등급판정위원회 자료 제출 전까지)", "rules": ["R-APPLY-02", "R-DOCFEE-01"]},
+        {"id": "S-JUDGE", "text": "등급판정위원회 판정: 신청일부터 30일 이내 (부득이하면 30일 이내 연장, 연장 시 통보)", "rules": ["R-PROC-01"]},
+        {"id": "S-NOTICE", "text": "장기요양인정서·개인별장기요양이용계획서 수령", "rules": ["R-FAC-05"]}
+      ],
+      "docs_now": ["DOC-01", "DOC-05"],
+      "docs_later": ["DOC-03", "DOC-02", "DOC-08", "DOC-09"],
+      "rules": ["R-APPLY-01", "R-APPLY-02", "R-APPLY-05", "R-PROC-01", "R-PROC-02"]
+    },
+    {
+      "id": "PROC-INITIAL-UNDER65",
+      "title": "65세 미만 신청 시 추가 서류",
+      "steps": [
+        {"id": "S-U65-DOC", "text": "신청할 때 의사소견서 또는 노인성 질병 진단서를 함께 제출", "rules": ["R-APPLY-02", "R-ELIG-02"]}
+      ],
+      "docs_now": ["DOC-04"],
+      "docs_later": [],
+      "rules": ["R-APPLY-02", "R-ELIG-02"]
+    },
+    {
+      "id": "PROC-PROXY",
+      "title": "가족이 대신 신청 (대리신청)",
+      "steps": [
+        {"id": "S-PROXY", "text": "본인이 직접 신청하기 어려우면 가족·친족이 대신 신청할 수 있음 (대리인 신분증)", "rules": ["R-APPLY-04"]}
+      ],
+      "docs_now": ["DOC-05"],
+      "docs_later": [],
+      "rules": ["R-APPLY-04"]
+    },
+    {
+      "id": "PROC-EARLY",
+      "title": "신청일부터 급여 받기 (돌볼 가족이 없는 경우 등)",
+      "steps": [
+        {"id": "S-EARLY", "text": "장기요양인정신청일부터 급여신청서에 증명서류를 붙여 공단에 신청 → 공단이 확인 후 결정 통보", "rules": ["R-FAC-05"]}
+      ],
+      "docs_now": ["DOC-10"],
+      "docs_later": [],
+      "rules": ["R-FAC-05"]
+    },
+    {
+      "id": "PROC-PENDING",
+      "title": "판정 결과 기다리는 중",
+      "steps": [
+        {"id": "S-VISIT", "text": "공단 직원 방문조사 (일시·장소를 미리 통보받음) — 가족이 함께 있으면 좋음", "rules": ["R-PROC-02"]},
+        {"id": "S-OPINION", "text": "의사소견서는 등급판정위원회 자료 제출 전까지 제출", "rules": ["R-APPLY-02"]},
+        {"id": "S-JUDGE", "text": "신청일부터 30일 이내 판정 (연장 시 최대 30일, 통보)", "rules": ["R-PROC-01"]}
+      ],
+      "docs_now": [],
+      "docs_later": ["DOC-02", "DOC-08", "DOC-09"],
+      "rules": ["R-PROC-01", "R-PROC-02", "R-APPLY-02"]
+    },
+    {
+      "id": "PROC-RENEWAL",
+      "title": "장기요양인정 갱신",
+      "steps": [
+        {"id": "S-RENEW", "text": "유효기간 만료 90일 전부터 30일 전까지 갱신신청서 + 의사소견서 제출", "rules": ["R-VALID-02"]},
+        {"id": "S-RENEW-TERM", "text": "갱신 시 유효기간: 1등급 5년, 2~4등급 4년, 5등급·인지지원등급 2년", "rules": ["R-VALID-01"]}
+      ],
+      "docs_now": ["DOC-01", "DOC-02", "DOC-05"],
+      "docs_later": [],
+      "rules": ["R-VALID-01", "R-VALID-02"]
+    },
+    {
+      "id": "PROC-CHANGE-TYPE",
+      "title": "급여종류 변경 신청 (3~5등급 → 시설급여)",
+      "steps": [
+        {"id": "S-CHTYPE", "text": "급여종류·내용 변경신청서에 변경 사유를 적어 공단에 제출", "rules": ["R-CHANGE-01"]},
+        {"id": "S-CHTYPE-JUDGE", "text": "등급판정위원회가 시설급여 필요 여부를 인정 (사유: 가족 수발 곤란 / 주거환경 열악 / 치매 등 문제행동)", "rules": ["R-FAC-02"]},
+        {"id": "S-CHTYPE-EXTRA", "text": "공단이 추가 자료를 요청하면 그때 준비", "rules": ["R-CHANGE-02"]}
+      ],
+      "docs_now": ["DOC-01", "DOC-05"],
+      "docs_later": ["DOC-11"],
+      "rules": ["R-CHANGE-01", "R-FAC-02", "R-CHANGE-02"]
+    },
+    {
+      "id": "PROC-CHANGE-GRADE",
+      "title": "장기요양등급 변경 신청 (상태가 나빠진 경우)",
+      "steps": [
+        {"id": "S-CHGRADE", "text": "변경신청서 + 의사소견서를 공단에 제출", "rules": ["R-CHANGE-01"]}
+      ],
+      "docs_now": ["DOC-01", "DOC-02", "DOC-05"],
+      "docs_later": [],
+      "rules": ["R-CHANGE-01"]
+    },
+    {
+      "id": "PROC-APPEAL",
+      "title": "이의신청 (심사청구)",
+      "steps": [
+        {"id": "S-APPEAL", "text": "처분이 있음을 안 날부터 90일 이내(처분일부터 180일 이내) 심사청구서를 공단에 제출", "rules": ["R-APPEAL-01"]},
+        {"id": "S-REAPPEAL", "text": "심사 결정에 불복하면 결정통지를 받은 날부터 90일 이내 재심사청구, 이후 행정소송 가능", "rules": ["R-APPEAL-02"]}
+      ],
+      "docs_now": ["DOC-14"],
+      "docs_later": ["DOC-16"],
+      "rules": ["R-APPEAL-01", "R-APPEAL-02"]
+    },
+    {
+      "id": "PROC-ADMISSION",
+      "title": "요양원(시설급여) 입소 준비",
+      "steps": [
+        {"id": "S-ADM-CERT", "text": "장기요양인정서·개인별장기요양이용계획서를 요양원에 제시", "rules": ["R-CONTRACT-01"]},
+        {"id": "S-ADM-CONTRACT", "text": "급여 개시 전 문서 계약 (2부 작성, 1부 수령, 비급여 항목별 비용 포함, 설명 후 동의서)", "rules": ["R-CONTRACT-01", "R-COST-02"]},
+        {"id": "S-ADM-COST", "text": "본인부담: 시설급여 비용의 20% (감경·면제 대상은 증빙 제출), 식재료비·상급침실·이미용비는 별도", "rules": ["R-COST-01", "R-COST-02"]},
+        {"id": "S-ADM-OUT", "text": "입원·외박 시 비용 산정 방식을 계약 때 설명받기", "rules": ["R-FAC-08"]},
+        {"id": "S-ADM-DUP", "text": "입소 후에는 재가급여(방문요양 등)를 함께 받을 수 없음", "rules": ["R-FAC-06"]},
+        {"id": "S-ADM-HEALTH", "text": "건강진단서를 발급받아 요양원에 제출 (검사 항목은 요양원에 확인)", "rules": ["R-ADMIT-01"]}
+      ],
+      "docs_now": ["DOC-08", "DOC-09", "DOC-12"],
+      "docs_later": ["DOC-13"],
+      "rules": ["R-CONTRACT-01", "R-COST-01", "R-COST-02", "R-FAC-06", "R-FAC-08", "R-ADMIT-01"]
+    },
+    {
+      "id": "PROC-COST-RELIEF",
+      "title": "본인부담 면제·감경 증빙",
+      "steps": [
+        {"id": "S-RELIEF", "text": "감면 대상이면 장기요양인정서에 증빙을 붙여 요양원(장기요양기관)에 제출 (긴급 시 급여 신청일부터 7일 이내)", "rules": ["R-COST-01"]}
+      ],
+      "docs_now": ["DOC-15"],
+      "docs_later": [],
+      "rules": ["R-COST-01"]
+    },
+    {
+      "id": "PROC-MEDAID-ADMISSION",
+      "title": "의료급여 수급권자 입소 신청",
+      "steps": [
+        {"id": "S-MEDAID", "text": "입소·이용신청서를 주소지 시·군·구에 제출 → 시·군·구가 요양원에 의뢰", "rules": ["R-CONTRACT-01"]}
+      ],
+      "docs_now": ["DOC-17"],
+      "docs_later": [],
+      "rules": ["R-CONTRACT-01"]
+    },
+    {
+      "id": "PROC-HOME-SERVICES",
+      "title": "재가급여 이용 (요양원 대신)",
+      "steps": [
+        {"id": "S-HOME", "text": "주·야간보호(주간보호센터), 단기보호(월 9일 이내, 사유 시 연장), 방문요양 등 등급에 맞는 재가급여 이용", "rules": ["R-FAC-03", "R-SHORT-01"]}
+      ],
+      "docs_now": ["DOC-08", "DOC-09"],
+      "docs_later": [],
+      "rules": ["R-FAC-03", "R-SHORT-01"]
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "_meta": {
+    "description": "공식 근거 데이터베이스 - 출처 목록 (1단계 조사 결과)",
+    "researched_at": "2026-09-29",
+    "verification_status_codes": {
+      "OFFICIAL_VERIFIED": "국가법령정보센터에서 받은 원문 파일(sources_raw)과 조문 대조 완료",
+      "OFFICIAL_VIA_SUMMARY": "1차 공식 출처(공단 '건강Law' 법령 전문 페이지 등)에 접근하여 내용 확인. 단, 조사 도구가 원문을 요약 형태로만 반환하므로 조문 문구의 글자 단위 대조는 미완료",
+      "OFFICIAL_GUIDE": "공단 공식 안내 페이지에서 확인 (법령 원문 아님)",
+      "SECONDARY_ONLY": "민간 사이트·블로그 등 2차 자료에서만 확인. 판단 규칙의 근거로 단독 사용 금지",
+      "CONFLICT": "출처 간 내용 불일치. 해소 전까지 사용 금지",
+      "UNVERIFIED": "확인하지 못함. 판단 규칙에 사용 금지"
+    },
+    "access_limitations": [
+      "국가법령정보센터(law.go.kr): 조사 환경에서 접속 차단(robots/프록시). 원문 직접 확인 불가",
+      "노인장기요양보험 홈페이지(longtermcare.or.kr): robots.txt로 조회 차단",
+      "보건복지부(mohw.go.kr), 찾기쉬운 생활법령(easylaw.go.kr), 정부24(gov.kr), 개인정보보호위원회(pipc.go.kr): 조회 실패",
+      "국민건강보험공단 '건강Law'(nhis.or.kr/lm/...) 법령 전문 페이지는 접근 가능했으나, 도구가 요약본만 반환하고 긴 문서는 후반부 조문이 잘려 확인 불가(예: 노인장기요양보험법 제35조 이후)"
+    ],
+    "verified_at": "2026-09-29 (원문 파일: 사용자가 국가법령정보센터에서 내려받아 sources_raw에 저장)"
+  },
+  "sources": [
+    {
+      "id": "SRC-LAW-ACT",
+      "title": "노인장기요양보험법",
+      "type": "법률",
+      "issuer": "보건복지부(소관) / 국회",
+      "version": "법률 제21690호",
+      "amended_date": "2026-05-26",
+      "effective_date": "2026-05-26",
+      "current_status": "현행 (원문 표기: [시행 2026. 5. 26.] [법률 제21690호, 2026. 5. 26., 일부개정]). 시행예정조문은 파일에서 제외됨",
+      "url_primary": "https://www.law.go.kr/법령/노인장기요양보험법",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=30&SEQ_HISTORY=613839",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제12조",
+        "제13조",
+        "제14조",
+        "제15조",
+        "제16조",
+        "제17조",
+        "제18조",
+        "제19조",
+        "제20조",
+        "제21조",
+        "제22조",
+        "제23조",
+        "제24조",
+        "제25조",
+        "제26조",
+        "제27조",
+        "제27조의2",
+        "제28조",
+        "제29조"
+      ],
+      "unverified_articles": [],
+      "used_for": [
+        "신청자격",
+        "신청절차",
+        "판정기간",
+        "인정서",
+        "유효기간·갱신",
+        "변경신청",
+        "대리신청",
+        "급여종류",
+        "급여개시 시점"
+      ],
+      "raw_file": "sources_raw/01_노인장기요양보험법_2026-05-26.pdf"
+    },
+    {
+      "id": "SRC-LAW-DECREE",
+      "title": "노인장기요양보험법 시행령",
+      "type": "대통령령",
+      "issuer": "보건복지부",
+      "version": "대통령령 제36325호",
+      "amended_date": "2026-05-12",
+      "effective_date": "2026-05-12",
+      "current_status": "현행 (원문 표기 확인)",
+      "url_primary": "https://www.law.go.kr/법령/노인장기요양보험법시행령",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=31&SEQ_HISTORY=",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제6조",
+        "제7조",
+        "제8조",
+        "제13조",
+        "제15조의8"
+      ],
+      "unverified_articles": [],
+      "used_for": [
+        "노인성 질병 정의",
+        "의사소견서 제출 제외",
+        "등급별 점수 기준",
+        "유효기간",
+        "신청일부터 급여 가능 사유",
+        "본인부담률"
+      ],
+      "raw_file": "sources_raw/02_노인장기요양보험법_시행령_별표포함_2026-05-12.pdf"
+    },
+    {
+      "id": "SRC-LAW-RULE",
+      "title": "노인장기요양보험법 시행규칙",
+      "type": "보건복지부령",
+      "issuer": "보건복지부",
+      "version": "보건복지부령 제1138호",
+      "amended_date": "2025-12-12",
+      "effective_date": "2025-12-12",
+      "current_status": "현행 (원문 표기 확인)",
+      "url_primary": "https://www.law.go.kr/법령/노인장기요양보험법시행규칙",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=32&SEQ_HISTORY=",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제3조",
+        "제4조",
+        "제5조",
+        "제6조",
+        "제8조",
+        "제9조",
+        "제10조",
+        "제11조",
+        "제16조",
+        "제17조",
+        "별지 서식 목록"
+      ],
+      "unverified_articles": [],
+      "used_for": [
+        "신청서·의사소견서 서식",
+        "65세 미만 증빙",
+        "갱신 신청 기간",
+        "변경신청",
+        "대리인 서류",
+        "급여계약",
+        "중복수급 금지"
+      ],
+      "raw_file": "sources_raw/03_노인장기요양보험법_시행규칙_별표별지포함_2025-12-12.pdf"
+    },
+    {
+      "id": "SRC-NOTICE-BENEFIT",
+      "title": "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
+      "type": "보건복지부 고시",
+      "issuer": "보건복지부",
+      "version": "보건복지부고시 제2025-247호",
+      "amended_date": "2025-12-30 발령",
+      "effective_date": "2026-01-01 (제11조의6·제11조의7 개정규정은 2026-07-01)",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr (행정규칙 검색)",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637&SEQ_HISTORY=595646",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조제2항(시설급여 대상)",
+        "제2조제3항(인지지원등급 이용 급여)",
+        "제17조제7항(5등급 방문요양 제한)"
+      ],
+      "unverified_articles": [
+        "재가급여 월 한도액·시설급여 1일 비용 금액표(서비스 범위 밖, 미사용)"
+      ],
+      "used_for": [
+        "시설급여 이용 가능 등급",
+        "3~5등급 예외 인정 사유",
+        "인지지원등급 급여 범위"
+      ],
+      "raw_file": "sources_raw/04_장기요양급여_제공기준_고시_2026-01-01.pdf"
+    },
+    {
+      "id": "SRC-NOTICE-GRADING",
+      "title": "장기요양등급판정기준에 관한 고시",
+      "type": "보건복지부 고시",
+      "issuer": "보건복지부",
+      "version": "보건복지부고시 제2018-146호",
+      "amended_date": "2018-07-23",
+      "effective_date": "2018-08-01",
+      "current_status": "국가법령정보센터 현행 페이지 기준 현행(2018 시행본, 52개 항목). 공단 안내(65개 점수 활용)와 표현 불일치 → R-CONFLICT-01",
+      "url_primary": "https://www.law.go.kr (행정규칙: 장기요양등급판정기준에 관한 고시)",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=104&SEQ_HISTORY=",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "점수 산정 4단계 구조",
+        "52개 항목 언급",
+        "8개 서비스군",
+        "치매 관련 보정 규정 존재",
+        "별표1 조사항목 및 수형분석도",
+        "별표2 치매 회귀모형"
+      ],
+      "unverified_articles": [
+        "별표1 수형분석도 트리 연결구조(그림)",
+        "별표2 '일상생활점수'·'행동점수' 정의"
+      ],
+      "used_for": [
+        "평가 항목 구조",
+        "점수 산정 방식이 공개 계산 가능한지 판단"
+      ],
+      "raw_file": "sources_raw/05_장기요양등급판정기준_고시_2018-08-01.hwp"
+    },
+    {
+      "id": "SRC-NHIS-APPLY",
+      "title": "장기요양인정 신청 절차 (국민건강보험공단 안내)",
+      "type": "공단 안내 페이지",
+      "issuer": "국민건강보험공단",
+      "version": "게시일 미표기",
+      "effective_date": null,
+      "current_status": "조회 시점 게시 중",
+      "url_accessed": "https://www.nhis.or.kr/static/html/wbda/c/wbdac02.html",
+      "verification_status": "OFFICIAL_GUIDE",
+      "used_for": [
+        "신청 장소·방법",
+        "구비서류",
+        "방문조사 90개 항목 조사표",
+        "점수 산정 항목 수(65개로 표기 - 고시와 불일치)"
+      ],
+      "note": "인터넷 신청 범위 안내(65세 이상·갱신만)가 시행규칙 제10조의2와 다름 → 법령 우선. '90개 조사, 5개 영역 65개 항목 점수 활용' 표현은 현행 고시(52개)와 불일치"
+    },
+    {
+      "id": "SRC-NHIS-BENEFIT",
+      "title": "장기요양급여 안내 (국민건강보험공단)",
+      "type": "공단 안내 페이지",
+      "issuer": "국민건강보험공단",
+      "url_accessed": "https://www.nhis.or.kr/static/html/wbda/c/wbdac04.html",
+      "verification_status": "OFFICIAL_GUIDE",
+      "used_for": [
+        "급여 종류 설명",
+        "특례요양비·요양병원간병비 '현재 유보' 표기"
+      ]
+    },
+    {
+      "id": "SRC-WELFARE-RULE",
+      "title": "노인복지법 시행규칙",
+      "type": "보건복지부령",
+      "issuer": "보건복지부",
+      "version": "보건복지부령 제1143호 (건강Law 표기)",
+      "url_primary": "https://www.law.go.kr/법령/노인복지법시행규칙",
+      "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=285&SEQ_HISTORY=",
+      "verification_status": "OFFICIAL_VIA_SUMMARY",
+      "verified_articles": [
+        "제18조",
+        "제19조제2항(입소신청서 첨부 건강진단서)",
+        "제19조제8항(노인요양시설·공동생활가정 입소자 건강진단서 시설장 제출)",
+        "제19조의2"
+      ],
+      "used_for": [
+        "요양원 입소 대상",
+        "입소 전 건강진단서"
+      ],
+      "note": "제19조제8항은 사용자가 국가법령정보센터 원문 링크로 확인, 건강Law 요약과도 일치. 원문 파일은 미보관"
+    },
+    {
+      "id": "SRC-PIPA",
+      "title": "개인정보 보호법",
+      "type": "법률",
+      "issuer": "개인정보보호위원회",
+      "url_primary": "https://www.law.go.kr/법령/개인정보보호법",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "note": "시행령(민감정보 범위 등)은 미확보",
+      "used_for": [
+        "민감정보 처리 요건",
+        "국외이전",
+        "처리위탁",
+        "가명처리"
+      ],
+      "version": "법률 제21445호",
+      "amended_date": "2026-03-10",
+      "effective_date": "2026-09-11",
+      "current_status": "현행",
+      "verified_articles": [
+        "제15조",
+        "제22조",
+        "제23조",
+        "제26조",
+        "제28조의2",
+        "제28조의8",
+        "제37조의2"
+      ],
+      "raw_file": "sources_raw/06_개인정보_보호법_2026-09-11.pdf"
+    },
+    {
+      "id": "SRC-PIPC-GENAI",
+      "title": "생성형 인공지능(AI) 개발·활용을 위한 개인정보 처리 안내서",
+      "type": "정부 안내서",
+      "issuer": "개인정보보호위원회",
+      "version": "2025.8 (검색 결과 표기)",
+      "url_primary": "https://www.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&mCode=C020010000&nttId=11410",
+      "verification_status": "UNVERIFIED",
+      "note": "문서 존재는 검색으로 확인. 본문 미열람",
+      "used_for": [
+        "외부 AI API 이용 시 개인정보 처리 기준"
+      ]
+    },
+    {
+      "id": "SRC-2ND-FACILITY-CHANGE",
+      "title": "장기요양등급 급여종류 변경(재가→시설) 안내 게시글",
+      "type": "민간 2차 자료",
+      "issuer": "엔젤시터(민간)",
+      "url_accessed": "https://angelsitter.co.kr/board.view.php?board=bbs3&no=320",
+      "verification_status": "SECONDARY_ONLY",
+      "used_for": [
+        "급여종류 변경 신청 서류(사실확인서 등) 단서 - 공식 확인 필요"
+      ]
+    },
+    {
+      "id": "SRC-2ND-VALIDITY",
+      "title": "[이용교 복지상식] 장기요양등급 유효기간이 연장된다",
+      "type": "민간 2차 자료",
+      "url_accessed": "https://brunch.co.kr/@@gfMS/88",
+      "verification_status": "SECONDARY_ONLY",
+      "used_for": [
+        "유효기간 개정 전후 비교(개정 전: 갱신 시 1등급 4년, 2~4등급 3년)"
+      ]
+    },
+    {
+      "id": "SRC-2ND-APPEAL",
+      "title": "장기요양 등급외 판정 시 심사청구 90일 안내",
+      "type": "민간 2차 자료",
+      "url_accessed": "https://www.gardenbom.com/34698/long-term-care-grade-out-review-request-90-days-evidence-check/",
+      "verification_status": "SECONDARY_ONLY",
+      "used_for": [
+        "심사청구 기한(안 날부터 90일, 있은 날부터 180일) 단서 - 법 제55조 원문 확인 필요"
+      ]
+    },
+    {
+      "id": "SRC-2ND-GRADING-ULEX",
+      "title": "장기요양등급판정기준에 관한 고시 (U-LEX 게재본, 2016.12.23 판)",
+      "type": "민간 법령 DB (2차)",
+      "url_accessed": "https://www.ulex.co.kr/법률/2100000070930-35568-장기요양등",
+      "verification_status": "SECONDARY_ONLY",
+      "used_for": [
+        "갱신조사 생략 기준 존재 확인(구버전)"
+      ]
+    },
+    {
+      "id": "SRC-LAW-RULE-FORM5",
+      "title": "장기요양인정조사표 (시행규칙 별지 제5호서식, 제1138호 판본에 수록)",
+      "type": "보건복지부령 서식",
+      "issuer": "보건복지부",
+      "version": "보건복지부령 제1138호 별지 제5호",
+      "effective_date": "2025-12-12",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "raw_file": "sources_raw/03_노인장기요양보험법_시행규칙_별표별지포함_2025-12-12.pdf",
+      "verified_articles": [
+        "신체기능 13(머리감기 추가)",
+        "사회생활기능 10",
+        "인지기능 10",
+        "행동변화 22",
+        "간호처치 10(당뇨발 간호 추가)",
+        "재활 10",
+        "복지용구",
+        "지원형태(주수발자, 하루종일 혼자 있음)",
+        "환경평가",
+        "일상생활자립도(와상도·인지증)"
+      ],
+      "used_for": [
+        "보호자 질문 설계",
+        "시설급여 사유①② 관련 정보 수집 항목"
+      ],
+      "note": "서식 머리에 <개정 2025. 12. 12.> 표기가 있으나, 2025.12 개정문은 조사표 일부 문구 수정일 뿐 점수 항목 확대 내용은 없음(사용자 확인). 어느 항목이 언제 추가됐는지는 미확인"
+    },
+    {
+      "id": "SRC-NHIS-CONTACT",
+      "title": "국민건강보험공단 고객센터",
+      "type": "공단 연락처",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.nhis.or.kr/lm/lmxsrv/main/main.do",
+      "verification_status": "OFFICIAL_GUIDE",
+      "note": "대표전화 1577-1000, 장기요양 상담 평일 09:00~18:00 (사용자 제공 정보, 출시 전 재확인)",
+      "used_for": [
+        "공단 문의 안내"
+      ]
+    },
+    {
+      "id": "SRC-NHIS-ONLINE-APPLY",
+      "title": "노인장기요양보험 누리집 - 인정신청(등급변경, 갱신)",
+      "type": "공단 온라인 신청 화면",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/u/b/101/openLtcRcgtAplyPttnChoice.web?aplyTypeScr=appltit&menuId=npe0000002763",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-29",
+      "note": "2026-09-29 접속 확인. 단계: 신청인 유형(본인/대리인) → 관계 확인(대리인) → 신청 종류(인정·갱신 등) → 신청서 작성. 본인 또는 대리인 인증서 로그인 필요. 온라인 신청 법적 근거: 시행규칙 제10조의2 (R-APPLY-05)",
+      "used_for": [
+        "신청서 작성 도우미의 온라인 신청 바로가기"
+      ]
+    },
+    {
+      "id": "SRC-NHIS-RCGT-GUIDE",
+      "title": "노인장기요양보험 누리집 - 인정절차(장기요양인정신청)",
+      "type": "공단 제도안내",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/e/b/201/npeb201m01.web?menuId=npe0000002728",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "2026-09-30 원문 확인: 신청방법(공단 방문·우편·팩스·인터넷·「건강보험25시」앱·정부24(생애 최초)), 65세 미만(최초·재신청)·외국인은 인터넷·앱 신청 불가, 갱신은 통화자 신분확인 후 유선 신청 가능, 신청인 유형별 첨부 신분증, 급여종류·내용 변경 시 사실확인서(필요시)·사유에 따른 증빙서류, 의사소견서 발급비용 부담률(일반 20% / 경감 10% / 의료급여(1호 외) 10% / 의료급여 1호 0%), 최근 6개월 이내 입·퇴원·수술 등 급성기 질환은 심의 보류·기각될 수 있음, 방문조사 장소·시간 협의 조정 가능, 12개 영역 90개 항목 조사 중 52개 항목으로 요양인정점수 산정",
+      "used_for": ["결과 화면: 접수 경로, 준비서류, 의사소견서, 방문조사 안내"]
+    },
+    {
+      "id": "SRC-NHIS-DOCTOR-SEARCH",
+      "title": "노인장기요양보험 누리집 - 의사소견서 발급 의료기관 조회",
+      "type": "공단 조회 화면",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/e/b/201/selectDodEduCpetMdcAdminList",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "원문: '의사소견서 발급 의료기관(일반)으로 조회되는 기관은 최근 1년 간 인터넷발급이력이 있는 기관이며, 해당 기관 외에도 의료기관 소속 의사 또는 한의사를 통해 발급이 가능'",
+      "used_for": ["결과 화면: 병원·의사소견서"]
+    },
+    {
+      "id": "SRC-NHIS-BRANCH",
+      "title": "국민건강보험공단 - 지사찾기(연락처)",
+      "type": "공단 조회 화면",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.nhis.or.kr/nhis/about/retrieveBranchList.do",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "원문: 178개 지사·54개 출장소 중 강남동부·강남북부·서초북부·영등포북부지사, 광산출장소는 장기요양 운영센터가 없음",
+      "used_for": ["결과 화면: 방문·우편·팩스 접수처 찾기"]
+    },
+    {
+      "id": "SRC-NHIS-FORMS",
+      "title": "노인장기요양보험 누리집 - 서식자료실",
+      "type": "공단 자료실",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/d/m/000/moveBoardView?menuId=npe0000002790&bKey=B0017",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "인정절차 원문: 알림·자료실 > 서식자료실 > [별지 제1호의2 서식] 장기요양인정신청서를 내려받을 수 있음",
+      "used_for": ["결과 화면: 신청서 양식 내려받기"]
+    },
+    {
+      "id": "SRC-NHIS-RESULT",
+      "title": "노인장기요양보험 누리집 - 등급판정 결과 조회 및 출력",
+      "type": "공단 조회 화면",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/u/e/201/openGjuRsltRissuePttn.web?menuId=npe0000002816",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "개인 서비스 > 나의 신청 내역 > 등급판정 결과 조회 및 출력 (로그인 필요)",
+      "used_for": ["결과 화면: 판정 대기·결과 확인"]
+    },
+    {
+      "id": "SRC-NHIS-APPEAL",
+      "title": "노인장기요양보험 누리집 - 장기요양 심사청구",
+      "type": "공단 제도안내",
+      "issuer": "국민건강보험공단",
+      "url_primary": "https://www.longtermcare.or.kr/npbs/e/b/104/npeb104m01.web?menuId=npe0000002725",
+      "verification_status": "OFFICIAL_GUIDE",
+      "accessed": "2026-09-30",
+      "note": "원문: 처분이 있음을 안 날부터 90일 이내 문서로(정당한 사유 증명 시 예외), 방법은 공단 방문·우편·팩스 및 온라인, 결정은 접수일부터 60일 이내(부득이하면 30일 연장), 불복 시 결정통지 받은 날부터 90일 이내 재심사청구",
+      "used_for": ["결과 화면: 등급외·결과 불만 시 이의신청"]
+    }
+  ]
+}

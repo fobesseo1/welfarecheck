@@ -1,0 +1,237 @@
+{
+  "_meta": {
+    "description": "보호자용 객관식 질문지 (web/ 가 읽음). 한 화면에 질문 하나. 답을 누르면 바로 다음 질문으로 넘어간다. 법적 기준이 아니라 화면 문구·선택지 정의.",
+    "version": "2.0",
+    "updated_at": "2026-09-29",
+    "design": [
+      "처음 요양원을 알아보는 보호자 기준: 짧은 질문, 생활 언어, 한 번 누르면 끝",
+      "고시 52개 조사 항목은 보호자가 답하기 쉬운 묶음으로 물어 여러 항목에 한꺼번에 값을 넣는다(sets). 방문조사처럼 항목별로 정확하지는 않으며, 결과는 범위로만 표시한다",
+      "공단 안내 65개 중 고시 52개 밖의 13개(머리감기 제외)는 점수에 쓰이지 않아 묻지 않는다",
+      "sets 의 값: 신체·재활 1=완전자립/운동장애 없음/제한 없음, 2=부분도움/불완전/한쪽, 3=완전도움/완전/양쪽. 체크리스트 yes=증상 있음",
+      "여러 개 고르는 질문(의료 처치·기억력·행동)은 먼저 있는지 묻고(gate_for), 있어요일 때만 목록(gate)을 보여준다. 없어요 = 목록 전부 없음, 잘 모르겠어요 = 목록 전부 모름",
+      "other: 목록에 없는 것을 직접 적는 칸. 적은 문장은 해석하지 않고 점수에도 넣지 않는다(CLAUDE.md 원칙 2). 결과의 방문조사 메모와 신청서 사유 예시에 그대로만 보여준다"
+    ]
+  },
+  "stages": [
+    { "id": "basic", "title": "기본 정보" },
+    { "id": "grade", "title": "등급 현황" },
+    { "id": "body", "title": "몸 상태" },
+    { "id": "mind", "title": "기억력·행동" },
+    { "id": "care", "title": "돌봄 환경" }
+  ],
+  "steps": [
+    { "id": "age", "stage": "basic", "type": "single", "text": "어르신 연세가 어떻게 되세요?",
+      "options": [
+        { "value": "over65", "label": "65세 이상" },
+        { "value": "under65", "label": "65세 미만" }
+      ] },
+    { "id": "disease", "stage": "basic", "type": "single", "when": { "q": "age", "in": ["under65"] },
+      "text": "아래 병을 진단받으셨나요?",
+      "hint": "65세 미만은 이런 병이 있어야 장기요양을 신청할 수 있어요.",
+      "options": [
+        { "value": "dementia", "label": "치매", "codes": ["F00*", "F01", "F02*", "F03", "G30"], "sets": { "dementia": "diagnosed" } },
+        { "value": "cerebrovascular", "label": "뇌졸중 (뇌경색·뇌출혈·중풍)", "codes": ["I60", "I61", "I62", "I63", "I64", "I65", "I66", "I67", "I68*", "I69", "U23.4"] },
+        { "value": "parkinson", "label": "파킨슨병", "codes": ["G20", "G21", "G22*", "G23"] },
+        { "value": "other_listed", "label": "그 밖의 병 (진전·다발경화증·척수성 근위축)", "codes": ["R25.1", "G12", "G13*", "G35"] },
+        { "value": "none", "label": "해당 없어요", "codes": [] }
+      ] },
+    { "id": "dementia", "stage": "basic", "type": "single", "when": { "q": "disease", "notIn": ["dementia"] },
+      "text": "치매 진단을 받으셨나요?",
+      "options": [
+        { "value": "diagnosed", "label": "네, 받았어요" },
+        { "value": "suspected", "label": "의심되지만 아직이에요" },
+        { "value": "none", "label": "아니에요" }
+      ] },
+    { "id": "insurance", "stage": "basic", "type": "single", "text": "어떤 건강보험에 가입되어 있으세요?",
+      "options": [
+        { "value": "health", "label": "건강보험" },
+        { "value": "medical_aid_basic", "label": "기초생활수급 (의료급여)" },
+        { "value": "medical_aid_other", "label": "그 밖의 의료급여" }
+      ] },
+
+    { "id": "grade", "stage": "grade", "type": "single", "layout": "grid", "text": "장기요양등급을 받으셨나요?",
+      "options": [
+        { "value": "none", "label": "아직 신청 안 했어요", "wide": true },
+        { "value": "pending", "label": "신청하고 기다려요", "wide": true },
+        { "value": "1", "label": "1등급" }, { "value": "2", "label": "2등급" }, { "value": "3", "label": "3등급" },
+        { "value": "4", "label": "4등급" }, { "value": "5", "label": "5등급" }, { "value": "cognitive", "label": "인지지원" },
+        { "value": "out_of_grade", "label": "등급외 판정", "wide": true }
+      ] },
+    { "id": "facility_in_cert", "stage": "grade", "type": "single", "when": { "q": "grade", "in": ["3", "4", "5"] },
+      "text": "장기요양인정서에 '시설급여'가 적혀 있나요?",
+      "hint": "인정서의 '장기요양급여의 종류' 칸을 보세요.",
+      "options": [
+        { "value": "yes", "label": "시설급여가 있어요" },
+        { "value": "no", "label": "재가급여만 있어요" }
+      ] },
+    { "id": "validity_end", "stage": "grade", "type": "date", "optional": true, "when": { "q": "grade", "in": ["1", "2", "3", "4", "5", "cognitive"] },
+      "text": "인정서 유효기간은 언제까지인가요?", "hint": "알면 갱신 신청 날짜를 계산해 드려요. 몰라도 괜찮아요." },
+    { "id": "applied_date", "stage": "grade", "type": "date", "optional": true, "when": { "q": "grade", "in": ["pending"] },
+      "text": "언제 신청하셨나요?", "hint": "알면 판정 기한(30일)을 계산해 드려요." },
+    { "id": "grade_feel", "stage": "grade", "type": "single", "when": { "q": "grade", "in": ["2", "3", "4", "5", "cognitive", "out_of_grade"] },
+      "text": "받은 결과는 지금 상태와 맞나요?",
+      "options": [
+        { "value": "ok", "label": "맞는 것 같아요" },
+        { "value": "low", "label": "실제보다 낮게 나왔어요", "sets": { "dissatisfied": "yes" } },
+        { "value": "worse", "label": "그 뒤로 많이 나빠지셨어요", "sets": { "worsened": "yes" } }
+      ] },
+    { "id": "notice_date", "stage": "grade", "type": "date", "optional": true, "when": { "q": "grade_feel", "in": ["low"] },
+      "text": "결과 통지서를 받은 날은요?", "hint": "이의신청은 받은 날부터 90일 안에 해야 해요. 기한을 계산해 드려요." },
+
+    { "id": "b_wash", "stage": "body", "type": "single", "text": "씻는 건 어떻게 하세요?", "hint": "세수·양치·목욕", "options": [
+      { "value": "1", "label": "혼자 하세요", "sets": { "PHY-02": "1", "PHY-03": "1", "PHY-04": "1", "PHY-13": "1" } },
+      { "value": "bath", "label": "목욕만 도와드려요", "sets": { "PHY-02": "1", "PHY-03": "1", "PHY-04": "2", "PHY-13": "2" } },
+      { "value": "2", "label": "세수·양치도 도와드려요", "sets": { "PHY-02": "2", "PHY-03": "2", "PHY-04": "3", "PHY-13": "3" } },
+      { "value": "3", "label": "전부 해 드려요", "sets": { "PHY-02": "3", "PHY-03": "3", "PHY-04": "3", "PHY-13": "3" } }
+    ] },
+    { "id": "b_dress", "stage": "body", "type": "single", "text": "옷은 혼자 갈아입으세요?", "options": [
+      { "value": "1", "label": "혼자 입으세요", "sets": { "PHY-01": "1" } },
+      { "value": "2", "label": "조금 도와드려요", "sets": { "PHY-01": "2" } },
+      { "value": "3", "label": "입혀 드려요", "sets": { "PHY-01": "3" } }
+    ] },
+    { "id": "b_eat", "stage": "body", "type": "single", "text": "식사는 어떻게 하세요?", "options": [
+      { "value": "1", "label": "혼자 드세요", "sets": { "PHY-05": "1" } },
+      { "value": "2", "label": "조금 도와드려요", "hint": "잘라 드리거나 옆에서 챙겨 드림", "sets": { "PHY-05": "2" } },
+      { "value": "3", "label": "떠먹여 드려요", "sets": { "PHY-05": "3" } }
+    ] },
+    { "id": "b_move", "stage": "body", "type": "single", "text": "집 안에서 움직이는 건요?", "options": [
+      { "value": "1", "label": "혼자 다니세요", "sets": { "PHY-06": "1", "PHY-07": "1", "PHY-08": "1", "PHY-09": "1" } },
+      { "value": "2", "label": "붙잡아 드려야 해요", "sets": { "PHY-06": "1", "PHY-07": "1", "PHY-08": "2", "PHY-09": "2" } },
+      { "value": "3", "label": "일어나 앉는 것부터 도와드려요", "sets": { "PHY-06": "2", "PHY-07": "2", "PHY-08": "3", "PHY-09": "3" } },
+      { "value": "4", "label": "누워 지내세요", "hint": "돌아눕는 것도 도와드림", "sets": { "PHY-06": "3", "PHY-07": "3", "PHY-08": "3", "PHY-09": "3" } }
+    ] },
+    { "id": "b_toilet", "stage": "body", "type": "single", "text": "화장실은요?", "options": [
+      { "value": "1", "label": "혼자 가시고 실수도 없어요", "sets": { "PHY-10": "1", "PHY-11": "1", "PHY-12": "1" } },
+      { "value": "2", "label": "가끔 소변 실수를 하세요", "sets": { "PHY-10": "1", "PHY-11": "1", "PHY-12": "2" } },
+      { "value": "3", "label": "갈 때마다 도와드려요", "sets": { "PHY-10": "2", "PHY-11": "2", "PHY-12": "2" } },
+      { "value": "4", "label": "기저귀를 쓰세요", "sets": { "PHY-10": "3", "PHY-11": "3", "PHY-12": "3" } }
+    ] },
+    { "id": "b_limbs", "stage": "body", "type": "single", "text": "팔다리는 잘 움직이세요?", "options": [
+      { "value": "1", "label": "잘 움직이세요", "sets": { "REH-01": "1", "REH-02": "1", "REH-03": "1", "REH-04": "1" } },
+      { "value": "2", "label": "한쪽이 불편하세요", "hint": "중풍 후유증 등", "sets": { "REH-01": "1", "REH-02": "1", "REH-03": "2", "REH-04": "2" } },
+      { "value": "3", "label": "한쪽을 거의 못 쓰세요", "sets": { "REH-01": "1", "REH-02": "1", "REH-03": "3", "REH-04": "3" } },
+      { "value": "4", "label": "양쪽 다 불편하세요", "sets": { "REH-01": "2", "REH-02": "2", "REH-03": "2", "REH-04": "2" } },
+      { "value": "5", "label": "거의 못 움직이세요", "sets": { "REH-01": "3", "REH-02": "3", "REH-03": "3", "REH-04": "3" } }
+    ] },
+    { "id": "b_joints", "stage": "body", "type": "single", "text": "관절이 굳어서 잘 안 굽혀지나요?", "hint": "어깨·팔꿈치·손목·고관절·무릎·발목", "options": [
+      { "value": "1", "label": "괜찮아요", "sets": { "REH-05": "1", "REH-06": "1", "REH-07": "1", "REH-08": "1", "REH-09": "1", "REH-10": "1" } },
+      { "value": "2", "label": "한두 군데 굳었어요", "sets": { "REH-05": "2", "REH-06": "1", "REH-07": "1", "REH-08": "1", "REH-09": "2", "REH-10": "1" } },
+      { "value": "3", "label": "여러 군데 굳었어요", "sets": { "REH-05": "2", "REH-06": "2", "REH-07": "2", "REH-08": "2", "REH-09": "2", "REH-10": "2" } },
+      { "value": "4", "label": "대부분 굳어 거의 안 움직여요", "sets": { "REH-05": "3", "REH-06": "3", "REH-07": "3", "REH-08": "3", "REH-09": "3", "REH-10": "3" } }
+    ] },
+    { "id": "nursing_gate", "stage": "body", "type": "single", "gate_for": "nursing",
+      "text": "집에서 하는 의료 처치가 있나요?",
+      "note": "예시 말고도 집에서 하는 처치가 있으면 꼭 '있어요'를 눌러 주세요. 목록에 없으면 직접 적을 수 있어요.",
+      "hint": "최근 2주 · 예: 욕창 관리, 소변줄, 콧줄 식사, 산소",
+      "options": [ { "value": "yes", "label": "있어요" }, { "value": "no", "label": "없어요" } ] },
+    { "id": "nursing", "stage": "body", "type": "chips", "gate": "nursing_gate", "other": true, "text": "어떤 처치를 하세요?", "hint": "있는 것을 모두 눌러 주세요 · 여러 개 가능", "options": [
+      { "value": "NUR-04", "label": "욕창(오래 누워 생긴 상처)을 관리해요" },
+      { "value": "NUR-07", "label": "소변줄을 쓰세요" },
+      { "value": "NUR-05", "label": "콧줄이나 배에 연결된 관으로 식사하세요" },
+      { "value": "NUR-03", "label": "산소를 쓰세요" },
+      { "value": "NUR-02", "label": "가래를 기계로 빼 드려요" },
+      { "value": "NUR-01", "label": "목에 숨 쉬는 관이 있어요" },
+      { "value": "NUR-08", "label": "배에 인공항문(장루)이 있어요" },
+      { "value": "NUR-09", "label": "투석을 받으세요" },
+      { "value": "NUR-06", "label": "암 통증을 따로 관리해요" }
+    ] },
+
+    { "id": "memory_gate", "stage": "mind", "type": "single", "gate_for": "memory",
+      "text": "기억력이나 판단력이 예전 같지 않으세요?",
+      "note": "예시 말고도 달라진 게 있으면 꼭 '있어요'를 눌러 주세요. 목록에 없으면 직접 적을 수 있어요.",
+      "hint": "최근 한 달 · 예: 방금 일을 잊음, 날짜를 모름, 계신 곳을 모름",
+      "options": [ { "value": "yes", "label": "있어요" }, { "value": "no", "label": "없어요" } ] },
+    { "id": "memory", "stage": "mind", "type": "chips", "gate": "memory_gate", "other": true, "text": "어떤 게 달라지셨나요?", "hint": "있는 것을 모두 눌러 주세요 · 여러 개 가능", "options": [
+      { "value": "COG-01", "label": "방금 들은 말이나 한 일을 잊으세요" },
+      { "value": "COG-02", "label": "오늘이 몇 월 며칠인지 모르세요" },
+      { "value": "COG-03", "label": "지금 계신 곳을 모르세요" },
+      { "value": "COG-04", "label": "나이나 생일을 모르세요" },
+      { "value": "COG-05", "label": "간단한 말을 못 알아들으세요" },
+      { "value": "COG-06", "label": "상황에 맞게 판단하지 못하세요" },
+      { "value": "COG-07", "label": "하고 싶은 말을 잘 못 하세요" }
+    ] },
+    { "id": "behavior_gate", "stage": "mind", "type": "single", "gate_for": "behavior",
+      "text": "최근 한 달 사이 행동이 달라지셨나요?",
+      "note": "예시 말고도 달라진 행동이 있으면 꼭 '있어요'를 눌러 주세요. 목록에 없으면 직접 적을 수 있어요.",
+      "hint": "예: 자꾸 밖으로 나가려 함, 밤낮이 바뀜, 씻기를 거부함, 화를 내거나 소리침",
+      "options": [ { "value": "yes", "label": "있어요" }, { "value": "no", "label": "없어요" } ] },
+    { "id": "behavior", "stage": "mind", "type": "chips", "gate": "behavior_gate", "other": true, "text": "어떤 행동이 있으세요?", "hint": "있는 것을 모두 눌러 주세요 · 여러 개 가능", "options": [
+      { "value": "BEH-09", "label": "자꾸 밖으로 나가려 하세요", "group": "밖으로 나가는 일" },
+      { "value": "BEH-07", "label": "길을 잃으신 적이 있어요", "group": "밖으로 나가는 일" },
+      { "value": "BEH-06", "label": "안절부절 서성이세요", "group": "밖으로 나가는 일" },
+      { "value": "BEH-05", "label": "씻기·옷 입히기를 거부하세요", "group": "돌봄 · 감정" },
+      { "value": "BEH-08", "label": "화내며 욕하거나 때리려 하세요", "group": "돌봄 · 감정" },
+      { "value": "BEH-03", "label": "자주 우울해하거나 우세요", "group": "돌봄 · 감정" },
+      { "value": "BEH-10", "label": "물건을 부수세요", "group": "돌봄 · 감정" },
+      { "value": "BEH-04", "label": "밤낮이 바뀌었어요", "group": "생각 · 생활" },
+      { "value": "BEH-01", "label": "누가 훔쳐 갔다고 하세요", "group": "생각 · 생활" },
+      { "value": "BEH-02", "label": "없는 것을 보거나 들으세요", "group": "생각 · 생활" },
+      { "value": "BEH-11", "label": "의미 없는 행동을 반복하세요", "group": "생각 · 생활" },
+      { "value": "BEH-12", "label": "돈·물건을 숨기세요", "group": "생각 · 생활" },
+      { "value": "BEH-13", "label": "철에 안 맞게 옷을 입으세요", "group": "생각 · 생활" },
+      { "value": "BEH-14", "label": "대소변을 만지거나 묻히세요", "group": "생각 · 생활" }
+    ] },
+    { "id": "dem_adl", "stage": "mind", "type": "single", "when": { "q": "dementia", "in": ["diagnosed", "suspected"] },
+      "text": "기억력 때문에 얼마나 돌봐 드려야 하나요?", "options": [
+      { "value": "independent", "label": "거의 혼자 지내세요" },
+      { "value": "incomplete", "label": "가끔 챙겨 드려요" },
+      { "value": "partial", "label": "자주 도와드려요", "hint": "오래 혼자 두기 어려움" },
+      { "value": "full", "label": "늘 곁에 있어야 해요" }
+    ] },
+
+    { "id": "carer", "stage": "care", "type": "single", "text": "지금 누가 주로 돌봐 드리나요?", "options": [
+      { "value": "alone", "label": "혼자 사세요", "hint": "가까이 돌봐 드릴 사람이 없음", "form_text": "혼자 거주, 돌볼 가족 없음", "sets": { "living": "alone", "caregiver": "nobody" } },
+      { "value": "far", "label": "따로 사는 가족이 가끔 들러요", "form_text": "혼자 거주, 가족은 따로 살아 상시 돌봄 불가", "sets": { "living": "alone", "caregiver": "family_hard" } },
+      { "value": "spouse", "label": "나이 드신 배우자가 돌봐요", "form_text": "고령 배우자 혼자 돌봄", "sets": { "living": "elderly_only", "caregiver": "elderly_spouse" } },
+      { "value": "family_hard", "label": "함께 사는 가족이 돌보지만 힘들어요", "hint": "일·건강·육아 등", "form_text": "동거 가족이 직장·건강 등의 사정으로 돌봄 곤란", "sets": { "living": "with_family", "caregiver": "family_hard" } },
+      { "value": "family_ok", "label": "함께 사는 가족이 충분히 돌봐요", "sets": { "living": "with_family", "caregiver": "ok" } }
+    ] },
+    { "id": "place", "stage": "care", "type": "single", "text": "지금 어르신은 어디서 지내세요?", "options": [
+      { "value": "home", "label": "집에서 지내세요", "sets": { "home_services": "no", "hospital": "no" } },
+      { "value": "home_service", "label": "집에서 방문요양·주간보호를 받아요", "sets": { "home_services": "yes", "hospital": "no" } },
+      { "value": "hospital", "label": "요양병원에 입원해 계세요", "sets": { "home_services": "no", "hospital": "yes" } }
+    ] },
+    { "id": "behavior_service", "stage": "care", "type": "single", "when": { "q": "place", "in": ["home_service"] },
+      "text": "행동 문제 때문에 방문요양·주간보호를 이용하기 어렵나요?", "options": [
+      { "value": "refused", "label": "센터에서 거절당했어요", "form_text": "문제행동으로 방문요양·주간보호 이용 거절됨" },
+      { "value": "hard", "label": "이용은 하지만 많이 어려워요", "form_text": "문제행동으로 방문요양·주간보호 이용에 큰 어려움" },
+      { "value": "no", "label": "괜찮아요" }
+    ] },
+    { "id": "housing", "stage": "care", "type": "chips", "text": "사시는 집에 이런 문제가 있나요?", "hint": "있는 것만 고르세요", "none_label": "문제없어요", "options": [
+      { "value": "heating", "label": "난방이 잘 안 돼요", "key": true, "form_text": "난방 불량" },
+      { "value": "toilet", "label": "화장실 쓰기 어려워요", "key": true, "form_text": "화장실 사용 곤란" },
+      { "value": "hotwater", "label": "온수가 안 나와요", "key": true, "form_text": "온수 없음" },
+      { "value": "stairs", "label": "계단이 많아요", "form_text": "계단 많음" },
+      { "value": "threshold", "label": "문턱이 높아요", "form_text": "높은 문턱" },
+      { "value": "floor", "label": "바닥이 미끄럽거나 낡았어요", "form_text": "바닥 미끄럽거나 낡음" },
+      { "value": "lighting", "label": "어두워요", "form_text": "조명 어두움" },
+      { "value": "ventilation", "label": "습하고 환기가 안 돼요", "form_text": "습하고 환기 불량" }
+    ] }
+  ],
+  "defaults": {
+    "_note": "이 도구는 요양원 입소를 알아보는 보호자용이라 목적은 묻지 않고 '요양원'으로 둔다. 신청은 보호자(가족)가 대신 하는 것으로 둔다.",
+    "goal": "facility",
+    "applicant": "family"
+  },
+  "reason_writing": {
+    "_note": "3~5등급 급여종류 변경신청서(별지 제1호의2)의 변경 사유 칸에 무엇을 적으면 좋은지 안내. 사실대로 구체적으로 적도록 돕는 문구이며 법적 기준 아님. 추가 자료는 공단이 요청할 때 준비(R-CHANGE-02).",
+    "①": "누가 주로 돌보는지, 왜 돌보기 어려운지(나이·건강·직장), 어르신이 하루에 몇 시간 혼자 계시는지 적으세요.",
+    "②": "집의 어떤 문제(난방·화장실·온수·계단 등) 때문에 집에서 지내기 어려운지 적으세요.",
+    "③": "어떤 행동(배회·폭언·돌봄 거부 등)이 얼마나 자주 있는지, 방문요양·주간보호에서 어떤 어려움이 있었는지(거절당한 적 등) 적으세요."
+  },
+  "facility_reason_heuristics": {
+    "_note": "법적 기준이 아니라 '해당 가능성'을 보여주기 위한 화면용 기준. 인정 여부는 등급판정위원회가 결정(R-FAC-02). 이 파일만 고치면 기준이 바뀐다.",
+    "caregiver": {
+      "high": { "caregiver": ["nobody"], "living": [] },
+      "possible": { "caregiver": ["elderly_spouse", "family_hard"], "living": ["alone", "elderly_only", "minor_or_elderly_only"] },
+      "low": { "caregiver": ["ok"] }
+    },
+    "housing": { "possible_if_key_issue": true, "possible_if_count_at_least": 3 },
+    "behavior": {
+      "high": ["refused"],
+      "possible": ["hard"],
+      "low": ["no"],
+      "item_signal": { "items": ["BEH-05", "BEH-06", "BEH-07", "BEH-08", "BEH-09", "BEH-10", "BEH-14"], "possible_if_count_at_least": 2 }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장기요양 사전검토</title>
+<style>
+  :root { --bg:#f7f7f5; --card:#fff; --ink:#1f2328; --muted:#646b73; --line:#e3e3e0; --accent:#1d5fa8; --ok:#1e7a46; --warn:#a35a00; --bad:#b3261e; --soft:#eef3f9; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+  header { background:var(--card); border-bottom:1px solid var(--line); padding:14px 20px; }
+  header h1 { margin:0; font-size:18px; }
+  header p { margin:4px 0 0; font-size:13px; color:var(--muted); }
+  main { max-width:1100px; margin:0 auto; padding:16px; display:grid; grid-template-columns: 380px 1fr; gap:16px; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin-bottom:14px; }
+  .card h2 { font-size:15px; margin:0 0 10px; }
+  textarea { width:100%; min-height:110px; font:inherit; padding:10px; border:1px solid var(--line); border-radius:8px; resize:vertical; }
+  button { white-space:nowrap; font:inherit; border:1px solid var(--line); background:#fff; border-radius:8px; padding:7px 12px; cursor:pointer; }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button:hover { filter:brightness(0.97); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .q { border-top:1px dashed var(--line); padding-top:10px; margin-top:10px; }
+  .q:first-child { border-top:0; margin-top:0; padding-top:0; }
+  .q .why { font-size:12px; color:var(--muted); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  td, th { border-bottom:1px solid var(--line); padding:6px 4px; text-align:left; vertical-align:top; }
+  .badge { display:inline-block; font-size:11px; padding:1px 7px; border-radius:10px; background:var(--soft); color:var(--accent); white-space:nowrap; }
+  .MET { background:#e6f4ec; color:var(--ok); } .PROCEDURE_REQUIRED { background:#eef3f9; color:var(--accent); }
+  .NEEDS_CHECK { background:#fff4e0; color:var(--warn); } .NOT_ELIGIBLE { background:#fdecea; color:var(--bad); }
+  .NEEDS_EXPERT { background:#f3e8fd; color:#6b2fa3; } .NOT_APPLICABLE { background:#f0f0f0; color:#777; }
+  .st-confirmed_by_document { background:#e6f4ec; color:var(--ok); } .st-stated_by_guardian { background:#f0f0f0; color:#555; }
+  .alert { background:#fdecea; border:1px solid #f3b8b3; color:var(--bad); border-radius:10px; padding:14px; font-weight:600; }
+  pre.sec { white-space:pre-wrap; font:inherit; margin:0; }
+  details { margin-top:6px; } summary { cursor:pointer; color:var(--accent); font-size:13px; }
+  .muted { color:var(--muted); font-size:12px; }
+  .disclaimer { font-size:12px; color:var(--muted); background:var(--soft); padding:8px 10px; border-radius:8px; margin-bottom:12px; }
+  .ev { color:var(--muted); font-size:12px; }
+  .trace-warn { color:var(--warn); } .trace-error { color:var(--bad); }
+</style>
+</head>
+<body>
+<header>
+  <h1>장기요양 사전검토 · 요양원 입소 준비 안내</h1>
+  <p>부모님이나 가족의 상황을 편하게 적어 주세요. 공식 법령 기준으로 지금 필요한 절차와 서류를 정리해 드려요.</p>
+</header>
+<main>
+  <section>
+    <div class="card">
+      <h2>상황 설명</h2>
+      <textarea id="input" placeholder="예) 어머니가 82세인데 등급은 없어요. 치매 진단을 받으셨고 혼자 화장실 가기가 힘드세요."></textarea>
+      <div class="row">
+        <button class="primary" id="send">보내기</button>
+        <button id="reset">새 상담</button>
+      </div>
+      <p class="muted" id="meta"></p>
+    </div>
+    <div class="card" id="qcard" hidden><h2>조금만 더 알려 주세요</h2><div id="questions"></div></div>
+    <div class="card" id="fcard" hidden>
+      <h2>확인된 정보</h2>
+      <table><tbody id="facts"></tbody></table>
+      <p class="muted">잘못된 내용은 ‘삭제’하면 다시 여쭤봐요.</p>
+    </div>
+  </section>
+  <section id="results">
+    <div class="card"><div class="disclaimer">이 결과는 참고용 사전 안내이며, 등급과 급여는 국민건강보험공단이 결정합니다.</div>
+      <p class="muted">왼쪽에 상황을 적고 ‘보내기’를 누르면 결과가 여기에 나타나요.</p></div>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

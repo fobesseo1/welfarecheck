@@ -1,0 +1,13 @@
+{
+  "name": "ltc-precheck-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "노인장기요양 사전검토·요양원 입소 준비 안내 시스템 (무의존성 TypeScript, Node 22.18+)",
+  "type": "module",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "start": "node src/server.ts",
+    "test": "node --test tests/*.test.ts",
+    "demo": "node src/cli.ts"
+  }
+}

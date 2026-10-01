@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "description": "RESULT_SAMPLES.md 17개 사례를 객관식 답변으로 옮긴 픽스처. 기대값은 app/fixtures/samples.json 의 expect 를 그대로 재사용하고, 자유문장 전용 검사만 expect_drop 으로 빼고 expect_add 로 객관식에 맞는 검사를 더한다.",
+    "items_note": "items: 조사 항목 답 (보호자 문장에 나온 것만. 나머지는 미응답 = 잘 모름)"
+  },
+  "cases": [
+    { "id": "S01", "answers": { "emergency": "no", "age": "over65", "insurance": "health", "dementia": "diagnosed", "grade": "none", "applicant": "family", "home_services": "no", "hospital": "no", "living": "with_family", "caregiver": "family_hard", "goal": "facility", "PHY-10": "2" } },
+    { "id": "S02", "answers": { "age": "over65", "insurance": "health", "grade": "4", "facility_in_cert": "no", "validity_end": "2027-08-31", "dissatisfied": "no", "worsened": "yes", "home_services": "yes", "living": "elderly_only", "caregiver": "elderly_spouse", "housing": [], "goal": "facility", "BEH-07": "yes", "BEH-09": "yes" } },
+    { "id": "S03", "answers": { "age": "over65", "grade": "cognitive", "living": "alone", "goal": "facility", "PHY-01": "1", "PHY-10": "1" } },
+    { "id": "S04", "answers": { "age": "under65", "disease": "cerebrovascular", "insurance": "health", "grade": "none", "applicant": "family", "living": "with_family", "caregiver": "family_hard", "REH-01": "3", "REH-02": "2" } },
+    { "id": "S05", "answers": { "age": "over65", "grade": "2", "home_services": "yes", "goal": "facility" } },
+    { "id": "S06", "answers": { "age": "over65", "grade": "5", "dementia": "diagnosed", "goal": "home" } },
+    { "id": "S07", "answers": { "age": "under65", "disease": "none", "grade": "none", "PHY-06": "2", "PHY-09": "3" } },
+    { "id": "S08", "answers": { "age": "over65", "insurance": "health", "dementia": "suspected", "grade": "none", "COG-01": "yes" } },
+    { "id": "S09", "answers": { "age": "over65", "grade": "3", "validity_end": "2026-12-20", "goal": "home" } },
+    { "id": "S10", "answers": { "grade": "pending", "applied_date": "2026-09-10" } },
+    { "id": "S11", "answers": { "age": "over65", "grade": "out_of_grade", "notice_date": "2026-10-01", "PHY-10": "3" } },
+    { "id": "S12", "answers": { "age": "over65", "grade": "4", "dissatisfied": "yes", "grade_feel": "low", "notice_date": "2026-09-20", "facility_in_cert": "no", "caregiver": "family_hard", "goal": "facility" } },
+    { "id": "S13", "answers": { "age": "over65", "insurance": "health", "grade": "none", "living": "alone", "caregiver": "nobody" } },
+    { "id": "S14", "answers": { "age": "over65", "insurance": "medical_aid_basic", "grade": "3", "facility_in_cert": "no", "caregiver": "family_hard", "goal": "facility" } },
+    { "id": "S15", "answers": { "age": "over65", "insurance": "health", "grade": "none", "hospital": "yes", "goal": "facility" } },
+    { "id": "S16", "answers": { "age": "over65", "insurance": "health", "dementia": "none", "grade": "none", "b_wash": "3", "b_dress": "3", "b_eat": "3", "b_move": "4", "b_toilet": "4", "b_limbs": "5", "b_joints": "3", "nursing": [], "memory": [], "behavior": [], "carer": "family_hard", "place": "home", "housing": [] },
+      "expect_add": { "estimate_grades_within": ["1", "2"], "verdict_tone": "wait" } },
+    { "id": "S17", "answers": {},
+      "expect_drop": ["first_question"], "expect_add": { "e_missing_include": ["grade_status", "age"] } }
+  ],
+  "dropped_checks_note": {
+    "S08.facts.age": "객관식은 나이를 65세 이상/미만으로만 받으므로 facts.age(78) 대신 age_over65=true 로 검사",
+    "S16": "응급 안내 사례는 삭제하고(보호자 도구에 맞지 않음) 거의 누워 지내시는 등급 없는 아버지 사례로 바꿈. 이 사례는 질문 화면 답(b_wash 등)으로 입력해 질문지 펼치기도 함께 검사",
+    "S17.first_question": "다음 질문 추천 기능 없음(질문지 순서 고정) → 판단 E 의 '더 확인할 정보'에 등급 보유 여부·나이가 있는지로 검사"
+  }
+}

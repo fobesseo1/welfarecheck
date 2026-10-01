@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "title": "장기요양인정 신청서 작성 도우미 정의",
+    "form": "노인장기요양보험법 시행규칙 [별지 제1호의2서식] <개정 2022. 12. 30.>",
+    "raw_file": "sources_raw/03_노인장기요양보험법_시행규칙_별표별지포함_2025-12-12.pdf (49~51쪽)",
+    "verified": "2026-09-29 서식 원문 텍스트와 칸 번호·문구 대조",
+    "privacy": "이름·주민번호·주소·전화번호 칸은 도구가 채우지 않고 '직접 쓰세요'로 비워 둔다(개인 식별정보 수집 안 함). 화면 입력칸도 두지 않는다."
+  },
+  "online": {
+    "source": "SRC-NHIS-ONLINE-APPLY",
+    "url": "https://www.longtermcare.or.kr/npbs/u/b/101/openLtcRcgtAplyPttnChoice.web?aplyTypeScr=appltit&menuId=npe0000002763",
+    "label": "노인장기요양보험 누리집에서 온라인 신청",
+    "note": "인증서 로그인이 필요해요. 대리인은 대리인 인증서로 신청해요.",
+    "rules": ["R-APPLY-05"]
+  },
+  "kinds": [
+    { "id": "initial", "label": "장기요양인정 신청서", "proc": "PROC-INITIAL", "desc": "처음 신청" },
+    { "id": "renewal", "label": "장기요양인정 갱신신청서", "proc": "PROC-RENEWAL", "desc": "유효기간이 끝나기 전 계속 받으려고" },
+    { "id": "change_grade", "label": "장기요양등급 변경신청서", "proc": "PROC-CHANGE-GRADE", "desc": "상태가 나빠지거나 좋아져 등급을 바꾸려고" },
+    { "id": "change_type", "label": "장기요양 급여종류ㆍ내용 변경신청서", "proc": "PROC-CHANGE-TYPE", "desc": "3~5등급이 요양원(시설급여)을 이용하려고" }
+  ],
+  "sections": [
+    { "id": "applicant", "title": "신청인 (수급자 = 어르신)", "fields": [
+      { "no": "①", "label": "성명", "fill": "self" },
+      { "no": "②", "label": "주민등록번호", "fill": "self" },
+      { "no": "③", "label": "주민등록지", "fill": "self" },
+      { "no": "④", "label": "실제 거주지", "fill": "self", "hint": "주민등록지와 같으면 비워 두세요. 방문조사·결과 우편이 이 주소로 와요." },
+      { "no": "⑤", "label": "전화번호", "fill": "self" }
+    ] },
+    { "id": "proxy", "title": "대리인 (가족이 대신 신청할 때)", "fields": [
+      { "no": "⑥", "label": "성명", "fill": "self" },
+      { "no": "⑦", "label": "주민등록번호", "fill": "self" },
+      { "no": "⑧", "label": "주소", "fill": "self" },
+      { "no": "⑨", "label": "전화번호", "fill": "self" },
+      { "no": "⑩", "label": "유형", "fill": "proxy_type", "options": ["가족", "친족", "이해관계인", "사회복지전담공무원", "치매안심센터의 장", "시장·군수·구청장이 지정한 사람"], "hint": "가족이면 '가족'에 표시하고 신청인과의 관계(예: 딸)를 적어요." }
+    ] },
+    { "id": "guardian", "title": "보호자", "fields": [
+      { "no": "⑪~⑭", "label": "보호자 성명·관계·주소·전화번호", "fill": "self", "hint": "보호자가 대리인과 같으면 적지 않아요. '보호자 있음/없음'에만 표시하세요." }
+    ] },
+    { "id": "mail", "title": "우편물 수령", "fields": [
+      { "no": "⑮", "label": "수령인", "fill": "self", "hint": "신청인(본인) 또는 보호자 중 골라요." },
+      { "no": "⑯", "label": "수령지", "fill": "self", "hint": "주민등록지 / 실제 거주지 / 보호자 주소지 중 골라요." }
+    ] },
+    { "id": "reason", "title": "변경 사유", "fields": [
+      { "no": "⑰", "label": "변경신청 시 사유", "fill": "change_reason", "hint": "등급 변경이나 급여종류 변경일 때만 간단히 적어요." }
+    ] },
+    { "id": "health", "title": "건강 상태", "fields": [
+      { "no": "⑱", "label": "전염성 질환 · 정신 질환 보유 여부", "fill": "self", "hint": "최근 6개월 안에 치료를 받았거나 치료 중이면 '예'에 표시해요." }
+    ] }
+  ],
+  "attachments": [
+    { "id": "id_card", "label": "신분증 1부", "when": "always", "detail_self": "본인이 신청하면 본인 신분증", "detail_proxy": "가족·친족·이해관계인이 신청하면 대리인 신분증" },
+    { "id": "opinion", "label": "의사소견서 1부", "when": "not_change_type", "detail": "신청서와 함께 내지 않고 나중에 내도 돼요. 급여종류 변경 신청에는 내지 않아요." },
+    { "id": "diagnosis", "label": "노인성 질병 진단서 등 1부", "when": "under65_initial", "detail": "65세 미만이 신청할 때 의사소견서를 함께 내지 않으면 필요해요." }
+  ],
+  "cautions": [
+    "장기요양인정·갱신 신청 뒤 공단이 주는 '의사소견서 발급의뢰서'를 병원에 내고 소견서를 받아요.",
+    "사실과 다르게 적으면 공단이 다시 조사해 등급을 다시 판정할 수 있어요 (노인장기요양보험법 제15조제4항)."
+  ]
+}

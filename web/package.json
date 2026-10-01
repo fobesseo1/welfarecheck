@@ -1,0 +1,22 @@
+{
+  "name": "ltc-selfcheck-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "보호자용 객관식 장기요양 자가진단 + 요양원 입소 준비 안내 (AI API 없음, 모든 계산은 브라우저에서)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "fit-model": "node scripts/fit-approx-model.ts",
+    "trees": "python ../tools/hwp_trees.py"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "_meta": {
+    "description": "상황별 서류 메타데이터 (draft). prep: self=보호자가 직접 쓰거나 챙김 / issued=병원·기관에서 발급 / nhis=공단이 보내줌 (화면 구분용, 법적 기준 아님)",
+    "created_at": "2026-09-29",
+    "situations": [
+      "INITIAL(최초신청)",
+      "PROXY(대리신청)",
+      "UNDER65(65세 미만)",
+      "RENEWAL(갱신)",
+      "CHANGE_GRADE(등급변경)",
+      "CHANGE_TYPE(급여종류변경-시설)",
+      "EARLY(신청일부터 급여)",
+      "APPEAL(이의신청)",
+      "ADMISSION(입소 직전)"
+    ],
+    "updated_at": "2026-09-29 원문 대조"
+  },
+  "documents": [
+    {
+      "id": "DOC-01",
+      "prep": "self",
+      "prep_where": "보호자가 작성 → 공단에 제출",
+      "official_name": "장기요양인정신청서 (갱신·변경 신청서 겸용)",
+      "form": "시행규칙 별지 제1호의2서식",
+      "situations": [
+        "INITIAL",
+        "RENEWAL",
+        "CHANGE_GRADE",
+        "CHANGE_TYPE"
+      ],
+      "required": "필수",
+      "issuer": "본인/대리인 작성",
+      "how": "공단 지사 방문·우편·팩스, 또는 공단 정보통신망 온라인 신청(시행규칙 제10조의2)",
+      "submit_to": "국민건강보험공단 지사(운영센터)",
+      "timing": "신청 시",
+      "validity": "해당 없음",
+      "sources": [
+        "R-APPLY-01",
+        "R-CHANGE-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-02",
+      "prep": "issued",
+      "prep_where": "병원·보건소에서 발급 (공단 발급의뢰서 지참)",
+      "official_name": "의사소견서 (의사 또는 한의사)",
+      "form": "시행규칙 별지 제2호서식",
+      "situations": [
+        "INITIAL",
+        "RENEWAL",
+        "CHANGE_GRADE",
+        "UNDER65"
+      ],
+      "required": "최초·갱신·등급변경 시 필수 / 제출 제외 대상(1·2등급 예상 거동불편자, 도서·벽지)은 공단이 통보",
+      "issuer": "의료기관(의사·한의사)",
+      "how": "공단이 발부한 발급의뢰서(별지 제3호)를 의료기관·보건소에 제출해 발급(의뢰서 없이 받으면 전액 본인부담, 일정 경우 공단 청구 가능)",
+      "submit_to": "공단",
+      "timing": "등급판정위원회 자료 제출 전까지(65세 이상). 65세 미만은 신청 시 소견서 또는 노인성 질병 진단서",
+      "validity": "발급일부터 30일 (시행규칙 별지 제2호서식 머리 표기, 2026-09-29 서식 원문 확인)",
+      "cost_rule": "R-DOCFEE-01",
+      "sources": [
+        "R-APPLY-01",
+        "R-APPLY-02",
+        "R-APPLY-03"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-03",
+      "prep": "nhis",
+      "prep_where": "공단이 조사 후 보내줌",
+      "official_name": "의사소견서 발급의뢰서",
+      "form": "시행규칙 별지 제3호서식",
+      "situations": [
+        "INITIAL",
+        "CHANGE_GRADE"
+      ],
+      "required": "공단 발급",
+      "issuer": "공단",
+      "submit_to": "의료기관",
+      "timing": "공단이 조사 후 소견서 미첨부자(최초·갱신 신청자)에게 발부",
+      "sources": [
+        "R-APPLY-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-04",
+      "prep": "issued",
+      "prep_where": "다니는 병원에서 발급",
+      "official_name": "노인성 질병 확인 진단서 등",
+      "form": "없음(의료기관 발급)",
+      "situations": [
+        "UNDER65"
+      ],
+      "required": "65세 미만이 신청 시 의사소견서를 내지 않는 경우 필수",
+      "issuer": "의료기관",
+      "submit_to": "공단",
+      "timing": "신청 시",
+      "sources": [
+        "R-APPLY-02",
+        "R-ELIG-02"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED",
+      "reference": "data/geriatric_diseases.json"
+    },
+    {
+      "id": "DOC-05",
+      "prep": "self",
+      "prep_where": "신청하는 사람의 신분증",
+      "official_name": "신분증 (신청인 또는 대리인)",
+      "situations": [
+        "INITIAL",
+        "PROXY",
+        "RENEWAL",
+        "CHANGE_GRADE",
+        "CHANGE_TYPE"
+      ],
+      "required": "필수(우편·팩스 시 사본, 온라인은 인증서로 대체)",
+      "sources": [
+        "R-APPLY-04",
+        "R-APPLY-05"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-06",
+      "prep": "issued",
+      "prep_where": "시·군·구에서 발급",
+      "official_name": "대리인 지정서",
+      "form": "시행규칙 별지 제9호서식",
+      "situations": [
+        "PROXY"
+      ],
+      "required": "시장·군수·구청장 지정 대리인인 경우만",
+      "issuer": "시·군·구",
+      "sources": [
+        "R-APPLY-04"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-07",
+      "prep": "issued",
+      "prep_where": "주민센터·정부24에서 발급",
+      "official_name": "가족관계 확인 서류(가족관계증명서 등)",
+      "situations": [
+        "PROXY"
+      ],
+      "required": "법령(시행규칙 제10조)은 가족 대리 시 '대리인의 신분증'만 규정. 지사에서 추가 요구하는지 확인 필요",
+      "sources": [],
+      "verification_status": "UNVERIFIED"
+    },
+    {
+      "id": "DOC-08",
+      "prep": "nhis",
+      "prep_where": "판정 후 공단이 보내줌",
+      "official_name": "장기요양인정서",
+      "form": "시행규칙 별지 제6호서식",
+      "situations": [
+        "CHANGE_TYPE",
+        "ADMISSION"
+      ],
+      "required": "입소 계약 시 제시",
+      "issuer": "공단 발급(우편 등)",
+      "timing": "판정 후 수령",
+      "sources": [
+        "R-CONTRACT-01",
+        "R-FAC-05"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-09",
+      "prep": "nhis",
+      "prep_where": "판정 후 공단이 보내줌",
+      "official_name": "개인별장기요양이용계획서",
+      "form": "시행규칙 별지 제7호서식",
+      "situations": [
+        "ADMISSION"
+      ],
+      "required": "입소 계약 시 제시",
+      "issuer": "공단",
+      "sources": [
+        "R-CONTRACT-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-10",
+      "prep": "self",
+      "prep_where": "보호자가 작성 → 공단에 제출",
+      "official_name": "장기요양인정신청일부터 급여신청서",
+      "form": "시행규칙 별지 제18호서식",
+      "situations": [
+        "EARLY"
+      ],
+      "required": "같이 사는 가족이 없거나, 미성년자·65세 이상 노인뿐인 경우",
+      "sources": [
+        "R-FAC-05"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED",
+      "note": "공단 확인 후 결정 통보(시행령 제13조③)",
+      "attachments": "해당 사실 증명서류",
+      "submit_to": "공단"
+    },
+    {
+      "id": "DOC-11",
+      "prep": "self",
+      "prep_where": "공단이 요청하면 보호자가 준비",
+      "official_name": "시설급여 사유 관련 참고자료 (사례별)",
+      "situations": [
+        "CHANGE_TYPE"
+      ],
+      "required": "법정 필수 아님. 공단이 사정 확인을 위해 요청할 수 있음(예: 가족 돌봄 곤란 사정, 주거 상황, 문제행동 관련 의료기록) - 신청 전 관할 운영센터 확인",
+      "sources": [
+        "R-CHANGE-02"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED",
+      "display_rule": "'필수 서류' 목록이 아닌 '미리 확인할 것'에 표시"
+    },
+    {
+      "id": "DOC-12",
+      "prep": "issued",
+      "prep_where": "보건소·국공립병원 등에서 발급",
+      "official_name": "건강진단서",
+      "situations": [
+        "ADMISSION"
+      ],
+      "required": "필수 (노인복지법 시행규칙 제19조제8항). 검사 항목·유효기간은 입소 예정 시설에 확인",
+      "issuer": "국·공립병원, 보건소 또는 지정 건강진단기관",
+      "sources": [
+        "R-ADMIT-01"
+      ],
+      "verification_status": "OFFICIAL_VIA_SUMMARY",
+      "submit_to": "입소하려는 시설의 장",
+      "timing": "입소 전"
+    },
+    {
+      "id": "DOC-13",
+      "prep": "issued",
+      "prep_where": "입소할 요양원과 함께 작성",
+      "official_name": "장기요양급여 계약서 / 계약통보서(시설)",
+      "form": "시행규칙 별지 제11호의2서식(계약통보서)",
+      "situations": [
+        "ADMISSION"
+      ],
+      "required": "급여 개시 전 문서 계약, 2부 중 1부 수급자 교부. 제공계획·비용 설명 후 동의서",
+      "sources": [
+        "R-CONTRACT-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-14",
+      "prep": "self",
+      "prep_where": "보호자가 작성 → 공단에 제출",
+      "official_name": "심사청구서",
+      "situations": [
+        "APPEAL"
+      ],
+      "required": "이의신청 시 필수 + 주장 사실 증명서류",
+      "sources": [
+        "R-APPEAL-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED",
+      "form": "시행규칙 별지 제32호서식",
+      "submit_to": "공단",
+      "timing": "처분을 안 날부터 90일, 처분일부터 180일 이내"
+    },
+    {
+      "id": "DOC-15",
+      "prep": "issued",
+      "prep_where": "수급자증명서 등 (주민센터·정부24)",
+      "official_name": "본인부담금 감면 증빙",
+      "situations": [
+        "ADMISSION"
+      ],
+      "required": "의료급여 1종: 수급자증명서+의료급여증(명서) / 그 외 의료급여: 의료급여증(명서) / 저소득·생계곤란: 감경자 확인 서류",
+      "sources": [
+        "R-COST-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED",
+      "submit_to": "장기요양기관(인정서에 첨부)",
+      "timing": "급여 개시 시, 긴급 시 급여 신청일부터 7일(공휴일 제외) 이내"
+    },
+    {
+      "id": "DOC-16",
+      "prep": "self",
+      "prep_where": "보호자가 작성 → 재심사위원회에 제출",
+      "official_name": "재심사청구서",
+      "form": "시행규칙 별지 제37호서식",
+      "situations": [
+        "APPEAL"
+      ],
+      "required": "심사결정 불복 시 + 증명자료",
+      "submit_to": "장기요양재심사위원회",
+      "timing": "심사 결정통지를 받은 날부터 90일 이내",
+      "sources": [
+        "R-APPEAL-02"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    },
+    {
+      "id": "DOC-17",
+      "prep": "self",
+      "prep_where": "보호자가 작성 → 시·군·구에 제출",
+      "official_name": "입소·이용신청서 (의료급여수급권자)",
+      "form": "시행규칙 별지 제10호서식",
+      "situations": [
+        "ADMISSION"
+      ],
+      "required": "의료급여법상 수급권자만",
+      "submit_to": "주소지 시·군·구",
+      "sources": [
+        "R-CONTRACT-01"
+      ],
+      "verification_status": "OFFICIAL_VERIFIED"
+    }
+  ]
+}
