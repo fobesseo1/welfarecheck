@@ -1,7 +1,8 @@
 # PROGRESS — 작업 재개용 진행 기록
 
 **프로젝트 폴더**: `C:\Users\hjdh5\Desktop\welfare_source`
-**마지막 업데이트**: 2026-09-30
+**마지막 업데이트**: 2026-10-01
+**공개 주소**: https://fobesseo1.github.io/welfarecheck/ (저장소 github.com/fobesseo1/welfarecheck, main 에 push 하면 .github/workflows/pages.yml 이 테스트·빌드 후 자동 배포)
 **현재 단계**: 객관식 웹 도구(`web/`) 5차 — 결과 화면 자세히 보기 보강(공식 링크·체크리스트), 테스트 130개 통과. **다음은 사람 검토: 수형분석도 원문 대조**
 
 ## 목표
