@@ -106,6 +106,8 @@ input[type='date'] { margin-top: 26px; min-width: 190px; height: 46px; padding: 
 
 /* 아래: 다음 질문 미리보기 + 둥근 버튼 */
 .foot { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+/* 시작 화면: 왼쪽 글, 오른쪽 버튼 (질문 화면은 위 미리보기 + 아래 이전/다음) */
+.foot.row { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .round.prev { padding: 0 24px 0 16px; background: transparent; border: 1px solid var(--pill); color: var(--ink3); font-weight: 500; box-shadow: none; }
 .round.prev:hover { background: #F2F2F2; }

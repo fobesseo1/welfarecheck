@@ -28,7 +28,7 @@ export function renderStart(hasSaved: boolean, stepCount: number, finished = fal
     <p class="meta" style="margin-top:34px">질문 ${stepCount}개 안팎 · 약 3분 · 이름·주민번호는 묻지 않아요</p>
     ${recovered ? '<p class="meta" style="margin-top:8px">저장된 답을 불러오지 못해 처음부터 시작해요.</p>' : ''}
     ${buttons}
-    <div class="foot">
+    <div class="foot row">
       <div class="preview"><small>${esc(label)}</small><p>${finished && hasSaved ? '지난 결과를<br>다시 볼게요' : hasSaved ? '멈춘 곳부터<br>이어서 할게요' : '어르신 연세가<br>어떻게 되세요?'}</p></div>
       <button type="button" class="round" data-act="${act}">${esc(finished && hasSaved ? '결과 보기' : hasSaved ? '이어서' : '시작하기')}${ICON.next}</button>
     </div>
