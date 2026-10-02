@@ -5,7 +5,7 @@ import { visibleSteps, expandAnswers, itemValues, dementiaAnswer, adlAnswer, isA
 import { estimate } from './engine/scoring.ts';
 import { buildResult } from './engine/result.ts';
 import { copyText } from './engine/guide.ts';
-import { renderStart, renderStep } from './ui/questions.ts';
+import { renderStart, renderStep, renderIntroDialog } from './ui/questions.ts';
 import { renderResult } from './ui/result.ts';
 import { buildForm } from './engine/form.ts';
 import { renderForm } from './ui/form.ts';
@@ -145,6 +145,18 @@ app.addEventListener('click', (ev) => {
     case 'copy': {
       const r = buildResult(kb, state.answers, today());
       void copy(copyText(t.dataset.kind!, r.guide, kb.guide, state.checks ?? {}));
+      return;
+    }
+    case 'intro': {
+      // 소개 영상: 열 때 만들고, 닫으면 멈추고 지운다 (화면을 다시 그려도 영향 없게 body 에 붙임)
+      document.querySelector('dialog.intro-dlg')?.remove();
+      document.body.insertAdjacentHTML('beforeend', renderIntroDialog(matchMedia('(max-width: 600px)').matches));
+      const dlg = document.querySelector('dialog.intro-dlg') as HTMLDialogElement;
+      const v = dlg.querySelector('video')!;
+      dlg.addEventListener('close', () => { v.pause(); dlg.remove(); });
+      dlg.addEventListener('click', (e) => { const el = e.target as HTMLElement; if (e.target === dlg || el.closest('[data-act="intro-close"]')) dlg.close(); });
+      dlg.showModal();
+      v.play().catch(() => { /* 자동 재생이 막히면 재생 버튼을 누르면 됨 */ });
       return;
     }
     case 'print': app.querySelectorAll('details').forEach((d) => ((d as HTMLDetailsElement).open = true)); window.print(); return;

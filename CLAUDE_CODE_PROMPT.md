@@ -33,6 +33,7 @@ legal_rules.json, procedures.json, documents.json, geriatric_diseases.json), RES
   data/legal_rules.json 의 OFFICIAL_VERIFIED 규칙만 사용. 새 법 기준을 만들지 말 것.
 - 결과 화면마다 "참고용 추정이며 등급과 급여는 국민건강보험공단이 결정합니다" 표시.
 - 요양원 추천·검색·광고 기능 없음. 개인 식별정보(이름·주민번호·주소) 수집 없음.
+  (2026-10-02 변경: 앞으로 보호자에게 무료인 추천·상담 연결은 가능, 상담을 원할 때만 동의 받고 이름·연락처 수집. CLAUDE.md 원칙 5 참고)
 - sources_raw/ 는 읽기 전용.
 
 # 질문지 (객관식)

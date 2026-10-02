@@ -8,6 +8,7 @@ const pressed = (b: boolean) => `aria-pressed="${b}"`;
 const ICON = {
   back: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>',
   next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
+  play: '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg>',
   check: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
 };
 
@@ -19,7 +20,7 @@ export function renderStart(hasSaved: boolean, stepCount: number, finished = fal
   const label = finished && hasSaved ? '결과 다시 보기' : hasSaved ? '이어서 하기' : '시작하기';
   return `
   <section class="card" aria-labelledby="start-title">
-    <div class="topbar"><span class="brand">요양원 길잡이</span></div>
+    <div class="topbar"><span class="brand">요양원 길잡이</span><button type="button" class="intro-btn no-print" data-act="intro">${ICON.play}소개 영상</button></div>
     <p class="greet">${hasSaved ? '다시 오셨네요' : '시작해 볼게요'}</p>
     <div class="bar"><i style="width:${hasSaved ? 50 : 4}%"></i></div>
     <h1 id="start-title" class="question" tabindex="-1">부모님을 요양원에<br>모실 수 있을까요?</h1>
@@ -124,4 +125,14 @@ export function renderStep(kb: Kb, s: Step, raw: Answers, pos: { index: number; 
       </div>
     </div>
   </section>`;
+}
+
+/** 소개 영상 팝업. 휴대폰 폭이면 세로 20초판, 아니면 가로 45초판 (소리 있음, 자동 재생 안 함) */
+export function renderIntroDialog(tall: boolean): string {
+  const f = tall ? 'intro-20s-vertical' : 'intro-45s';
+  return `<dialog class="intro-dlg${tall ? ' tall' : ''}" aria-label="요양원 길잡이 소개 영상">
+    <button type="button" class="intro-x" data-act="intro-close" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <video src="video/${f}.mp4" poster="video/${f}.jpg" controls playsinline preload="none" aria-label="부모님 돌봄으로 바쁜 하루, 요양원을 처음 알아보는 막막함, 질문에 답하면 예상 등급과 할 일을 알려주는 과정을 보여주는 ${tall ? '20' : '45'}초 영상"></video>
+    <p>${tall ? '20' : '45'}초 · 소리 있음 · 화면 속 답과 결과는 예시예요</p>
+  </dialog>`;
 }

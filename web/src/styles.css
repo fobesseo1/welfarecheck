@@ -282,6 +282,17 @@ th { font-weight: 500; color: var(--soft); }
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); padding: 12px 20px; border-radius: 999px; background: rgba(51, 51, 51, 0.92); color: #fff; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 10; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* 소개 영상 버튼·팝업 */
+.intro-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border: 1px solid var(--pill); border-radius: 999px; background: transparent; font-size: 12px; font-weight: 500; color: var(--ink3); cursor: pointer; }
+.intro-btn svg { color: var(--mint-ink); }
+.intro-dlg { width: min(1100px, calc(100vw - 32px)); max-width: none; padding: 0; border: 0; border-radius: 20px; background: #000; overflow: visible; }
+.intro-dlg.tall { width: min(420px, calc(100vw - 32px)); }
+.intro-dlg::backdrop { background: rgba(20, 24, 22, .72); }
+.intro-dlg video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; background: #000; }
+.intro-dlg.tall video { aspect-ratio: 9 / 16; max-height: calc(100vh - 140px); }
+.intro-dlg p { position: absolute; left: 0; right: 0; bottom: -34px; margin: 0; text-align: center; font-size: 12px; color: #fff; opacity: .85; }
+.intro-x { position: absolute; right: 0; top: -52px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+
 @media print {
   body { background: #fff; }
   #app { padding: 0; }
