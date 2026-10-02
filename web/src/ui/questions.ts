@@ -108,7 +108,7 @@ export function renderStep(kb: Kb, s: Step, raw: Answers, pos: { index: number; 
   const previewText = pos.returnToResult ? '결과로<br>돌아가요' : pos.next ? esc(pos.next.text) : '결과<br>보기';
   return `
   <section class="card" aria-labelledby="q-${attr(s.id)}">
-    <div class="topbar"><button type="button" class="icon-btn" data-act="back" aria-label="이전 질문">${ICON.back}</button>${top}</div>
+    <div class="topbar"><span class="brand">요양원 길잡이</span>${top}</div>
     <p class="greet">${esc(greeting(pos.index, pos.total))}</p>
     <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="진행"><i style="width:${Math.max(4, pct)}%"></i></div>
     <p class="stage"><span>${stageIdx + 1}단계 · ${esc(stages[stageIdx]?.title ?? '')}</span>${pos.live ? `<span>지금까지 보면 <b>${esc(pos.live)}</b></span>` : ''}</p>
@@ -118,7 +118,10 @@ export function renderStep(kb: Kb, s: Step, raw: Answers, pos: { index: number; 
     ${body}
     <div class="foot">
       <div class="preview"><small>${previewLabel}</small><p>${previewText}</p></div>
+      <div class="nav">
+      <button type="button" class="round prev" data-act="back">${ICON.back}이전</button>
       <button type="button" class="round" data-act="next" ${canNext ? '' : 'disabled'}>${pos.returnToResult ? '결과로' : pos.next ? '다음' : '결과 보기'}${ICON.next}</button>
+      </div>
     </div>
   </section>`;
 }

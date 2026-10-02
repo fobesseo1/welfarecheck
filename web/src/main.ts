@@ -37,7 +37,14 @@ function liveEstimate(): string | undefined {
   return estimate(kb, { values: itemValues(kb, a), dementia: dementiaAnswer(a), adl: adlAnswer(a) }).label + ' 예상';
 }
 
+/** 화면을 바꿀 때마다 브라우저 기록을 하나 남긴다 → 핸드폰 뒤로 가기·쓸어넘기기가 이전 질문으로 간다 (사이트를 나가지 않음) */
+interface Hist { screen: Screen; depth: number; rtr?: boolean }
+const hist = (): Hist | null => (history.state && typeof history.state.depth === 'number' ? history.state : null);
 function go(screen: Screen) {
+  if (screen !== state.screen) { try { history.pushState({ screen, depth: (hist()?.depth ?? 0) + 1, rtr: !!state.returnToResult } satisfies Hist, ''); } catch { /* 기록을 못 남겨도 화면은 바뀜 */ } }
+  show(screen);
+}
+function show(screen: Screen) {
   state.screen = screen; persist(); render();
   window.scrollTo({ top: 0 });
   (app.querySelector('h1, h2') as HTMLElement | null)?.focus({ preventScroll: true });
@@ -78,7 +85,9 @@ function next() {
   const i = list.findIndex((s) => s.id === state.screen);
   go(list[i + 1]?.id ?? 'result');
 }
+/** 화면의 '이전' 버튼: 기록이 있으면 브라우저 뒤로 가기와 똑같이, 없으면 바로 앞 질문으로 */
 function back() {
+  if ((hist()?.depth ?? 0) > 0) { history.back(); return; }
   const list = steps();
   const i = list.findIndex((s) => s.id === state.screen);
   go(i <= 0 ? 'start' : list[i - 1].id);
@@ -175,8 +184,18 @@ app.addEventListener('change', (ev) => {
   const el = ev.target as HTMLInputElement;
   if (el.dataset.act === 'date') { state.answers[el.dataset.id!] = el.value || undefined; persist(); render(); }
 });
+window.addEventListener('popstate', (ev) => {
+  const h = ev.state as Hist | null;
+  window.clearTimeout(advanceTimer);
+  const screen = h?.screen ?? 'start';
+  // 지금 답으로는 보이지 않는 질문이면 (앞 답을 바꿔 갈래가 달라진 경우) 그 앞의 보이는 질문으로
+  const isStep = !['start', 'result', 'form'].includes(screen);
+  state.returnToResult = isStep && !!h?.rtr;
+  show(isStep && !steps().some((s) => s.id === screen) ? (steps().find((s) => !isAnswered(s, state.answers))?.id ?? 'result') : screen);
+});
 window.addEventListener('beforeprint', () => app.querySelectorAll('details').forEach((d) => ((d as HTMLDetailsElement).open = true)));
 
 const errs = kb.integrity();
 if (errs.length) console.error('[근거 DB 무결성 오류]', errs);
+try { history.replaceState({ screen: state.screen, depth: 0 } satisfies Hist, ''); } catch { /* 무시 */ }
 render();

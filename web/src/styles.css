@@ -105,7 +105,10 @@ button { cursor: pointer; }
 input[type='date'] { margin-top: 26px; min-width: 190px; height: 46px; padding: 0 20px; border: 1px solid var(--pill); border-radius: 999px; background: var(--white); color: var(--ink3); font-size: 15px; }
 
 /* 아래: 다음 질문 미리보기 + 둥근 버튼 */
-.foot { margin-top: auto; padding-top: 32px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.foot { margin-top: auto; padding-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.round.prev { padding: 0 24px 0 16px; background: transparent; border: 1px solid var(--pill); color: var(--ink3); font-weight: 500; box-shadow: none; }
+.round.prev:hover { background: #F2F2F2; }
 .preview { display: flex; flex-direction: column; gap: 6px; }
 .preview small { font-size: 12px; color: #BDBDBD; }
 .preview small b { color: var(--mint-ink); font-weight: 700; }
