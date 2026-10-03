@@ -53,7 +53,7 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
 
   const verdict = `
     <div class="verdict">
-      <span class="status ${v.tone}">${TONE_KO[v.tone]}</span>
+      <span class="status ${v.tone}">${esc(v.label ?? TONE_KO[v.tone])}</span>
       <h2 id="res-title" tabindex="-1">${esc(v.title)}</h2>
       <p class="vb">${esc(v.body)}</p>
       ${v.detail ? more('왜 그런가요', `<p>${esc(v.detail)}</p>${src(kb, f.rule_ids)}`) : ''}

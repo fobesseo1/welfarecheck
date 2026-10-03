@@ -87,7 +87,7 @@ export function buildGuide(kb: Kb, def: GuideDef, raw: Answers, a: Answers, dec:
 
   // ---------- 입소 준비 ----------
   const medaid = typeof a.insurance === 'string' && a.insurance.startsWith('medical_aid');
-  const admission = { show: tone !== 'no', common: [...def.admission.common, ...(medaid ? [def.admission.medaid] : [])], facility: def.admission.facility };
+  const admission = { show: tone !== 'no' && !expired, common: [...def.admission.common, ...(medaid ? [def.admission.medaid] : [])], facility: def.admission.facility };
 
   const situation: Guide['situation'] = grade === 'out_of_grade' ? 'out_of_grade' : grade === 'pending' ? 'pending' : expired ? 'expired' : null;
 

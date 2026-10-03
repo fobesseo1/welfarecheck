@@ -10,7 +10,7 @@ export const DISCLAIMER = '참고용 추정이에요. 장기요양등급과 급�
 
 export type Tone = 'good' | 'maybe' | 'wait' | 'no';
 /** body: 한 줄 사실, detail: 펼쳐야 보이는 설명 */
-export interface Verdict { tone: Tone; title: string; body: string; detail: string }
+export interface Verdict { tone: Tone; title: string; body: string; detail: string; /** 상태 칩 문구 (없으면 tone 기본 문구) */ label?: string }
 export type FacilityStatus = 'possible' | 'conditional' | 'not_possible';
 export interface FacilityScenario { grades: GradeCode[]; label: string; status: FacilityStatus; text: string; detail?: string; rule_ids: string[] }
 export interface FacilityView {
@@ -63,9 +63,28 @@ function scenariosFor(grades: GradeCode[], reasons: FacilityReason[]): FacilityS
   return out;
 }
 
-function verdictFor(a: Answers, est: Estimate, reasons: FacilityReason[]): Verdict {
+function verdictFor(a: Answers, est: Estimate, reasons: FacilityReason[], dec: DecideOutput): Verdict {
   const g = a.grade as string | undefined;
   const G = (x: string) => GRADE_KO[x as GradeCode];
+  const A = dec.decisions.find((d) => d.id === 'A');
+  const B = dec.decisions.find((d) => d.id === 'B');
+  const C = dec.decisions.find((d) => d.id === 'C');
+
+  // 등급이 있어도 유효기간이 지났으면 그 인정서로는 급여를 받을 수 없다 (R-FAC-04) → 등급별 안내보다 먼저
+  const daysLeft = (B?.data as { days_left?: number } | undefined)?.days_left;
+  if (g && ['1', '2', '3', '4', '5', 'cognitive'].includes(g) && typeof daysLeft === 'number' && daysLeft < 0) {
+    const end = (B!.data as { validity_end?: string }).validity_end;
+    return { tone: 'wait', label: '요양원 입소 · 유효기간 확인', title: '유효기간부터 확인해야 해요', body: `유효기간(${end})이 지났어요 · 공단에 문의하세요`, detail: C?.summary ?? '' };
+  }
+  // 등급이 없고 신청 대상이 아니면 → 예상 등급보다 신청 대상 확인이 먼저
+  if ((g === 'none' || g === undefined) && A?.result === 'NOT_ELIGIBLE') {
+    const under65 = a.age === 'under65';
+    return {
+      tone: 'no', label: '요양원 입소 · 신청 대상 확인', title: '먼저 신청 대상인지 확인해야 해요',
+      body: under65 ? '65세 미만은 노인성 질병이 있어야 신청할 수 있어요' : '지금 답변으로는 신청 대상이 아닐 수 있어요',
+      detail: `${A.summary} 몸 상태만 보면 예상 ${est.label}이지만, 신청 대상이 아니면 등급을 받을 수 없어요.`,
+    };
+  }
   if (g === '1' || g === '2') return { tone: 'good', title: '요양원에 모실 수 있어요', body: `${G(g)}은 바로 입소할 수 있어요.`, detail: '자리가 있는 요양원을 찾아 상담하면 돼요.' };
   if ((g === '3' || g === '4' || g === '5') && a.facility_in_cert === 'yes') return { tone: 'good', title: '요양원에 모실 수 있어요', body: '인정서에 시설급여가 있어요.', detail: `${G(g)}이어도 인정서에 시설급여가 있으면 요양원을 이용할 수 있어요.` };
   if (g === '3' || g === '4' || g === '5') return { tone: 'maybe', title: '조건이 맞으면 모실 수 있어요', body: `${G(g)}은 공단 인정이 필요해요.`, detail: `공단에 '급여종류 변경'을 신청해 인정받으면 요양원을 이용할 수 있어요. ${reasonSentence(reasons)}` };
@@ -129,7 +148,9 @@ export function buildResult(kb: Kb, raw: Answers, today: string): GuideResult {
 
   const g = a.grade as string | undefined;
   const graded = !!g && ['1', '2', '3', '4', '5', 'cognitive'].includes(g);
-  const scenarios = graded ? [] : scenariosFor(est.grades, reasons);
+  const notEligible = !graded && (g === 'none' || g === undefined) && dec.decisions.find((d) => d.id === 'A')?.result === 'NOT_ELIGIBLE';
+  // 신청 대상이 아니면 '등급별로 보면 입소 가능' 같은 전망은 보여 주지 않는다
+  const scenarios = graded || notEligible ? [] : scenariosFor(est.grades, reasons);
   const conditional = graded ? ['3', '4', '5'].includes(g!) && a.facility_in_cert !== 'yes' : scenarios.some((s) => s.status === 'conditional');
   const C = dec.decisions.find((d) => d.id === 'C')!;
   const facility: FacilityView = {
@@ -148,7 +169,7 @@ export function buildResult(kb: Kb, raw: Answers, today: string): GuideResult {
   const ds = est.scenarios;
   const domainTable = DOMAINS.map((d) => ({ domain: d, name: DOMAIN_KO[d], rawLow: ds.best.domains[d].raw, rawHigh: ds.worst.domains[d].raw, convLow: ds.best.domains[d].conv, convHigh: ds.worst.domains[d].conv, unknown: ds.best.domains[d].unknown, items: ds.best.domains[d].items }));
 
-  const verdict = verdictFor(a, est, reasons);
+  const verdict = verdictFor(a, est, reasons, dec);
   return {
     today, disclaimer: DISCLAIMER, is_official_decision: false,
     verdict,

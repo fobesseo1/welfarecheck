@@ -144,7 +144,12 @@ export function decide(kb: Kb, facts: FactMap, today: string): DecideOutput {
   {
     const missing: string[] = []; let result: ResultCode; let summary: string; const rules: string[] = [];
     const inHospital = v<boolean>(facts, 'in_nursing_hospital');
-    if (gradeStatus !== 'graded') {
+    // 유효기간이 지난 인정서로는 급여를 받을 수 없다(R-FAC-04 인정서 도달 후 급여, R-VALID-02 갱신) → 등급별 판단보다 먼저
+    const expired = gradeStatus === 'graded' && !!renewal && renewal.days < 0;
+    if (expired) {
+      rules.push('R-FAC-04', 'R-VALID-02'); result = 'NEEDS_EXPERT';
+      summary = `유효기간(${v<string>(facts, 'validity_end')})이 지난 인정서로는 요양원(시설급여)을 포함한 장기요양급여를 받을 수 없어요. 갱신이 이미 접수됐는지, 새로 신청해야 하는지 공단에 먼저 확인하세요.`;
+    } else if (gradeStatus !== 'graded') {
       rules.push('R-FAC-04', 'R-FAC-01', 'R-FAC-02', 'R-FAC-03');
       result = gradeStatus ? 'NOT_ELIGIBLE' : 'NEEDS_CHECK';
       summary = '요양원은 장기요양등급이 있어야 이용할 수 있어요. 등급을 받으면 1·2등급은 바로, 3~5등급은 위원회 인정을 받으면 이용할 수 있고, 인지지원등급은 이용할 수 없어요.';
@@ -169,7 +174,8 @@ export function decide(kb: Kb, facts: FactMap, today: string): DecideOutput {
   // ---------- D. 추가 인정(급여종류 변경) 필요 여부 ----------
   {
     const isMid = grade === 3 || grade === 4 || grade === 5;
-    if (gradeStatus === 'graded' && isMid && C.result !== 'MET' && goal !== 'home') {
+    const expired = gradeStatus === 'graded' && !!renewal && renewal.days < 0;
+    if (gradeStatus === 'graded' && isMid && C.result !== 'MET' && goal !== 'home' && !expired) {
       const reasons: { code: string; label: string; evidence: string }[] = [];
       const unknown: string[] = [];
       const cg = facts.caregiver_difficulty; const lv = living;

@@ -9,10 +9,13 @@ import type { AdlAnswer, DementiaAnswer } from './scoring.ts';
 export const UNKNOWN = 'unknown';
 const ITEM = /^(PHY|COG|BEH|NUR|REH)-\d\d$/;
 
-export function isVisible(s: Step, a: Answers): boolean {
+export function isVisible(s: Step, a: Answers, all?: Step[]): boolean {
   if (s.gate) return a[s.gate] === 'yes';
   if (!s.when) return true;
-  const v = a[s.when.q];
+  // 조건이 가리키는 질문이 지금 숨겨져 있으면 그 답은 없는 것으로 본다
+  // (예: 65세 미만 때 고른 질병 답이 나이를 65세 이상으로 바꾼 뒤에도 남아 치매 질문을 가리던 문제)
+  const dep = all?.find((x) => x.id === s.when!.q);
+  const v = dep && !isVisible(dep, a, all) ? undefined : a[s.when.q];
   const val = typeof v === 'string' ? v : undefined;
   if (s.when.in) return val !== undefined && s.when.in.includes(val);
   if (s.when.notIn) return val === undefined || !s.when.notIn.includes(val);
@@ -22,7 +25,7 @@ export function isVisible(s: Step, a: Answers): boolean {
 /** 지금 답변 기준으로 보여줄 질문 목록 (앞 질문의 답에 따라 달라짐) */
 export function visibleSteps(kb: Kb, raw: Answers): Step[] {
   const a = expandAnswers(kb, raw);
-  return kb.questionnaire.steps.filter((s) => isVisible(s, a));
+  return kb.questionnaire.steps.filter((s) => isVisible(s, a, kb.questionnaire.steps));
 }
 
 export function isAnswered(s: Step, raw: Answers): boolean {
@@ -75,7 +78,7 @@ export function expandAnswers(kb: Kb, raw: Answers): Answers {
       continue;
     }
     const v = raw[s.id];
-    if (v === undefined || !isVisible(s, a)) continue;
+    if (v === undefined || !isVisible(s, a, kb.questionnaire.steps)) continue;
     if (s.gate_for) continue; // 먼저 묻기 질문은 위 chips 처리에서 반영
     if (s.type === 'single') {
       if (v === UNKNOWN) {
