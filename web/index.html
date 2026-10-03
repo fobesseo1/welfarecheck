@@ -3,18 +3,169 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="부모님을 요양원에 모실 수 있을지, 무엇을 준비해야 하는지 객관식 질문으로 알려드립니다. 참고용 추정이며 등급은 국민건강보험공단이 결정합니다." />
-    <title>요양원 길잡이</title>
-    <!-- 글꼴: Pretendard → 불러오지 못하면 Noto Sans KR → 기기 기본 글꼴 -->
+    <meta name="description" content="부모님을 요양원에 모실 수 있을까요? 3분이면 예상 장기요양등급과 할 일을 알려드려요. 등급 받기부터 가까운 요양원·주간보호·방문요양 찾기까지 무료로 상담해 드려요." />
+    <title>요양원 길잡이 · 부모님 돌봄 무료 상담</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" />
     <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="stylesheet" href="./src/home.css" />
   </head>
-  <body>
-    <main id="app" aria-live="polite"></main>
-    <script type="module" src="./src/main.ts"></script>
+  <body class="home">
+    <header class="h-top">
+      <div class="h-wrap h-bar">
+        <a class="h-logo" href="index.html" aria-label="요양원 길잡이 홈">
+          <span class="h-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12382A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5L20 11"/><path d="M6.5 9.5V19h11V9.5"/><path d="M12 17c-2.2-1.6-3.3-2.7-3.3-4a1.6 1.6 0 0 1 3.3-.6 1.6 1.6 0 0 1 3.3.6c0 1.3-1.1 2.4-3.3 4z"/></svg></span>
+          <span>요양원 길잡이</span>
+        </a>
+        <nav class="h-nav" id="h-nav" aria-label="주요 메뉴">
+          <a href="#how">서비스 안내</a>
+          <a href="#types">돌봄 종류</a>
+          <a href="#try">등급 체크</a>
+          <a href="#faq">자주 묻는 질문</a>
+        </nav>
+        <div class="h-actions">
+          <a class="h-btn line h-hide-sm" href="check.html">3분 체크</a>
+          <a class="h-btn mint" href="consult.html">무료 상담</a>
+          <button type="button" class="h-menu" aria-label="메뉴 열기" aria-expanded="false" aria-controls="h-nav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="h-wrap h-hero">
+        <div class="h-hero-text">
+          <span class="h-chip">보호자를 위한 무료 돌봄 상담</span>
+          <h1>부모님을<br />요양원에 모실 수<br />있을까요?</h1>
+          <p class="h-lead">3분이면 예상 등급과 할 일을 알려드려요. <br />등급 받기부터 맞는 곳 찾기까지 같이 준비해 드릴게요.</p>
+          <div class="h-cta">
+            <a class="h-btn mint big" href="check.html">3분 등급 체크<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+            <a class="h-btn line big" href="consult.html">바로 상담 신청</a>
+          </div>
+          <ul class="h-trust">
+            <li>상담은 무료예요</li>
+            <li>기관에서 소개비를 받지 않아요</li>
+            <li>서울·경기·인천</li>
+            <li>공식 법령·고시 기준으로 계산</li>
+          </ul>
+        </div>
+        <div class="h-hero-visual">
+          <div class="h-demo" aria-label="결과 화면 예시">
+            <div class="h-demo-top"><span>요양원 길잡이</span><span>결과 예시</span></div>
+            <span class="h-status">요양원 입소 · 등급부터</span>
+            <p class="h-demo-title">먼저 등급을 받아야 해요</p>
+            <p class="h-demo-sub">예상 2~4등급 · 1·2등급이면 바로, 3~5등급이면 조건부</p>
+            <div class="h-scale" aria-hidden="true"><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+            <div class="h-scale-l" aria-hidden="true"><span>1</span><span class="on">2</span><span class="on">3</span><span class="on">4</span><span>5</span><span>인지</span><span>등급외</span></div>
+            <div class="h-demo-cta"><span>등급 받기부터 맞는 곳 찾기까지<br />같이 준비해 드릴게요</span><span class="h-demo-pill">1분 상담</span></div>
+          </div>
+          <button type="button" class="h-video" data-act="intro"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="#5DDCA6"/></svg>소개 영상 보기</button>
+        </div>
+      </section>
+
+      <section class="h-band white">
+        <div class="h-wrap">
+          <h2>이런 게 막막하시죠?</h2>
+          <div class="h-grid3">
+            <article class="h-card flat"><span class="h-num">01</span><h3>처음이라 뭐부터 할지 모르겠어요</h3><p>장기요양등급, 의사소견서, 방문조사… 낯선 말이 너무 많아요.</p></article>
+            <article class="h-card flat"><span class="h-num">02</span><h3>등급이 쉽게 나오지 않아요</h3><p>심사가 까다로워서, 방문조사 때 평소 모습을 빠짐없이 전하는 게 중요해요.</p></article>
+            <article class="h-card flat"><span class="h-num">03</span><h3>어디가 맞는지 모르겠어요</h3><p>요양원, 주간보호, 방문요양 중 무엇이 맞는지, 가까운 곳 중 어디가 좋은지 알기 어려워요.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="h-wrap h-sec" id="how">
+        <h2>이렇게 도와드려요</h2>
+        <p class="h-sub">혼자 다 짊어지지 않아도 돼요.</p>
+        <div class="h-grid3">
+          <article class="h-card"><span class="h-step">1</span><h3>3분 체크로 예상 등급 확인</h3><p>질문에 누르기만 하면 공식 기준으로 예상 등급, 요양원 입소 조건, 준비할 서류를 알려드려요.</p></article>
+          <article class="h-card"><span class="h-step">2</span><h3>등급 받기 준비</h3><p>신청 방법과 방문조사 준비를 상담으로 함께 챙겨요.</p></article>
+          <article class="h-card"><span class="h-step">3</span><h3>가까운 맞는 곳 연결</h3><p>사시는 곳과 어르신 상황에 맞는 요양원·주간보호·방문요양을 찾아 연결해 드려요.</p></article>
+        </div>
+      </section>
+
+      <section class="h-band mint" id="try">
+        <div class="h-wrap h-split">
+          <div>
+            <h2>지금 바로 해보세요</h2>
+            <p class="h-sub dark">질문 18개 안팎, 약 3분이에요.<br />어르신 연세부터 하나씩 물어볼게요.</p>
+            <a class="h-btn mint big" href="check.html">3분 등급 체크 시작<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="h-try">
+            <div class="h-try-bar"><i></i></div>
+            <p class="h-try-stage">1단계 · 기본 정보</p>
+            <p class="h-try-q">어르신 연세가 어떻게 되세요?</p>
+            <div class="h-try-opts">
+              <a class="h-btn mint" href="check.html#age=over65">65세 이상</a>
+              <a class="h-btn line" href="check.html#age=under65">65세 미만</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="h-wrap h-sec" id="types">
+        <h2>돌봄은 이렇게 나뉘어요</h2>
+        <p class="h-sub">어떤 게 맞는지는 상담하면서 같이 정해요.</p>
+        <div class="h-grid3">
+          <article class="h-card flat"><h3>요양원</h3><p>시설에 들어가서 지내시며 돌봄을 받아요.</p><p class="h-small">1·2등급은 바로 이용할 수 있고, 3~5등급은 공단의 인정이 있어야 해요.</p></article>
+          <article class="h-card flat"><h3>주간보호 (데이케어)</h3><p>낮 동안 센터에서 지내시고 집으로 돌아오세요.</p><p class="h-small">1~5등급과 인지지원등급이 이용할 수 있어요.</p></article>
+          <article class="h-card flat"><h3>방문요양</h3><p>요양보호사가 집으로 와서 씻기·식사 같은 일을 도와드려요.</p><p class="h-small">1~5등급이 이용할 수 있어요.</p></article>
+        </div>
+      </section>
+
+      <section class="h-band dark">
+        <div class="h-wrap h-split">
+          <div>
+            <h2>상담은 이렇게 진행돼요</h2>
+            <p class="h-sub light" id="h-hours">오전 10시~오후 7시 · 운영 시간에는 보통 2~3시간 안에, 늦어도 24시간 안에 연락드려요.</p>
+            <a class="h-btn mint big" href="consult.html">무료 상담 신청</a>
+          </div>
+          <ol class="h-steps">
+            <li><span>1</span>1분 신청서를 남기거나 카톡으로 문의해요</li>
+            <li><span>2</span>상담원이 전화로 어르신 상황을 들어요</li>
+            <li><span>3</span>가까운 맞는 곳을 찾아 연결해 드려요</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="h-wrap h-sec">
+        <h2>믿을 수 있게 만들었어요</h2>
+        <div class="h-grid3">
+          <article class="h-card flat"><h3>공식 기준으로 계산</h3><p>노인장기요양보험법·시행규칙과 장기요양등급판정기준 고시의 점수표를 그대로 썼어요.</p></article>
+          <article class="h-card flat"><h3>체크 답은 이 기기에만</h3><p>3분 체크 답은 서버로 보내지 않아요. 연락처는 상담을 신청할 때만, 동의를 받고 받아요.</p></article>
+          <article class="h-card flat"><h3>참고용 추정이에요</h3><p>장기요양등급과 급여는 국민건강보험공단(등급판정위원회)이 결정해요.</p></article>
+        </div>
+      </section>
+
+      <section class="h-band white" id="faq">
+        <div class="h-wrap h-faq">
+          <h2>자주 묻는 질문</h2>
+          <div class="h-qa">
+            <details open><summary>정말 무료인가요?</summary><p>네, 상담은 무료예요. 기관에서 소개비도 받지 않아요.</p></details>
+            <details><summary>등급이 없어도 상담할 수 있나요?</summary><p>네. 등급이 없으면 신청 방법과 방문조사 준비부터 같이 챙겨요.</p></details>
+            <details><summary>어느 지역까지 되나요?</summary><p>서울·경기·인천을 중심으로 상담해요. 그 밖의 지역도 신청해 주시면 확인한 뒤 연락드려요.</p></details>
+            <details><summary>3분 체크 결과는 얼마나 정확한가요?</summary><p>공식 항목 점수표로 계산하지만 마지막 합산은 추정식이라 참고용이에요. 실제 등급은 국민건강보험공단 등급판정위원회가 결정해요.</p></details>
+            <details><summary>입력한 정보는 어디에 저장되나요?</summary><p>3분 체크 답은 이 기기(브라우저)에만 저장되고 서버로 보내지 않아요. 상담 신청서의 연락처는 동의를 받고 상담에만 써요.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="h-wrap h-sec">
+        <div class="h-final">
+          <div><p class="h-final-t">혼자 다 짊어지지 않아도 돼요</p><p class="h-final-s">무료 상담 · 오전 10시~오후 7시</p></div>
+          <a class="h-btn ink big" href="consult.html">무료 상담 신청</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="h-foot">
+      <div class="h-wrap h-foot-in">
+        <div><b>요양원 길잡이</b><span id="h-company"></span></div>
+        <div>참고용 안내예요. 장기요양등급과 급여는 국민건강보험공단이 결정해요.<br />국민건강보험공단 1577-1000</div>
+      </div>
+    </footer>
+    <script type="module" src="./src/home.ts"></script>
   </body>
 </html>

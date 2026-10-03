@@ -30,6 +30,16 @@ npm run dev
 | `npm run fit-model` | 근사 모델 가중치 재계산 → `data/approx_model.json` |
 | `npm run trees` | 고시 HWP 에서 수형분석도 다시 복원 → `data/grading_trees.json`, `docs/trees_review.md` (Python 3 필요) |
 
+## 화면
+
+| 주소 | 화면 |
+|---|---|
+| `index.html` | 홈페이지 (서비스 소개·무료 상담 안내, 컴퓨터·휴대폰 반응형) |
+| `check.html` | 3분 등급 체크 (질문 → 결과). `#age=over65` 처럼 미리 채운 링크 지원 |
+| `consult.html` | 1분 상담 신청 → 구글 시트 (`src/site.ts` 의 `consultEndpoint`, 설치 `docs/CONSULT_SHEET_SETUP.md`) |
+
+연락처·회사 정보·상담 받는 주소는 `src/site.ts` 한 곳에서 바꾼다(빈 값은 화면에서 숨김).
+
 ## 구조
 
 ```
@@ -45,7 +55,7 @@ web/
     result.ts                    결과 화면 모델 조립
     guide.ts                     결과 '자세히 보기' 칸 (접수 경로·서류 체크·병원·방문조사·입소 준비·상황별 안내, 문구·링크는 data/guide_content.json)
   scripts/fit-approx-model.ts    근사 모델 적합
-  tests/                         130개 테스트
+  tests/                         154개 테스트
 ```
 
 ## 점수 계산 — 공식인 부분과 추정인 부분

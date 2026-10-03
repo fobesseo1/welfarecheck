@@ -1,0 +1,31 @@
+{
+  "method": "built-in image_gen",
+  "date": "2026-10-03",
+  "type": "UI image mockup; no production code changes or deployment",
+  "variants": [
+    {
+      "variant": "desktop",
+      "file": "desktop-with-photos.png",
+      "prompt": "Use case: compositing / ui-mockup. Make a faithful polished photographic version of the supplied Korean '요양원 길잡이' website design, inserting the supplied generated photos into appropriate sections. Reference 1 is the actual website layout to preserve. References 2-5 are the actual photos to insert: 2 mother and daughter (hero), 3 elder man with care worker (요양원), 4 daytime activities (주야간보호), 5 home meal support (방문요양). Preserve the exact recognizable people and scenes in those photos rather than inventing replacements. Preserve original brand, white/off-white background, vivid mint #5DDCA6, charcoal #2B3035, clean Korean sans-serif type, rounded cards, generous white space, pill buttons, quiet thin borders. Keep original copy, hierarchy, CTA functions, and section order. Main headline exactly '부모님을 요양원에 모실 수 있을까요?'. Primary button exactly '3분 등급 체크'; secondary '바로 상담 신청'. Other headings exactly: '이런 게 막막하죠?', '이렇게 도와드려요', '지금 바로 해보세요', '돌봄은 이렇게 나뉘어요', '상담은 이렇게 진행돼요', '믿을 수 있게 만들었어요', '자주 묻는 질문', '혼자 다 짊어지지 않아도 돼요'. All Korean text should be crisp and coherent. Do not add fake reviews, ratings, certifications, guarantees or contact numbers. Use photos selectively, NOT as repeating backgrounds under text. Service cards must have one photo at top with legible text below. Preserve step/check UI without photos. No device frames, browser chrome, perspective, design annotations, collage board or side-by-side devices: output one flat front-facing scrolling webpage screenshot. DESKTOP version: recreate reference 1 with its desktop multi-column layout, wide centered content container and original section structure. Hero two columns: original headline/buttons on left; supplied mother/daughter photo in a generous rounded rectangle on right, with a much smaller original results UI card overlapping its lower-left corner subtly. People must stay unobscured. Three service cards in one row each topped with the corresponding photo. Dark consultation band remains as in reference 1, with original heading and helper copy on left, three step rows and mint consultation CTA on right. No extra photo there; avoid overwhelming the page with images. Preserve all lower trust cards, FAQ and final mint CTA. Images integrate into the layout naturally. Full long webpage from header through footer; increase page height as needed to keep sections spacious, desktop width, no miniature text forced to fit.",
+      "references": [
+        "C:/Users/hjdh5/Downloads/10 홈페이지 · 컴퓨터@2x.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/01-hero-family.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/03-residential-care.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/04-day-care.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/05-home-care.png"
+      ]
+    },
+    {
+      "variant": "mobile",
+      "file": "mobile-with-photos.png",
+      "prompt": "Use case: compositing / ui-mockup. Make a faithful polished photographic version of the supplied Korean '요양원 길잡이' website design, inserting the supplied generated photos into appropriate sections. Reference 1 is the actual website layout to preserve. References 2-5 are the actual photos to insert: 2 mother and daughter (hero), 3 elder man with care worker (요양원), 4 daytime activities (주야간보호), 5 home meal support (방문요양). Preserve the exact recognizable people and scenes in those photos rather than inventing replacements. Preserve original brand, white/off-white background, vivid mint #5DDCA6, charcoal #2B3035, clean Korean sans-serif type, rounded cards, generous white space, pill buttons, quiet thin borders. Keep original copy, hierarchy, CTA functions, and section order. Main headline exactly '부모님을 요양원에 모실 수 있을까요?'. Primary button exactly '3분 등급 체크'; secondary '바로 상담 신청'. Other headings exactly: '이런 게 막막하죠?', '이렇게 도와드려요', '지금 바로 해보세요', '돌봄은 이렇게 나뉘어요', '상담은 이렇게 진행돼요', '믿을 수 있게 만들었어요', '자주 묻는 질문', '혼자 다 짊어지지 않아도 돼요'. All Korean text should be crisp and coherent. Do not add fake reviews, ratings, certifications, guarantees or contact numbers. Use photos selectively, NOT as repeating backgrounds under text. Service cards must have one photo at top with legible text below. Preserve step/check UI without photos. No device frames, browser chrome, perspective, design annotations, collage board or side-by-side devices: output one flat front-facing scrolling webpage screenshot. MOBILE version: recreate reference 1 as a real narrow responsive mobile page, one column, generous consistent side padding. Hero: original headline and intro first, then supplied mother/daughter photo in a rounded 3:2 block showing BOTH faces and hands, then original two full-width pill CTA buttons. Do not put the headline on the photo. Keep FAQ and step cards compact. Three service cards stack vertically, each with corresponding landscape photo above its service name and description. Keep the dark consultation section without a photo, preserving the original title, three numbered steps and full-width mint CTA; let the page breathe. Preserve the overall mobile flow and readable original Korean typography, enough space between sections. Output one complete tall scrolling mobile webpage from header to footer, NOT a shrunken desktop page, NOT a phone device mockup. Expand the height to fit photo insertions, do not squash faces or typography.",
+      "references": [
+        "C:/Users/hjdh5/Downloads/11 홈페이지 · 휴대폰@2x.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/01-hero-family.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/03-residential-care.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/04-day-care.png",
+        "C:/Users/hjdh5/Desktop/welfare_source/output/website-images-2026-10-03/05-home-care.png"
+      ]
+    }
+  ]
+}

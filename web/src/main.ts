@@ -5,7 +5,8 @@ import { visibleSteps, expandAnswers, itemValues, dementiaAnswer, adlAnswer, isA
 import { estimate } from './engine/scoring.ts';
 import { buildResult } from './engine/result.ts';
 import { copyText } from './engine/guide.ts';
-import { renderStart, renderStep, renderIntroDialog } from './ui/questions.ts';
+import { renderStart, renderStep } from './ui/questions.ts';
+import { openIntro } from './ui/intro.ts';
 import { renderResult } from './ui/result.ts';
 import { buildForm } from './engine/form.ts';
 import { renderForm } from './ui/form.ts';
@@ -24,6 +25,24 @@ function load(): State {
   return { answers: {}, screen: 'start' };
 }
 let state = load();
+
+/** 미리 채운 링크 (#age=over65&dementia=diagnosed …): 홈페이지·다른 AI가 만든 링크로 들어오면 그 답으로 시작.
+ *  '#' 뒤 값은 서버로 가지 않는다. 질문 ID·선택지 값이 실제로 있는 것만 받고, 주소에서는 바로 지운다 */
+function prefillFromHash(): boolean {
+  const h = location.hash.replace(/^#/, '');
+  if (!h.includes('=')) return false;
+  const p = new URLSearchParams(h);
+  const answers: Answers = {};
+  for (const s of kb.questionnaire.steps) {
+    const v = p.get(s.id);
+    if (v && s.type === 'single' && s.options?.some((o) => o.value === v)) answers[s.id] = v;
+  }
+  try { history.replaceState(null, '', location.pathname + location.search); } catch { /* 무시 */ }
+  if (!Object.keys(answers).length) return false;
+  state = { answers, screen: 'start', checks: {} };
+  return true;
+}
+const prefilled = prefillFromHash();
 const persist = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch { /* 개인정보 보호 모드 등 */ } };
 const app = document.getElementById('app')!;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
@@ -147,18 +166,7 @@ app.addEventListener('click', (ev) => {
       void copy(copyText(t.dataset.kind!, r.guide, kb.guide, state.checks ?? {}));
       return;
     }
-    case 'intro': {
-      // 소개 영상: 열 때 만들고, 닫으면 멈추고 지운다 (화면을 다시 그려도 영향 없게 body 에 붙임)
-      document.querySelector('dialog.intro-dlg')?.remove();
-      document.body.insertAdjacentHTML('beforeend', renderIntroDialog(matchMedia('(max-width: 600px)').matches));
-      const dlg = document.querySelector('dialog.intro-dlg') as HTMLDialogElement;
-      const v = dlg.querySelector('video')!;
-      dlg.addEventListener('close', () => { v.pause(); dlg.remove(); });
-      dlg.addEventListener('click', (e) => { const el = e.target as HTMLElement; if (e.target === dlg || el.closest('[data-act="intro-close"]')) dlg.close(); });
-      dlg.showModal();
-      v.play().catch(() => { /* 자동 재생이 막히면 재생 버튼을 누르면 됨 */ });
-      return;
-    }
+    case 'intro': openIntro(); return;
     case 'print': app.querySelectorAll('details').forEach((d) => ((d as HTMLDetailsElement).open = true)); window.print(); return;
     case 'pick': {
       state.answers[id!] = val; persist(); render();
@@ -211,3 +219,4 @@ const errs = kb.integrity();
 if (errs.length) console.error('[근거 DB 무결성 오류]', errs);
 try { history.replaceState({ screen: state.screen, depth: 0 } satisfies Hist, ''); } catch { /* 무시 */ }
 render();
+if (prefilled) { const i = firstUnanswered(); go(i < 0 ? 'result' : steps()[i].id); }

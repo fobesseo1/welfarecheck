@@ -293,6 +293,61 @@ th { font-weight: 500; color: var(--soft); }
 .intro-dlg p { position: absolute; left: 0; right: 0; bottom: -34px; margin: 0; text-align: center; font-size: 12px; color: #fff; opacity: .85; }
 .intro-x { position: absolute; right: 0; top: -52px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; }
 
+/* 결과 화면의 무료 상담 카드 */
+.consult { margin-top: 28px; padding: 24px 22px 20px; border-radius: 24px; background: var(--white); box-shadow: 0 10px 30px rgba(46,70,60,.08); display: flex; flex-direction: column; gap: 12px; }
+.consult-tag { align-self: flex-start; height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #EFFBF5; font-size: 12px; font-weight: 500; color: #23805A; }
+.consult-t { margin: 0; font-size: 18px; line-height: 1.45; font-weight: 700; color: var(--ink); }
+.consult-l { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 13px; color: var(--ink3); }
+.consult-l li { display: flex; gap: 8px; align-items: baseline; }
+.consult-l li::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); transform: translateY(-2px); }
+.consult-btn { margin-top: 4px; height: 52px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; background: var(--mint); color: #12382A; font-size: 16px; font-weight: 700; text-decoration: none; }
+.consult-btn:hover { background: #4FD29A; }
+.consult-h { margin: 0; font-size: 12px; color: var(--muted); text-align: center; }
+
+/* ---------- 상담 신청 (consult.html) ---------- */
+.cs .icon-btn { margin-left: -14px; }
+.cs-h { margin: 22px 0 10px; font-size: 22px; line-height: 1.4; font-weight: 700; color: var(--ink); }
+.cs-q { margin: 30px 0 0; padding: 0; border: 0; min-width: 0; }
+.cs-q legend { padding: 0; margin-bottom: 12px; font-size: 15px; font-weight: 700; color: var(--ink2); }
+.cs-q .hint { margin: -6px 0 12px; }
+.cs-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-pill { min-width: 0; min-height: 44px; padding: 8px 18px; font-size: 14px; }
+.cs-pill[aria-pressed='true'], .cs-checks .check[aria-pressed='true'] { color: #12382A; font-weight: 700; }
+.cs-checks { align-items: stretch; }
+.cs-checks .check { width: 100%; min-height: 50px; }
+.cs-checks .check[aria-pressed='true'] .dot { color: #12382A; }
+.cs-checks .check.cs-soft:not([aria-pressed='true']) { border-style: dashed; border-color: var(--dash); color: var(--muted); }
+.cs-two { display: flex; gap: 8px; }
+.cs-two .cs-pill { flex: 1; }
+.cs-label { display: block; margin: 16px 0 6px; font-size: 12px; color: var(--muted); }
+.cs-input { width: 100%; height: 48px; padding: 0 18px; border: 1px solid var(--pill); border-radius: 14px; background: var(--white); font-size: 15px; color: var(--ink); }
+.cs-input::placeholder { color: var(--ghost); }
+.cs-phone { height: 52px; font-size: 17px; letter-spacing: 0.02em; }
+.cs-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.cs-note { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: var(--soft); }
+.cs-err { margin: 8px 0 0; font-size: 13px; color: #B5452F; }
+.cs-box { margin-top: 30px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--white); }
+.cs-sum { margin: 8px 0 0 30px; font-size: 13px; line-height: 1.6; color: var(--ink3); }
+.cs-box .cs-note { margin-left: 30px; }
+.cs-agree-wrap { margin-top: 18px; }
+.cs-agree { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--ink2); cursor: pointer; }
+.cs-agree input { flex: none; width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--mint-ink); }
+.cs-detail { margin: 8px 0 0 30px; font-size: 12px; color: var(--muted); }
+.cs-detail summary { cursor: pointer; color: var(--mint-ink); }
+.cs-detail ul { margin: 8px 0 0; padding-left: 16px; line-height: 1.7; }
+.cs-submit { width: 100%; justify-content: center; margin-top: 28px; padding: 0 20px; color: #12382A; }
+.cs-submit:disabled { color: var(--ghost); }
+.cs-notice { margin: 12px 0 0; padding: 12px 14px; border-radius: 14px; background: #FFF5E8; font-size: 13px; line-height: 1.6; color: #8A5A16; }
+.cs-alt { margin-top: 10px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--pill); border-radius: 999px; background: var(--white); font-size: 15px; color: var(--ink2); text-decoration: none; }
+.cs-ok { margin-top: 48px; width: 72px; height: 72px; border-radius: 50%; background: var(--mint); color: #12382A; display: grid; place-items: center; }
+.cs-promise { margin: 0; font-size: 15px; line-height: 1.7; color: var(--ink3); }
+.cs-sumbox { margin: 26px 0 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--white); display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.cs-sumbox .cs-sumh { font-size: 12px; color: var(--soft); }
+.cs-sumbox div { display: flex; justify-content: space-between; gap: 12px; }
+.cs-sumbox dt { color: var(--muted); }
+.cs-sumbox dd { margin: 0; color: var(--ink3); text-align: right; }
+a.brand { text-decoration: none; }
+
 @media print {
   body { background: #fff; }
   #app { padding: 0; }

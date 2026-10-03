@@ -47,7 +47,7 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
   const inRange = new Set(e.grades);
 
   const head = `
-    <div class="topbar"><span class="brand">요양원 길잡이</span><button type="button" class="icon-btn no-print" data-act="print" aria-label="결과 저장·인쇄">${ICON.save}</button></div>
+    <div class="topbar"><a class="brand" href="index.html">요양원 길잡이</a><button type="button" class="icon-btn no-print" data-act="print" aria-label="결과 저장·인쇄">${ICON.save}</button></div>
     <p class="greet">결과가 나왔어요</p>
     <div class="bar"><i style="width:100%"></i></div>`;
 
@@ -57,6 +57,17 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
       <h2 id="res-title" tabindex="-1">${esc(v.title)}</h2>
       <p class="vb">${esc(v.body)}</p>
       ${v.detail ? more('왜 그런가요', `<p>${esc(v.detail)}</p>${src(kb, f.rule_ids)}`) : ''}
+    </div>`;
+
+  // 무료 상담 연결 (결과 바로 아래). 등급이 있으면 맞는 곳 찾기, 없으면 등급 받기부터
+  const graded = !!r.decide.decisions.find((d) => d.id === 'B' && d.inputs_used?.grade_status === 'graded');
+  const consult = `
+    <div class="consult no-print">
+      <span class="consult-tag">무료 상담</span>
+      <p class="consult-t">${graded ? '가까운 맞는 곳 찾기,<br>같이 도와드릴게요' : '등급 받기부터 맞는 곳 찾기까지,<br>같이 준비해 드릴게요'}</p>
+      <ul class="consult-l"><li>사시는 동네 가까이에서 요양원·주간보호·방문요양</li><li>지금 답하신 결과를 보고 상담해요</li><li>기관에서 소개비를 받지 않아요</li></ul>
+      <a class="consult-btn" href="consult.html?from=result">1분 상담 신청${ICON.right}</a>
+      <p class="consult-h">오전 10시~오후 7시 · 보통 2~3시간 안에 연락드려요</p>
     </div>`;
 
   const grade = `
@@ -217,7 +228,7 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
 
   return `
   <section class="card" aria-labelledby="res-title">
-    ${head}${verdict}${grade}${situation}${todo}
+    ${head}${verdict}${consult}${grade}${situation}${todo}
     <div class="accs">${panels.join('')}</div>
     <div class="bottom-btns no-print">
       <button type="button" class="btn-line" data-act="edit">답 고치기</button>
