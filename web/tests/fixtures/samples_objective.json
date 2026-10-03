@@ -14,7 +14,7 @@
     { "id": "S08", "answers": { "age": "over65", "insurance": "health", "dementia": "suspected", "grade": "none", "COG-01": "yes" } },
     { "id": "S09", "answers": { "age": "over65", "grade": "3", "validity_end": "2026-12-20", "goal": "home" } },
     { "id": "S10", "answers": { "grade": "pending", "applied_date": "2026-09-10" } },
-    { "id": "S11", "answers": { "age": "over65", "grade": "out_of_grade", "notice_date": "2026-10-01", "PHY-10": "3" } },
+    { "id": "S11", "answers": { "age": "over65", "grade": "out_of_grade", "grade_feel": "low", "notice_date": "2026-10-01", "PHY-10": "3" } },
     { "id": "S12", "answers": { "age": "over65", "grade": "4", "dissatisfied": "yes", "grade_feel": "low", "notice_date": "2026-09-20", "facility_in_cert": "no", "caregiver": "family_hard", "goal": "facility" } },
     { "id": "S13", "answers": { "age": "over65", "insurance": "health", "grade": "none", "living": "alone", "caregiver": "nobody" } },
     { "id": "S14", "answers": { "age": "over65", "insurance": "medical_aid_basic", "grade": "3", "facility_in_cert": "no", "caregiver": "family_hard", "goal": "facility" } },

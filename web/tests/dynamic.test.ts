@@ -79,7 +79,7 @@ describe('주 돌봄자 상황 (시설급여 사유 ①)', () => {
     expect(run({ ...base, caregiver: 'nobody' }).r.facility.reasons[0].likelihood).toBe('high');
   });
   test('주거 문제(난방) → ② 해당 가능성, 센터 거절 → ③ 해당 가능성 높음', () => {
-    const r = run({ ...base, housing: ['heating'], behavior_service: 'refused' });
+    const r = run({ ...base, housing: ['heating'], place: 'home_service', behavior_service: 'refused' }); // 센터 거절 질문은 방문 서비스를 이용할 때만 나온다
     expect(r.r.facility.reasons[1].likelihood).toBe('possible');
     expect(r.r.facility.reasons[2].likelihood).toBe('high');
     expect((r.dec.D.data as any).reasons.map((x: any) => x.code)).toEqual(['②', '③']);

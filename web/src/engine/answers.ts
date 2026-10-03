@@ -66,9 +66,19 @@ export function otherNotes(kb: Kb, raw: Answers): { stepId: string; title: strin
 
 /** 질문 답 → 엔진 입력 (조사 항목 값·돌봄 정보 등) */
 export function expandAnswers(kb: Kb, raw: Answers): Answers {
+  const steps = kb.questionnaire.steps;
   const a: Answers = { ...kb.questionnaire.defaults, ...raw };
   delete (a as any)._note;
-  for (const s of kb.questionnaire.steps) {
+  // 원칙: 지금 보이지 않는 질문의 답은 계산에 쓰지 않는다 (답을 고친 이력과 무관하게 같은 결과가 나오도록)
+  // 보호자가 직접 답한 값은 다른 질문의 sets 로 덮지 않는다 — 단, 그 질문이 지금 보일 때만
+  const explicit = (k: string) => {
+    if (raw[k] === undefined) return false;
+    const st = steps.find((x) => x.id === k);
+    return !st || isVisible(st, a, steps);
+  };
+  const filled = new Set<string>(); // 다른 질문의 sets 로 채운 키
+  for (const s of steps) {
+    if (!s.gate && s.when && !filled.has(s.id) && !isVisible(s, a, steps)) delete a[s.id]; // 숨겨진 질문의 옛 답 제거 (sets 로 채운 값은 유지)
     if (s.type === 'chips') {
       const itemChips = (s.options ?? []).every((o) => ITEM.test(o.value));
       if (!itemChips) continue; // 주거 문제처럼 항목이 아닌 체크는 값 목록 그대로 사용
@@ -78,15 +88,15 @@ export function expandAnswers(kb: Kb, raw: Answers): Answers {
       continue;
     }
     const v = raw[s.id];
-    if (v === undefined || !isVisible(s, a, kb.questionnaire.steps)) continue;
+    if (v === undefined || !isVisible(s, a, steps)) continue;
     if (s.gate_for) continue; // 먼저 묻기 질문은 위 chips 처리에서 반영
     if (s.type === 'single') {
       if (v === UNKNOWN) {
-        for (const o of s.options ?? []) for (const k of Object.keys(o.sets ?? {})) if (ITEM.test(k)) a[k] = UNKNOWN; else if (raw[k] === undefined) delete a[k];
+        for (const o of s.options ?? []) for (const k of Object.keys(o.sets ?? {})) if (ITEM.test(k)) a[k] = UNKNOWN; else if (!explicit(k)) delete a[k];
         continue;
       }
       const opt = (s.options ?? []).find((o) => o.value === v);
-      for (const [k, val] of Object.entries(opt?.sets ?? {})) if (raw[k] === undefined || ITEM.test(k)) a[k] = val;
+      for (const [k, val] of Object.entries(opt?.sets ?? {})) if (!explicit(k) || ITEM.test(k)) { a[k] = val; filled.add(k); }
     }
   }
   return a;

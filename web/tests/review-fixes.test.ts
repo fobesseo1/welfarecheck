@@ -73,3 +73,42 @@ describe('3. 나이를 바꾼 뒤 남은 질병 답', () => {
     expect(expandAnswers(kb, a).dementia).toBe('diagnosed');
   });
 });
+
+describe('3-2. 숨겨진 질문의 옛 답은 계산에 쓰지 않음 (2026-10-03 재검증 보고서)', () => {
+  const base: Answers = { insurance: 'health', grade: 'none', ...items('1'), b_wash: '1', b_dress: '1', b_eat: '1', b_move: '1', b_toilet: '1', b_limbs: '1', b_joints: '1', nursing_gate: 'no', memory_gate: 'no', behavior_gate: 'no', carer: 'family_ok', place: 'home', housing: [] };
+  test.each(['none', 'suspected', 'unknown'])('65세 미만·치매 선택 후 남은 치매 답 %s → 처음부터 입력한 것과 같은 결과', (stale) => {
+    const fresh = { ...base, age: 'under65', disease: 'dementia' };
+    const edited = { ...fresh, dementia: stale };
+    expect(expandAnswers(kb, edited).dementia).toBe('diagnosed');
+    const f = buildResult(kb, fresh, TODAY), e = buildResult(kb, edited, TODAY);
+    expect(e.estimate.label).toBe(f.estimate.label);
+    expect(e.verdict).toEqual(f.verdict);
+  });
+
+  // 어떤 현재 답이든: 숨겨진 질문마다 옛 답(첫 선택지)을 끼워 넣어도 결과가 같아야 한다
+  const profiles: Answers[] = [
+    { ...base, age: 'under65', disease: 'dementia' },
+    { ...base, age: 'under65', disease: 'none', dementia: 'none' },
+    { ...base, age: 'over65', dementia: 'none' },
+    { ...base, age: 'over65', dementia: 'diagnosed', memory_gate: 'yes', memory: ['COG-01'], dem_adl: 'partial' },
+    { ...base, age: 'over65', dementia: 'none', grade: '4', facility_in_cert: 'no', grade_feel: 'ok', validity_end: '2027-05-01' },
+    { ...base, age: 'over65', dementia: 'none', grade: 'pending', applied_date: '2026-09-20' },
+    { ...base, age: 'over65', dementia: 'suspected', place: 'home_service', behavior_service: 'ok' },
+  ];
+  test.each(profiles.map((p, i) => [i, p] as const))('사례 %i: 옛 답을 끼워도 결과가 같음', (_i, fresh) => {
+    const shown = new Set(visibleSteps(kb, fresh).map((s) => s.id));
+    const edited: Answers = { ...fresh };
+    for (const s of kb.questionnaire.steps) {
+      if (shown.has(s.id) || s.gate) continue;
+      const first = s.options?.[0]?.value;
+      if (first !== undefined) edited[s.id] = s.type === 'chips' ? [first] : first;
+      else if (s.type === 'date') edited[s.id] = '2026-01-01';
+    }
+    const f = buildResult(kb, fresh, TODAY), e = buildResult(kb, edited, TODAY);
+    expect(visibleSteps(kb, edited).map((s) => s.id)).toEqual([...shown]);
+    expect(e.estimate.label).toBe(f.estimate.label);
+    expect(e.verdict).toEqual(f.verdict);
+    expect(e.actions.map((x) => x.id)).toEqual(f.actions.map((x) => x.id));
+    expect(e.decide.documents.map((d) => d.id)).toEqual(f.decide.documents.map((d) => d.id));
+  });
+});
