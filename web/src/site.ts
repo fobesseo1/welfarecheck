@@ -1,7 +1,7 @@
 // 사이트 연락처·회사 정보. 정해지면 여기만 채우면 홈페이지·상담 신청·결과 화면에 한꺼번에 반영된다.
 // 빈 값('')인 항목은 화면에서 감춘다(미완성 칸이 보이지 않게).
 export const SITE = {
-  name: '요양원 길잡이',
+  name: '모심듀오',
   /** 상담 신청을 받을 구글 Apps Script 웹 앱 주소 (docs/CONSULT_SHEET_SETUP.md). 비어 있으면 신청서는 '준비 중' 안내만 한다 */
   consultEndpoint: '',
   /** 카카오톡 채널 채팅 주소 (예: https://pf.kakao.com/_xxxx/chat) */

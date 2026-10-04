@@ -119,7 +119,7 @@ function renderDone(): string {
   const direct = directButtons();
   return `
   <section class="card cs" aria-labelledby="cs-done">
-    <div class="topbar"><a class="brand" href="index.html">${esc(SITE.name)}</a></div>
+    <div class="topbar"><a class="brand" href="index.html"><img src="brand/mosimduo-symbol.svg" alt="" width="22" height="22" />${esc(SITE.name)}</a></div>
     <div class="cs-ok">${ICON.ok}</div>
     <h1 id="cs-done" class="cs-h" tabindex="-1">상담 신청이 됐어요</h1>
     <p class="cs-promise">${esc(SITE.hours)}, ${esc(SITE.promise.replace('운영 시간에는 ', ''))}</p>

@@ -22,7 +22,7 @@ document.addEventListener('click', (ev) => {
 // 화면에 보일 때만 재생하고, '동작 줄이기' 설정이면 자동 재생하지 않고 재생 버튼을 보여준다.
 (() => {
   const box = document.getElementById('h-vid');
-  const v = box?.querySelector('video') as HTMLVideoElement | null;
+  const v = box?.querySelector('video') as HTMLVideoElement | null; // 타일 안 영상
   if (!box || !v) return;
   const tall = matchMedia('(max-width: 720px)').matches;
   const f = tall ? 'intro-20s-vertical' : 'intro-45s';
@@ -50,5 +50,98 @@ const c = SITE.company;
 const company = [c.name, c.ceo && `대표 ${c.ceo}`, c.bizNo && `사업자등록번호 ${c.bizNo}`, c.address, SITE.phone].filter(Boolean).join(' · ');
 const el = document.getElementById('h-company');
 if (el && company) el.textContent = ` · ${company}`;
-const hours = document.getElementById('h-hours');
-if (hours) hours.textContent = `${SITE.hours} · ${SITE.promise}`;
+
+
+// 스크롤하면 부드럽게 나타남. '동작 줄이기'이거나 관찰 기능이 없으면 바로 보이게
+(() => {
+  const els = [...document.querySelectorAll<HTMLElement>('.rv')];
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || typeof IntersectionObserver === 'undefined') { els.forEach((e) => e.classList.add('in')); return; }
+  const io = new IntersectionObserver((list) => {
+    for (const e of list) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach((e) => io.observe(e));
+})();
+
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/** 화면에 보일 때만 콜백을 켜고 끈다 */
+function whileVisible(el: Element, on: () => void, off: () => void) {
+  if (typeof IntersectionObserver === 'undefined') { on(); return; }
+  new IntersectionObserver(([e]) => (e.isIntersecting ? on() : off()), { threshold: 0.05 }).observe(el);
+}
+
+// 낯선 말 목록: 한 칸씩 위로 흐르고, 가운데 말이 크게 (끝까지 가면 처음으로 이어짐)
+(() => {
+  const ul = document.getElementById('h-roll');
+  if (!ul) return;
+  const base = [...ul.children] as HTMLElement[];
+  const n = base.length, CENTER = 2;
+  base.forEach((li) => ul.appendChild(li.cloneNode(true)));
+  const items = [...ul.children] as HTMLElement[];
+  let idx = 0;
+  const paint = (animate: boolean) => {
+    const row = items[0].offsetHeight || 64;
+    ul.style.transition = animate ? '' : 'none';
+    items.forEach((li) => (li.style.transition = animate ? '' : 'none'));
+    ul.style.transform = `translateY(${-idx * row}px)`;
+    items.forEach((li, i) => li.classList.toggle('on', i === idx + CENTER));
+    if (!animate) { void ul.offsetHeight; ul.style.transition = ''; items.forEach((li) => (li.style.transition = '')); }
+  };
+  paint(false);
+  if (reduceMotion) return;
+  let timer: number | undefined;
+  const step = () => {
+    idx += 1; paint(true);
+    if (idx >= n) window.setTimeout(() => { idx -= n; paint(false); }, 950);
+  };
+  whileVisible(ul, () => { if (!timer) timer = window.setInterval(step, 2000); }, () => { window.clearInterval(timer); timer = undefined; });
+})();
+
+// 동심원 → 가로선 묶음(오른쪽에서 한 줄로 모임) → 짧은 가로선 → 다시 동심원 (참고: easehealth.com)
+// 원 하나를 위쪽 반원·아래쪽 반원 두 선으로 나눠, 위 반원은 위쪽 선으로·아래 반원은 아래쪽 선으로만 바뀌게 해서 선이 엇갈리지 않는다
+(() => {
+  const svg = document.getElementById('h-rings');
+  if (!svg) return;
+  const paths = [...svg.querySelectorAll('path')];
+  const M = 120, cx = 150, cy = 200;
+  type Pt = [number, number];
+  // 선 j: 원 d = floor(j/2), 짝수는 위쪽, 홀수는 아래쪽
+  const ring = (j: number) => Math.floor(j / 2);
+  const up = (j: number) => j % 2 === 0;
+  const offset = (j: number) => (up(j) ? -1 : 1) * (15 + 30 * ring(j)); // 가로선일 때의 높이
+  const circle = (j: number, s: number): Pt => {
+    const r = 40 + 40 * ring(j), a = Math.PI * s; // 왼쪽 → (위 또는 아래) → 오른쪽
+    return [cx - r * Math.cos(a), cy + (up(j) ? -1 : 1) * r * Math.sin(a)];
+  };
+  const smooth = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
+  // 가로선 묶음: 왼쪽 끝부터 나란히 가다가 오른쪽에서 한 점으로 모여 한 줄로 이어짐
+  const bundle = (j: number, s: number): Pt => {
+    const x = -20 + 1330 * s;
+    return [x, cy + offset(j) * (1 - smooth((x - 560) / 260))];
+  };
+  // 짧은 가로선: 오른쪽 끝이 왼쪽으로 물러남
+  const short = (j: number, s: number): Pt => [-20 + 400 * s, cy + offset(j)];
+  // [모양, 머무는 시간, 다음 모양으로 바뀌는 시간]
+  const seq: [(j: number, s: number) => Pt, number, number][] = [[circle, 1.2, 2.6], [bundle, 1.2, 1.8], [short, 0.8, 2.6]];
+  const total = seq.reduce((n, [, h, m]) => n + h + m, 0);
+  const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const draw = (time: number) => {
+    let f = (time / 1000) % total, k = 0;
+    while (f > seq[k][1] + seq[k][2]) { f -= seq[k][1] + seq[k][2]; k++; }
+    const [from, hold, morph] = seq[k], to = seq[(k + 1) % seq.length][0];
+    const m = f < hold ? 0 : ease((f - hold) / morph);
+    paths.forEach((p, j) => {
+      let d = '';
+      for (let i = 0; i <= M; i++) {
+        const s = i / M;
+        const [x1, y1] = from(j, s), [x2, y2] = to(j, s);
+        d += `${i ? 'L' : 'M'}${(x1 + (x2 - x1) * m).toFixed(1)} ${(y1 + (y2 - y1) * m).toFixed(1)}`;
+      }
+      p.setAttribute('d', d);
+    });
+  };
+  // 스크롤과 상관없이 화면에 보이는 동안 계속 자동으로 움직인다 (화면 밖에서는 쉬어서 전력 절약)
+  draw(0);
+  let raf = 0, t0 = 0, acc = 0;
+  const loop = (now: number) => { if (!t0) t0 = now; draw(acc + now - t0); raf = requestAnimationFrame(loop); };
+  whileVisible(svg, () => { if (!raf) { t0 = 0; raf = requestAnimationFrame(loop); } }, () => { if (raf) { cancelAnimationFrame(raf); raf = 0; acc += performance.now() - t0; } });
+})();

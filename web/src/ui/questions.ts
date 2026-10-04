@@ -20,7 +20,7 @@ export function renderStart(hasSaved: boolean, stepCount: number, finished = fal
   const label = finished && hasSaved ? '결과 다시 보기' : hasSaved ? '이어서 하기' : '시작하기';
   return `
   <section class="card" aria-labelledby="start-title">
-    <div class="topbar"><a class="brand" href="index.html">요양원 길잡이</a><button type="button" class="intro-btn no-print" data-act="intro">${ICON.play}소개 영상</button></div>
+    <div class="topbar"><a class="brand" href="index.html"><img src="brand/mosimduo-symbol.svg" alt="" width="22" height="22" />모심듀오</a><button type="button" class="intro-btn no-print" data-act="intro">${ICON.play}소개 영상</button></div>
     <p class="greet">${hasSaved ? '다시 오셨네요' : '시작해 볼게요'}</p>
     <div class="bar"><i style="width:${hasSaved ? 50 : 4}%"></i></div>
     <h1 id="start-title" class="question" tabindex="-1">부모님을 요양원에<br>모실 수 있을까요?</h1>
@@ -109,7 +109,7 @@ export function renderStep(kb: Kb, s: Step, raw: Answers, pos: { index: number; 
   const previewText = pos.returnToResult ? '결과로<br>돌아가요' : pos.next ? esc(pos.next.text) : '결과<br>보기';
   return `
   <section class="card" aria-labelledby="q-${attr(s.id)}">
-    <div class="topbar"><a class="brand" href="index.html">요양원 길잡이</a>${top}</div>
+    <div class="topbar"><a class="brand" href="index.html"><img src="brand/mosimduo-symbol.svg" alt="" width="22" height="22" />모심듀오</a>${top}</div>
     <p class="greet">${esc(greeting(pos.index, pos.total))}</p>
     <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="진행"><i style="width:${Math.max(4, pct)}%"></i></div>
     <p class="stage"><span>${stageIdx + 1}단계 · ${esc(stages[stageIdx]?.title ?? '')}</span>${pos.live ? `<span>지금까지 보면 <b>${esc(pos.live)}</b></span>` : ''}</p>

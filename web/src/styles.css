@@ -1,4 +1,4 @@
-/* 요양원 길잡이 — Claude Design 캔버스 시안을 옮긴 스타일
+/* 모심듀오 — Claude Design 캔버스 시안을 옮긴 스타일
    밝은 바탕 · 얇은 회색 테두리 알약 · 민트 강조 하나 · 글꼴 Pretendard(없으면 Noto Sans KR) · 자간 -0.5% */
 :root {
   --outer: #EDEDED;
@@ -346,7 +346,7 @@ th { font-weight: 500; color: var(--soft); }
 .cs-sumbox div { display: flex; justify-content: space-between; gap: 12px; }
 .cs-sumbox dt { color: var(--muted); }
 .cs-sumbox dd { margin: 0; color: var(--ink3); text-align: right; }
-a.brand { text-decoration: none; }
+a.brand { text-decoration: none; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; color: var(--ink); }
 
 @media print {
   body { background: #fff; }

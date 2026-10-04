@@ -1,5 +1,5 @@
 /**
- * 요양원 길잡이 — 상담 신청을 구글 시트에 한 줄씩 쌓는 Apps Script 웹 앱
+ * 모심듀오 — 상담 신청을 구글 시트에 한 줄씩 쌓는 Apps Script 웹 앱
  * 설치 방법: docs/CONSULT_SHEET_SETUP.md
  *
  * 받는 값은 web/src/engine/consult.ts 의 buildPayload() 와 같은 이름이어야 한다.
