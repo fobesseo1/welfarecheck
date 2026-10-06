@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "description": "등급별로 이용할 수 있는 돌봄 표 (3분 체크 결과 '이용할 수 있는 돌봄'). 가능 여부는 모두 legal_rules.json 규칙에 연결된다",
+    "updated_at": "2026-10-06",
+    "status_codes": {
+      "yes": "이용 가능",
+      "limited": "일부만 가능 (note 참고)",
+      "conditional": "공단 인정이 있어야 가능",
+      "no": "이용 불가"
+    },
+    "basis": "장기요양급여 제공기준 고시(제2026-189호) 제2조·제4조·제13조·제17조·제36조·제36조의2, 복지용구 고시 제3조"
+  },
+  "year": 2026,
+  "monthly_limit": {
+    "values": { "1": 2512900, "2": 2331200, "3": 1528200, "4": 1409700, "5": 1208900, "cognitive": 676320 },
+    "copay_home": 0.15,
+    "rules": ["R-HOME-04", "R-COST-01"],
+    "note": "방문요양·방문목욕·방문간호·주간보호·단기보호를 합쳐 한 달에 쓸 수 있는 금액이에요. 복지용구는 따로(연 160만 원). 넘는 금액은 전부 본인이 내요. 본인부담은 보통 15%이고, 기초생활수급자는 없고 감경 대상은 더 적어요."
+  },
+  "needs": [
+    { "id": "care", "label": "잠깐 간병이 필요해요", "hint": "입원 중·퇴원 후" },
+    { "id": "home", "label": "집에서 도움을 받고 싶어요", "hint": "방문요양·방문목욕" },
+    { "id": "day", "label": "낮에만 맡기고 싶어요", "hint": "주간보호" },
+    { "id": "facility", "label": "요양원을 알아보고 있어요", "hint": "시설 입소" }
+  ],
+  "services": [
+    {
+      "id": "home_visit", "name": "방문요양", "needs": ["home", "care"],
+      "short": "요양보호사가 집에 와서 씻기·식사·옷 갈아입기·집안일을 도와요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "limited", "cognitive": "limited", "none": "no" },
+      "notes": {
+        "5": "치매 관련 인지활동형 방문요양(1회 2~3시간)과 가족휴가제 종일 방문요양만 돼요. 주간보호를 하루 8시간 이상 다니는 날은 그 앞뒤로 일반 방문요양도 돼요.",
+        "cognitive": "가족휴가제 종일 방문요양(연 12일 안)만 돼요."
+      },
+      "rules": ["R-HOME-01", "R-HOME-02", "R-HOME-03", "R-HOME-08"]
+    },
+    {
+      "id": "bath", "name": "방문목욕", "needs": ["home"],
+      "short": "요양보호사 2명이 목욕 장비를 갖고 와서 목욕을 도와요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "yes", "cognitive": "no", "none": "no" },
+      "notes": {},
+      "rules": ["R-HOME-01", "R-HOME-02"]
+    },
+    {
+      "id": "nursing", "name": "방문간호", "needs": ["home", "care"],
+      "short": "간호사가 집에 와서 건강 확인·간호·상담을 해요. 의사의 방문간호지시서가 있어야 해요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "yes", "cognitive": "no", "none": "no" },
+      "notes": {},
+      "rules": ["R-HOME-01", "R-HOME-02", "R-HOME-07"]
+    },
+    {
+      "id": "day", "name": "주간보호 (데이케어)", "needs": ["day"],
+      "short": "낮 동안 센터에서 지내시며 식사·운동·인지 프로그램을 받고 저녁에 집으로 오세요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "yes", "cognitive": "yes", "none": "no" },
+      "notes": {},
+      "rules": ["R-HOME-01", "R-HOME-02", "R-HOME-05"]
+    },
+    {
+      "id": "short", "name": "단기보호", "needs": ["care", "facility"],
+      "short": "가족이 며칠 돌보기 어려울 때 기관에서 며칠 지내세요. 한 달 9일 안이에요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "yes", "cognitive": "limited", "none": "no" },
+      "notes": { "cognitive": "가족휴가제 단기보호(연 12일 안)만 돼요." },
+      "rules": ["R-HOME-01", "R-HOME-02", "R-HOME-08"]
+    },
+    {
+      "id": "equip", "name": "복지용구", "needs": ["home"],
+      "short": "휠체어·안전손잡이·욕창방지 매트 같은 용품을 사거나 빌려요. 연 160만 원 한도예요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "yes", "4": "yes", "5": "yes", "cognitive": "yes", "none": "no" },
+      "notes": {},
+      "rules": ["R-HOME-01", "R-HOME-02", "R-HOME-06"]
+    },
+    {
+      "id": "facility", "name": "요양원", "needs": ["facility"],
+      "short": "요양원에 들어가 지내시며 돌봄을 받아요. 본인부담은 보통 20%와 식비 등이에요.",
+      "by_grade": { "1": "yes", "2": "yes", "3": "conditional", "4": "conditional", "5": "conditional", "cognitive": "no", "none": "no" },
+      "notes": { "3": "가족이 돌보기 어렵거나, 집 환경이 열악하거나, 치매 행동 문제로 집 돌봄이 어렵다고 공단이 인정하면 돼요.", "4": "가족이 돌보기 어렵거나, 집 환경이 열악하거나, 치매 행동 문제로 집 돌봄이 어렵다고 공단이 인정하면 돼요.", "5": "가족이 돌보기 어렵거나, 집 환경이 열악하거나, 치매 행동 문제로 집 돌봄이 어렵다고 공단이 인정하면 돼요." },
+      "rules": ["R-FAC-01", "R-FAC-02", "R-FAC-03", "R-COST-01"]
+    }
+  ],
+  "outside": [
+    {
+      "id": "carer_private", "name": "간병", "show": "always", "needs": ["care"],
+      "short": "병원에 입원해 있는 동안은 장기요양 서비스를 쓸 수 없어요. 개인 간병은 보험이 안 되어 비용을 직접 내요. 입원한 병원에 '간호·간병통합 병동'이 있는지 먼저 물어보세요(건강보험 적용).",
+      "rules": ["R-HOME-09", "R-CARE-02"]
+    },
+    {
+      "id": "mcare", "name": "노인맞춤돌봄서비스 (2026년 기준)", "show": "no_grade",
+      "short": "65세 이상이고 기초생활수급·차상위·기초연금을 받으시면, 등급이 없어도 집으로 오는 안전확인·생활지원을 받을 수 있어요. 퇴원 후에는 월 44시간까지 집중 돌봄도 있어요. 주소지 행정복지센터에 신청해요.",
+      "rules": ["R-COMM-01"]
+    },
+    {
+      "id": "integrated", "name": "의료·돌봄 통합지원", "show": "no_grade",
+      "short": "장기요양 등급이 안 나왔거나 막 퇴원하셨다면, 주소지 시·군·구청에 통합지원을 신청할 수 있어요. 의료·요양·일상돌봄을 묶어 계획을 세워 줘요.",
+      "rules": ["R-COMM-02"]
+    }
+  ]
+}

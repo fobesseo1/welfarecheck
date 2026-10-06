@@ -1,5 +1,13 @@
 # PROGRESS — 작업 재개용 진행 기록
 
+## 2026-10-06 확장 근거 조사 → 근거 DB 반영
+- 확장 기획: [docs/EXPANSION_PLAN.md](docs/EXPANSION_PLAN.md). 요양원만이 아니라 간병·방문요양·주간보호·단기보호까지 다룬다. 홈 제목은 "부모님 돌봄, 어디서부터 시작할까요?"
+- 근거 조사: [docs/EXPANSION_LEGAL_RESEARCH.md](docs/EXPANSION_LEGAL_RESEARCH.md). `sources_raw/07~09` 추가(장기요양 고시 2026-10, 돌봄통합지원법, 2026 노인맞춤돌봄 사업안내)
+- `data/sources.json` 출처 7개 추가, `data/legal_rules.json` 규칙 16개 추가(R-HOME-01~09, R-FAMILY-01, R-COMM-01~02, R-CARE-01~03, R-MED-01) → 총 56개
+- 간병: 특정 간병인 매칭은 유료직업소개 등록 뒤에만. 업체 목록 안내는 진행(사용자 결정)
+- 확장 기능을 모두 구현하고 **기능 스위치로 숨김**(기본 꺼짐, `admin.html` 미리보기, `web/public/features.json`으로 모두에게 켜기). 상세는 EXPANSION_PLAN 8절
+- 테스트 179개 통과
+
 ## 2026-10-04 이름 변경·홈페이지 다시 디자인
 - 이름 '요양원 길잡이' → **모심듀오 · mosimDuo**. 로고를 SVG로 옮김(`web/public/brand/`: 기본·흰 글자·심볼, 앱 아이콘 PNG), 원본은 `assets/brand/`. 탭 아이콘·휴대폰 홈 아이콘 추가
 - 홈페이지: 보도형 타일(bento) 구성, 글꼴 Pretendard만. 첫 화면 = 제목 + 실사 사진 위에 소개 영상 카드, 태블릿·휴대폰은 제목 바로 아래에 사진·영상. 동심원→선 애니메이션 계속 재생
@@ -30,7 +38,7 @@
 **프로젝트 폴더**: `C:\Users\hjdh5\Desktop\welfare_source`
 **마지막 업데이트**: 2026-10-03
 **공개 주소**: https://fobesseo1.github.io/welfarecheck/ (저장소 github.com/fobesseo1/welfarecheck, main 에 push 하면 .github/workflows/pages.yml 이 테스트·빌드 후 자동 배포)
-**현재 단계**: 이름 모심듀오(mosimDuo)로 변경·홈페이지 새 디자인 (2026-10-04), 테스트 154개 통과. 다음: 구글 시트 연결(docs/CONSULT_SHEET_SETUP.md)·연락처·회사 정보 채우기
+**현재 단계**: 돌봄 전체 확장 기능 구현, 스위치로 숨김 (2026-10-06), 테스트 179개 통과. 다음: 구글 시트 연결(docs/CONSULT_SHEET_SETUP.md)·연락처·회사 정보 채우기
 
 ## 목표
 보호자가 **객관식**으로 답하면 → 점수화해서 **대략의 예상 등급**, **요양원 입소 가능 조건(등급이 모자라도 가능한 경우 포함)**, **준비할 절차·서류**를 안내. 정확하지 않아도 대략 맞고 준비할 수 있으면 됨.

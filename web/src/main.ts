@@ -10,16 +10,20 @@ import { openIntro } from './ui/intro.ts';
 import { renderResult } from './ui/result.ts';
 import { buildForm } from './engine/form.ts';
 import { renderForm } from './ui/form.ts';
+import { careSection } from './ui/result.ts';
+import { careData } from './data.ts';
+import { careView, isNeed, type NeedId } from './engine/care.ts';
+import { loadFeatures, applyFeatures, isOn } from './features.ts';
 
 const STORE_KEY = 'ltc-selfcheck-v2';
 type Screen = 'start' | 'result' | 'form' | string; // string = 질문 ID
-interface State { answers: Answers; screen: Screen; returnToResult?: boolean; finished?: boolean; checks?: Record<string, boolean> } // checks: 결과 화면 서류·입소 준비 체크 (이 브라우저에만) // returnToResult: 결과 화면의 '다시 답하기'로 들어온 경우, finished: 결과까지 본 적 있음
+interface State { answers: Answers; screen: Screen; returnToResult?: boolean; finished?: boolean; checks?: Record<string, boolean>; /** 지금 가장 필요한 도움 (점수와 무관, 결과 '이용할 수 있는 돌봄' 순서만 바꿈) */ need?: NeedId } // checks: 결과 화면 서류·입소 준비 체크 (이 브라우저에만) // returnToResult: 결과 화면의 '다시 답하기'로 들어온 경우, finished: 결과까지 본 적 있음
 
 function load(): State {
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY) ?? 'null');
     // 새로고침하면 늘 시작 화면에서 '이어서 하기 / 결과 다시 보기 / 처음부터'를 고르게 한다 (같은 화면에 갇힌 것처럼 보이지 않게)
-    if (s && typeof s === 'object' && s.answers && typeof s.answers === 'object') return { answers: s.answers, screen: 'start', finished: !!s.finished || s.screen === 'result' || s.screen === 'form', checks: s.checks && typeof s.checks === 'object' ? s.checks : {} };
+    if (s && typeof s === 'object' && s.answers && typeof s.answers === 'object') return { answers: s.answers, screen: 'start', finished: !!s.finished || s.screen === 'result' || s.screen === 'form', checks: s.checks && typeof s.checks === 'object' ? s.checks : {}, need: isNeed(s.need) ? s.need : undefined };
   } catch { /* 저장소를 쓸 수 없으면 새로 시작 */ }
   try { localStorage.removeItem('ltc-selfcheck-v1'); } catch { /* 예전 버전 저장값 */ }
   return { answers: {}, screen: 'start' };
@@ -38,12 +42,13 @@ function prefillFromHash(): boolean {
     if (v && s.type === 'single' && s.options?.some((o) => o.value === v)) answers[s.id] = v;
   }
   try { history.replaceState(null, '', location.pathname + location.search); } catch { /* 무시 */ }
-  if (!Object.keys(answers).length) return false;
-  state = { answers, screen: 'start', checks: {} };
+  const need = p.get('need');
+  if (!Object.keys(answers).length) { if (isNeed(need)) { state.need = need; persist(); } return false; }
+  state = { answers, screen: 'start', checks: {}, need: isNeed(need) ? need : undefined };
   return true;
 }
 const prefilled = prefillFromHash();
-const persist = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch { /* 개인정보 보호 모드 등 */ } };
+function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch { /* 개인정보 보호 모드 등 */ } }
 const app = document.getElementById('app')!;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 const steps = () => visibleSteps(kb, state.answers);
@@ -86,7 +91,8 @@ function draw() {
     const r = buildResult(kb, state.answers, today());
     const form = buildForm(kb, formDef, state.answers, r);
     if (state.screen === 'form' && form) { app.innerHTML = renderForm(form); return; }
-    app.innerHTML = renderResult(r, kb, form ? formDef.online : null, state.checks ?? {}); return;
+    const care = isOn('careMatrix') ? careSection(careView(careData, r.careGrades, state.need), careData, kb) : '';
+    app.innerHTML = renderResult(r, kb, form ? formDef.online : null, state.checks ?? {}, care); applyFeatures(app); return;
   }
   let i = list.findIndex((s) => s.id === state.screen);
   if (i < 0) { i = firstUnanswered(); state.screen = list[i]?.id ?? 'result'; if (state.screen === 'result') return draw(); }
@@ -145,7 +151,8 @@ app.addEventListener('click', (ev) => {
     case 'begin': state.answers = {}; go(steps()[0].id); return;
     case 'resume': { const i = firstUnanswered(); go(i < 0 ? 'result' : steps()[i].id); return; }
     case 'show-result': go('result'); return;
-    case 'restart': state = { answers: {}, screen: 'start', checks: {} }; persist(); go(steps()[0].id); return;
+    case 'restart': state = { answers: {}, screen: 'start', checks: {}, need: state.need }; persist(); go(steps()[0].id); return;
+    case 'need': state.need = state.need === val ? undefined : (isNeed(val) ? val : undefined); persist(); redrawKeep(); return;
     case 'edit': state.returnToResult = false; go(steps()[0].id); return;
     case 'form': go('form'); return;
     case 'jump-step': state.returnToResult = true; go(id!); return;
@@ -218,5 +225,9 @@ window.addEventListener('beforeprint', () => app.querySelectorAll('details').for
 const errs = kb.integrity();
 if (errs.length) console.error('[근거 DB 무결성 오류]', errs);
 try { history.replaceState({ screen: state.screen, depth: 0 } satisfies Hist, ''); } catch { /* 무시 */ }
-render();
-if (prefilled) { const i = firstUnanswered(); go(i < 0 ? 'result' : steps()[i].id); }
+// 기능 스위치를 먼저 읽고 그린다 (못 읽으면 새 기능은 모두 꺼진 채로)
+void loadFeatures().then(() => {
+  applyFeatures();
+  render();
+  if (prefilled) { const i = firstUnanswered(); go(i < 0 ? 'result' : steps()[i].id); }
+});

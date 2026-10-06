@@ -2,7 +2,8 @@
 // 연락처는 이 화면에서 상담을 원할 때만, 동의를 받고 받는다. 3분 체크 결과(건강 정보)는 따로 동의한 경우에만 함께 보낸다.
 import { kb } from './data.ts';
 import { SITE, telHref } from './site.ts';
-import { HELP_OPTIONS, CONTACT_OPTIONS, emptyForm, validate, resultSummary, buildPayload, formatPhone, type ConsultForm, type HelpValue } from './engine/consult.ts';
+import { CONTACT_OPTIONS, CARE_WHEN, CARE_PLACE, emptyForm, validate, resultSummary, buildPayload, formatPhone, helpOptions, helpLabel, type ConsultForm, type HelpValue } from './engine/consult.ts';
+import { loadFeatures, applyFeatures, isOn } from './features.ts';
 import { esc, attr } from './ui/html.ts';
 
 const app = document.getElementById('app')!;
@@ -17,6 +18,8 @@ const summary = (() => { try { return resultSummary(kb, savedAnswers(), today())
 
 // 건강 정보 동의는 보호자가 직접 체크해야 한다(기본값 해제)
 let form: ConsultForm = emptyForm();
+// 다른 화면에서 넘어온 값 (?help=care&cg=간병인ID) — 기능 스위치가 켜졌을 때만 받는다(아래 시작부)
+const query = new URLSearchParams(location.search);
 let errors: Record<string, string> = {};
 let screen: 'form' | 'done' = 'form';
 let sending = false;
@@ -62,7 +65,7 @@ function renderForm(): string {
 
     <fieldset class="cs-q"><legend>어떤 도움이 필요하세요?</legend>
       <p class="hint">여러 개 골라도 돼요</p>
-      <div class="checks cs-checks">${HELP_OPTIONS.map((o) => {
+      <div class="checks cs-checks">${helpOptions(isOn('consultMore')).map((o) => {
         const on = form.help.includes(o.value);
         const dot = on ? ICON.check : o.value === 'other' ? ICON.plus : '';
         return `<button type="button" class="check${o.value === 'unknown' ? ' cs-soft' : ''}" data-act="help" data-val="${o.value}" ${pressed(on)}><span class="dot">${dot}</span>${esc(o.label)}</button>`;
@@ -71,6 +74,14 @@ function renderForm(): string {
       <p class="cs-note">요양원·주간보호·방문요양 중 어떤 게 맞는지는 상담하면서 같이 정해요.</p>
       ${err('help')}
     </fieldset>
+    ${form.help.includes('care') ? `<fieldset class="cs-q"><legend>간병은 언제부터 필요하세요?</legend>
+      <div class="cs-pills">${CARE_WHEN.map((o) => `<button type="button" class="pill cs-pill" data-act="careWhen" data-val="${o.value}" ${pressed(form.careWhen === o.value)}>${esc(o.label)}</button>`).join('')}</div>
+      ${err('careWhen')}
+      <p class="cs-label">어디서 돌봐야 하나요? (선택)</p>
+      <div class="cs-two">${CARE_PLACE.map((o) => `<button type="button" class="pill cs-pill" data-act="carePlace" data-val="${o.value}" ${pressed(form.carePlace === o.value)}>${esc(o.label)}</button>`).join('')}</div>
+      ${form.caregiverId ? `<p class="cs-note">간병인 찾기에서 고르신 분(${esc(form.caregiverId)})으로 먼저 알아볼게요.</p>` : ''}
+      <p class="cs-note">급하시면 운영 시간 안에 바로 전화드릴게요.</p>
+    </fieldset>` : ''}
 
     <fieldset class="cs-q"><legend>어떻게 연락드릴까요?</legend>
       <div class="cs-two">${CONTACT_OPTIONS.map((o) => `<button type="button" class="pill cs-pill" data-act="contact" data-val="${o.value}" ${pressed(form.contact === o.value)}>${esc(o.label)}</button>`).join('')}</div>
@@ -112,7 +123,7 @@ function renderForm(): string {
 function renderDone(): string {
   const rows: [string, string][] = [
     ['지역', [form.region, form.dong.trim()].filter(Boolean).join(' · ')],
-    ['필요한 도움', form.help.map((h) => HELP_OPTIONS.find((o) => o.value === h)!.label).join(' · ')],
+    ['필요한 도움', form.help.map(helpLabel).join(' · ')],
     ['연락', `${CONTACT_OPTIONS.find((o) => o.value === form.contact)?.label ?? ''} · ${formatPhone(form.phone)}`],
   ];
   if (form.agreeSensitive && summary) rows.push(['함께 보낸 결과', summary.split(' · ')[0]]);
@@ -166,6 +177,8 @@ app.addEventListener('click', (ev) => {
   const { act, val } = t.dataset;
   if (act === 'region') { form.region = val!; delete errors.region; render(); }
   else if (act === 'contact') { form.contact = val as ConsultForm['contact']; delete errors.contact; render(); }
+  else if (act === 'careWhen') { form.careWhen = val as ConsultForm['careWhen']; delete errors.careWhen; render(); }
+  else if (act === 'carePlace') { form.carePlace = form.carePlace === val ? '' : val as ConsultForm['carePlace']; render(); }
   else if (act === 'help') {
     const v = val as HelpValue; const i = form.help.indexOf(v);
     if (i >= 0) form.help.splice(i, 1); else form.help.push(v);
@@ -186,4 +199,13 @@ app.addEventListener('change', (ev) => {
   if (el.dataset.field === 'phone') { form.phone = formatPhone(el.value); el.value = form.phone; }
 });
 
-render();
+// 기능 스위치를 읽은 뒤 그린다. 간병 상담 바로가기(?help=care)는 consultMore 가 켜졌을 때만 받는다
+void loadFeatures().then(() => {
+  if (isOn('consultMore')) {
+    const h = query.get('help');
+    if (h && helpOptions(true).some((o) => o.value === h)) form.help = [h as HelpValue];
+    if (isOn('caregiverMatch')) form.caregiverId = (query.get('cg') ?? '').slice(0, 40);
+  }
+  render();
+  applyFeatures();
+});

@@ -11,9 +11,12 @@ import approx from '../../data/approx_model.json' with { type: 'json' };
 import questionnaire from '../../data/questionnaire.json' with { type: 'json' };
 import applicationForm from '../../data/application_form.json' with { type: 'json' };
 import guide from '../../data/guide_content.json' with { type: 'json' };
+import careServices from '../../data/care_services.json' with { type: 'json' };
 import { Kb, type RawData } from './engine/kb.ts';
 import type { FormDef } from './engine/form.ts';
+import type { CareData } from './engine/care.ts';
 
 export const raw = { legalRules, sources, documents, procedures, items, diseases, formula, trees, approx, questionnaire, guide } as unknown as RawData;
 export const kb = new Kb(raw);
 export const formDef = applicationForm as unknown as FormDef;
+export const careData = careServices as unknown as CareData;

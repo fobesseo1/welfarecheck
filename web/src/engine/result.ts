@@ -42,6 +42,8 @@ export interface GuideResult {
   notes: { stepId: string; title: string; text: string }[];
   /** 자세히 보기 칸들(접수 경로·서류·병원·방문조사·입소·상황별) */
   guide: Guide;
+  /** '이용할 수 있는 돌봄' 표에 쓸 등급 (현재 등급이 있으면 그것, 신청 대상이 아니면 등급외, 아니면 예상 등급) */
+  careGrades: GradeCode[];
 }
 
 const hitReasons = (rs: FacilityReason[]) => rs.filter((r) => r.likelihood === 'high' || r.likelihood === 'possible');
@@ -181,5 +183,6 @@ export function buildResult(kb: Kb, raw: Answers, today: string): GuideResult {
     tips: tipsFor(kb, raw, a, est, reasons, conditional),
     notes: otherNotes(kb, raw),
     guide: buildGuide(kb, kb.guide, raw, a, dec, verdict.tone),
+    careGrades: graded ? [g as GradeCode] : notEligible ? ['none'] : est.grades,
   };
 }

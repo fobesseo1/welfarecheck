@@ -41,7 +41,7 @@
       <section class="h-wrap h-hero" aria-labelledby="h-title">
         <div class="h-hero-head">
           <span class="chip">보호자를 위한 무료 돌봄 상담</span>
-          <h1 id="h-title" class="serif">부모님을 요양원에<br /><em>모실 수 있을까요?</em></h1>
+          <h1 id="h-title" class="serif"><span data-feature-off="homeHub">부모님을 요양원에<br /><em>모실 수 있을까요?</em></span><span data-feature="homeHub" hidden>부모님 돌봄,<br /><em>어디서부터 시작할까요?</em></span></h1>
         </div>
         <div class="h-hero-visual">
           <img class="h-hero-photo" src="img/01-hero-family.webp" alt="" width="1200" height="800" />
@@ -65,6 +65,19 @@
             <li>공식 법령·고시 기준으로 계산</li>
           </ul>
         </div>
+      </section>
+
+      <!-- 2. (기능 스위치 homeHub) 어떤 도움이 필요하세요? 상황 카드 4개 -->
+      <section class="h-wrap h-needs" aria-labelledby="h-needs-t" data-feature="homeHub" hidden>
+        <h2 id="h-needs-t" class="serif">어떤 도움이 필요하세요?</h2>
+        <div class="h-needs-grid">
+          <a class="t h-need" href="care.html" data-feature="homeHub careGuide" hidden><span class="h-need-i" aria-hidden="true">🩺</span><b>잠깐 간병이 필요해요</b><span>입원 중이거나 막 퇴원하셨어요</span></a>
+          <a class="t h-need" href="check.html#need=care" data-feature="homeHub" data-feature-off="careGuide" hidden><span class="h-need-i" aria-hidden="true">🩺</span><b>잠깐 간병이 필요해요</b><span>입원 중이거나 막 퇴원하셨어요</span></a>
+          <a class="t h-need" href="check.html#need=home"><span class="h-need-i" aria-hidden="true">🏠</span><b>집에서 도움을 받고 싶어요</b><span>방문요양 · 방문목욕</span></a>
+          <a class="t h-need" href="check.html#need=day"><span class="h-need-i" aria-hidden="true">☀️</span><b>낮에만 맡기고 싶어요</b><span>주간보호 (데이케어)</span></a>
+          <a class="t h-need" href="check.html#need=facility"><span class="h-need-i" aria-hidden="true">🏡</span><b>요양원을 알아보고 있어요</b><span>입소 조건 · 준비할 것</span></a>
+        </div>
+        <p class="h-needs-n">어느 쪽이든 3분 체크로 예상 등급과 쓸 수 있는 돌봄을 먼저 알려드려요.</p>
       </section>
 
       <!-- 3. 낯선 말 + 숫자 -->
@@ -171,6 +184,7 @@
           <article class="t t-white h-photo rv"><img src="img/04-day-care.webp" alt="" loading="lazy" width="1200" height="800" /><div><h3>주간보호 (데이케어)</h3><p>낮 동안 센터에서 지내시고 집으로 돌아오세요.</p><p class="small">1~5등급과 인지지원등급이 이용할 수 있어요.</p></div></article>
           <article class="t t-white h-photo rv"><img src="img/05-home-care.webp" alt="" loading="lazy" width="1200" height="800" /><div><h3>방문요양</h3><p>요양보호사가 집으로 와서 씻기·식사 같은 일을 도와드려요.</p><p class="small">1~5등급이 이용할 수 있어요.</p></div></article>
         </div>
+        <article class="t t-mint h-carer" data-feature="homeHub" hidden><div><h3>간병</h3><p>입원 중이거나 퇴원 직후, 곁에서 돌봐 줄 사람이 필요할 때예요. 장기요양등급이 없어도 돼요.</p><p class="small">개인 간병은 보험이 안 돼 비용을 직접 내요. 병원의 간호·간병통합 병동은 건강보험이 돼요.</p></div><a class="h-btn ghost" href="care.html" data-feature="careGuide" hidden>간병 안내 보기</a></article>
       </section>
 
       <!-- 8. 상담 타일 -->

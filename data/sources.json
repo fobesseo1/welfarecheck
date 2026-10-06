@@ -141,27 +141,35 @@
       "title": "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
       "type": "보건복지부 고시",
       "issuer": "보건복지부",
-      "version": "보건복지부고시 제2025-247호",
-      "amended_date": "2025-12-30 발령",
-      "effective_date": "2026-01-01 (제11조의6·제11조의7 개정규정은 2026-07-01)",
+      "version": "보건복지부고시 제2026-189호 (이전 제2025-247호)",
+      "amended_date": "2026-10-01 발령",
+      "effective_date": "2026-10-01",
       "current_status": "현행",
-      "url_primary": "https://www.law.go.kr (행정규칙 검색)",
+      "url_primary": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000285470",
       "url_accessed": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637&SEQ_HISTORY=595646",
       "verification_status": "OFFICIAL_VERIFIED",
       "verified_articles": [
+        "제13조(재가급여 월 한도액)",
+        "제17조(방문요양)",
+        "제17조제7항(5등급 방문요양 제한)",
+        "제18조(방문요양 급여비용)",
+        "제27조(방문간호)",
+        "제2조(급여제공의 일반 원칙)",
         "제2조제2항(시설급여 대상)",
         "제2조제3항(인지지원등급 이용 급여)",
-        "제17조제7항(5등급 방문요양 제한)"
+        "제30조·제31조(주·야간보호)",
+        "제36조·제36조의2·제37조(단기보호·가족휴가제)",
+        "제44조(시설급여 비용)",
+        "제4조(중복제공 금지)",
+        "제79조(가족요양비)"
       ],
-      "unverified_articles": [
-        "재가급여 월 한도액·시설급여 1일 비용 금액표(서비스 범위 밖, 미사용)"
-      ],
+      "unverified_articles": [],
       "used_for": [
         "시설급여 이용 가능 등급",
         "3~5등급 예외 인정 사유",
         "인지지원등급 급여 범위"
       ],
-      "raw_file": "sources_raw/04_장기요양급여_제공기준_고시_2026-01-01.pdf"
+      "raw_file": "sources_raw/07_장기요양급여_제공기준_고시_2026-10-01.pdf (이전판 sources_raw/04, 이 프로젝트가 쓰는 조문·금액 동일)"
     },
     {
       "id": "SRC-NOTICE-GRADING",
@@ -388,7 +396,9 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "2026-09-30 원문 확인: 신청방법(공단 방문·우편·팩스·인터넷·「건강보험25시」앱·정부24(생애 최초)), 65세 미만(최초·재신청)·외국인은 인터넷·앱 신청 불가, 갱신은 통화자 신분확인 후 유선 신청 가능, 신청인 유형별 첨부 신분증, 급여종류·내용 변경 시 사실확인서(필요시)·사유에 따른 증빙서류, 의사소견서 발급비용 부담률(일반 20% / 경감 10% / 의료급여(1호 외) 10% / 의료급여 1호 0%), 최근 6개월 이내 입·퇴원·수술 등 급성기 질환은 심의 보류·기각될 수 있음, 방문조사 장소·시간 협의 조정 가능, 12개 영역 90개 항목 조사 중 52개 항목으로 요양인정점수 산정",
-      "used_for": ["결과 화면: 접수 경로, 준비서류, 의사소견서, 방문조사 안내"]
+      "used_for": [
+        "결과 화면: 접수 경로, 준비서류, 의사소견서, 방문조사 안내"
+      ]
     },
     {
       "id": "SRC-NHIS-DOCTOR-SEARCH",
@@ -399,7 +409,9 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "원문: '의사소견서 발급 의료기관(일반)으로 조회되는 기관은 최근 1년 간 인터넷발급이력이 있는 기관이며, 해당 기관 외에도 의료기관 소속 의사 또는 한의사를 통해 발급이 가능'",
-      "used_for": ["결과 화면: 병원·의사소견서"]
+      "used_for": [
+        "결과 화면: 병원·의사소견서"
+      ]
     },
     {
       "id": "SRC-NHIS-BRANCH",
@@ -410,7 +422,9 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "원문: 178개 지사·54개 출장소 중 강남동부·강남북부·서초북부·영등포북부지사, 광산출장소는 장기요양 운영센터가 없음",
-      "used_for": ["결과 화면: 방문·우편·팩스 접수처 찾기"]
+      "used_for": [
+        "결과 화면: 방문·우편·팩스 접수처 찾기"
+      ]
     },
     {
       "id": "SRC-NHIS-FORMS",
@@ -421,7 +435,9 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "인정절차 원문: 알림·자료실 > 서식자료실 > [별지 제1호의2 서식] 장기요양인정신청서를 내려받을 수 있음",
-      "used_for": ["결과 화면: 신청서 양식 내려받기"]
+      "used_for": [
+        "결과 화면: 신청서 양식 내려받기"
+      ]
     },
     {
       "id": "SRC-NHIS-RESULT",
@@ -432,7 +448,9 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "개인 서비스 > 나의 신청 내역 > 등급판정 결과 조회 및 출력 (로그인 필요)",
-      "used_for": ["결과 화면: 판정 대기·결과 확인"]
+      "used_for": [
+        "결과 화면: 판정 대기·결과 확인"
+      ]
     },
     {
       "id": "SRC-NHIS-APPEAL",
@@ -443,7 +461,149 @@
       "verification_status": "OFFICIAL_GUIDE",
       "accessed": "2026-09-30",
       "note": "원문: 처분이 있음을 안 날부터 90일 이내 문서로(정당한 사유 증명 시 예외), 방법은 공단 방문·우편·팩스 및 온라인, 결정은 접수일부터 60일 이내(부득이하면 30일 연장), 불복 시 결정통지 받은 날부터 90일 이내 재심사청구",
-      "used_for": ["결과 화면: 등급외·결과 불만 시 이의신청"]
+      "used_for": [
+        "결과 화면: 등급외·결과 불만 시 이의신청"
+      ]
+    },
+    {
+      "id": "SRC-CARE-INTEGRATION",
+      "title": "의료ㆍ요양 등 지역 돌봄의 통합지원에 관한 법률(돌봄통합지원법)",
+      "type": "법률",
+      "issuer": "보건복지부",
+      "version": "법률 제20445호",
+      "effective_date": "2026-03-27",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=265469",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제10조",
+        "제11조",
+        "제12조",
+        "제13조",
+        "제14조"
+      ],
+      "used_for": [
+        "등급외·퇴원 직후 통합지원 신청 안내"
+      ],
+      "raw_file": "sources_raw/08_돌봄통합지원법_2026-03-27.pdf"
+    },
+    {
+      "id": "SRC-MCARE-2026",
+      "title": "2026년 노인맞춤돌봄서비스 사업안내",
+      "type": "보건복지부 사업지침",
+      "issuer": "보건복지부",
+      "version": "2026년판",
+      "current_status": "현행(매년 개정)",
+      "url_primary": "https://www.1661-2129.or.kr",
+      "verification_status": "OFFICIAL_GUIDE",
+      "verified_articles": [
+        "4~6쪽(대상·제외·대상자 군)",
+        "31쪽(신청)",
+        "54쪽(입원 시 중지)"
+      ],
+      "used_for": [
+        "등급외 예상 시 대안 안내",
+        "퇴원후돌봄군 안내"
+      ],
+      "raw_file": "sources_raw/09_2026_노인맞춤돌봄서비스_사업안내.pdf"
+    },
+    {
+      "id": "SRC-NOTICE-EQUIP",
+      "title": "복지용구 급여범위 및 급여기준 등에 관한 고시",
+      "type": "보건복지부 고시",
+      "issuer": "보건복지부",
+      "version": "보건복지부고시 제2026-13호",
+      "effective_date": "2026-01-20",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/행정규칙/복지용구급여범위및급여기준등에관한고시",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제3조(연 한도액)"
+      ],
+      "used_for": [
+        "복지용구 연 한도"
+      ],
+      "raw_file": "(law.go.kr 2026-10-06 열람)"
+    },
+    {
+      "id": "SRC-JOB-ACT",
+      "title": "직업안정법",
+      "type": "법률",
+      "issuer": "고용노동부",
+      "version": "법률 제20121호",
+      "effective_date": "2024-07-24",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/법령/직업안정법",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조의2",
+        "제18조",
+        "제19조",
+        "제23조"
+      ],
+      "used_for": [
+        "간병인 연결의 직업소개 해당 여부"
+      ],
+      "raw_file": "(law.go.kr 2026-10-06 열람)"
+    },
+    {
+      "id": "SRC-JOB-FEE",
+      "title": "국내유료직업소개요금 등 고시",
+      "type": "고용노동부 고시",
+      "issuer": "고용노동부",
+      "version": "고용노동부고시 제2017-22호",
+      "effective_date": "2017-07-01",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/행정규칙/국내유료직업소개요금등고시",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "I.1~4"
+      ],
+      "used_for": [
+        "간병 소개요금 상한"
+      ],
+      "raw_file": "(law.go.kr 2026-10-06 열람)"
+    },
+    {
+      "id": "SRC-JOB-INFO-RULE",
+      "title": "직업정보제공사업 신고업무 처리 규정",
+      "type": "고용노동부 예규",
+      "issuer": "고용노동부",
+      "version": "고용노동부예규 제142호",
+      "effective_date": "2019-01-01",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000169910",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제2조",
+        "제3조"
+      ],
+      "used_for": [
+        "직업소개와 직업정보제공 구별"
+      ],
+      "raw_file": "(law.go.kr 2026-10-06 열람)"
+    },
+    {
+      "id": "SRC-MEDICAL-ACT",
+      "title": "의료법",
+      "type": "법률",
+      "issuer": "보건복지부",
+      "version": "법률 제21490호",
+      "effective_date": "2026-10-02",
+      "current_status": "현행",
+      "url_primary": "https://www.law.go.kr/법령/의료법",
+      "verification_status": "OFFICIAL_VERIFIED",
+      "verified_articles": [
+        "제4조의2(간호·간병통합서비스)",
+        "제27조제3항(환자 유인·알선 금지)"
+      ],
+      "used_for": [
+        "간호·간병통합서비스 안내",
+        "요양병원 연결 금지"
+      ],
+      "raw_file": "(law.go.kr 2026-10-06 열람)"
     }
   ]
 }

@@ -1,6 +1,10 @@
 // 홈페이지: 소개 영상 팝업, 휴대폰 메뉴, 회사 정보(site.ts 에서 정해진 것만)
 import { SITE } from './site.ts';
 import { openIntro } from './ui/intro.ts';
+import { loadFeatures, applyFeatures } from './features.ts';
+
+// 기능 스위치: 켜진 새 기능만 보이게 (기본은 모두 꺼짐)
+void loadFeatures().then(() => applyFeatures());
 
 document.addEventListener('click', (ev) => {
   const t = ev.target as HTMLElement;

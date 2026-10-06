@@ -18,16 +18,36 @@ const COLUMNS = [
   ['result_summary', '3분 체크 결과 요약'],
   ['sensitive_consent', '건강정보 동의'],
   ['privacy_consent', '개인정보 동의'],
+  ['care_when', '간병 시작'],
+  ['care_place', '간병 장소'],
+  ['caregiver_id', '고른 간병인'],
   ['status', '상태'],
 ];
 const EXTRA = ['담당자', '연락한 날', '연결한 기관', '메모'];
 
-function sheet_() {
+// 간병인 등록 신청 (care.html, kind = 'caregiver'). 등록 신청만으로 공개하지 않는다
+const CG_SHEET_NAME = '간병인등록';
+const CG_COLUMNS = [
+  ['submitted_at', '접수 시각'],
+  ['name', '성함'],
+  ['phone', '휴대폰'],
+  ['regions', '활동 지역'],
+  ['experience', '경력'],
+  ['certs', '자격'],
+  ['places', '가능한 곳'],
+  ['shifts', '근무 형태'],
+  ['intro', '소개'],
+  ['privacy_consent', '개인정보 동의'],
+  ['status', '상태'],
+];
+const CG_EXTRA = ['확인한 사람', '공개 동의일', '공개 ID', '메모'];
+
+function sheet_(name, columns, extra) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sh = ss.getSheetByName(SHEET_NAME);
+  let sh = ss.getSheetByName(name);
   if (!sh) {
-    sh = ss.insertSheet(SHEET_NAME);
-    sh.appendRow(COLUMNS.map((c) => c[1]).concat(EXTRA));
+    sh = ss.insertSheet(name);
+    sh.appendRow(columns.map((c) => c[1]).concat(extra));
     sh.setFrozenRows(1);
   }
   return sh;
@@ -47,10 +67,16 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents || '{}');
     if (d.privacy_consent !== 'Y') return out_({ ok: false, error: 'no-consent' });
     if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(String(d.phone || ''))) return out_({ ok: false, error: 'bad-phone' });
+    if (d.kind === 'caregiver') {
+      const r = CG_COLUMNS.map(([k]) => clean_(d[k], k === 'intro' ? 400 : 60));
+      r[0] = new Date();
+      sheet_(CG_SHEET_NAME, CG_COLUMNS, CG_EXTRA).appendRow(r.concat(CG_EXTRA.map(() => '')));
+      return out_({ ok: true });
+    }
     if (d.sensitive_consent !== 'Y') d.result_summary = '';
     const row = COLUMNS.map(([k]) => clean_(d[k], k === 'result_summary' || k === 'help_text' ? 400 : 60));
     row[0] = new Date(); // 접수 시각은 서버 시각으로
-    sheet_().appendRow(row.concat(EXTRA.map(() => '')));
+    sheet_(SHEET_NAME, COLUMNS, EXTRA).appendRow(row.concat(EXTRA.map(() => '')));
     return out_({ ok: true });
   } catch (err) {
     return out_({ ok: false, error: String(err) });

@@ -11,7 +11,29 @@ export const HELP_OPTIONS = [
   { value: 'unknown', label: '아직 잘 모르겠어요' },
   { value: 'other', label: '직접 입력' },
 ] as const;
-export type HelpValue = (typeof HELP_OPTIONS)[number]['value'];
+/** 기능 스위치 consultMore 가 켜지면 더 보이는 선택지 */
+export const MORE_HELP_OPTIONS = [
+  { value: 'care', label: '간병' },
+  { value: 'home', label: '방문요양' },
+  { value: 'day', label: '주간보호' },
+] as const;
+export type HelpValue = (typeof HELP_OPTIONS)[number]['value'] | (typeof MORE_HELP_OPTIONS)[number]['value'];
+const ALL_HELP: readonly { value: HelpValue; label: string }[] = [...HELP_OPTIONS, ...MORE_HELP_OPTIONS];
+/** 화면에 보일 순서: 등급 → 간병·방문요양·주간보호 → 시설 → 모름 → 직접 */
+export function helpOptions(more: boolean): readonly { value: HelpValue; label: string }[] {
+  if (!more) return HELP_OPTIONS;
+  return [HELP_OPTIONS[0], ...MORE_HELP_OPTIONS, HELP_OPTIONS[1], HELP_OPTIONS[2], HELP_OPTIONS[3]];
+}
+export const helpLabel = (v: string) => ALL_HELP.find((o) => o.value === v)?.label ?? v;
+export const CARE_WHEN = [
+  { value: 'now', label: '오늘·내일부터' },
+  { value: 'week', label: '이번 주 안에' },
+  { value: 'later', label: '아직 정해지지 않았어요' },
+] as const;
+export const CARE_PLACE = [
+  { value: 'hospital', label: '병원 (입원 중)' },
+  { value: 'home', label: '집 (퇴원 후 등)' },
+] as const;
 export const CONTACT_OPTIONS = [
   { value: 'phone', label: '전화' },
   { value: 'kakao', label: '카톡 메시지' },
@@ -31,8 +53,13 @@ export interface ConsultForm {
   agreePrivacy: boolean;
   /** 자동 입력 방지용 숨은 칸 (사람은 비워 둠) */
   website: string;
+  /** (간병을 골랐을 때) 언제부터 · 어디서 */
+  careWhen: '' | (typeof CARE_WHEN)[number]['value'];
+  carePlace: '' | (typeof CARE_PLACE)[number]['value'];
+  /** 간병인 찾기에서 고른 간병인 (기능 스위치 caregiverMatch) */
+  caregiverId: string;
 }
-export const emptyForm = (): ConsultForm => ({ region: '', dong: '', help: [], helpText: '', contact: 'phone', phone: '', name: '', agreeSensitive: false, agreePrivacy: false, website: '' });
+export const emptyForm = (): ConsultForm => ({ region: '', dong: '', help: [], helpText: '', contact: 'phone', phone: '', name: '', agreeSensitive: false, agreePrivacy: false, website: '', careWhen: '', carePlace: '', caregiverId: '' });
 
 export const normalizePhone = (p: string) => p.replace(/[^0-9]/g, '');
 export const formatPhone = (p: string) => {
@@ -51,6 +78,7 @@ export function validate(f: ConsultForm): Record<string, string> {
   if (!f.contact) e.contact = '연락 방법을 골라 주세요.';
   if (!/^01[016789][0-9]{7,8}$/.test(normalizePhone(f.phone))) e.phone = '휴대폰 번호를 확인해 주세요. (예: 010-1234-5678)';
   if (!f.agreePrivacy) e.agreePrivacy = '개인정보 수집·이용에 동의해야 신청할 수 있어요.';
+  if (f.help.includes('care') && !f.careWhen) e.careWhen = '간병이 언제부터 필요한지 골라 주세요.';
   return e;
 }
 
@@ -78,7 +106,7 @@ export function resultSummary(kb: Kb, answers: Answers | null | undefined, today
 
 /** 구글 시트로 보낼 한 줄. 결과 요약은 따로 동의했을 때만 담는다 */
 export function buildPayload(f: ConsultForm, summary: string | null, submittedAt: string) {
-  const labels = f.help.map((h) => HELP_OPTIONS.find((o) => o.value === h)?.label ?? h);
+  const labels = f.help.map(helpLabel);
   return {
     submitted_at: submittedAt,
     region: f.region,
@@ -91,6 +119,9 @@ export function buildPayload(f: ConsultForm, summary: string | null, submittedAt
     result_summary: f.agreeSensitive && summary ? summary : '',
     sensitive_consent: f.agreeSensitive && !!summary ? 'Y' : 'N',
     privacy_consent: f.agreePrivacy ? 'Y' : 'N',
+    care_when: f.help.includes('care') ? CARE_WHEN.find((o) => o.value === f.careWhen)?.label ?? '' : '',
+    care_place: f.help.includes('care') ? CARE_PLACE.find((o) => o.value === f.carePlace)?.label ?? '' : '',
+    caregiver_id: f.caregiverId.trim().slice(0, 40),
     status: '신규',
   };
 }

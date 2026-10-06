@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "description": "간병 업체 목록 (care.html, 기능 스위치 careCompanies). 보호자에게 업체 정보(상호·지역·연락처·서비스·요금)만 보여준다. 간병인 개인 정보·구인공고는 넣지 않는다",
+    "fields": {
+      "id": "고유 ID (영문·숫자)",
+      "name": "상호",
+      "regions": "서비스 지역 (SITE.regions 값: 서울·경기·인천·그 밖의 지역)",
+      "area": "세부 지역 설명 (예: 안양·군포·의왕)",
+      "phone": "대표 연락처",
+      "url": "홈페이지 (선택)",
+      "services": "제공 서비스 (예: 병원 간병, 집 간병, 공동간병)",
+      "price": "요금 안내 (업체가 공개한 그대로, 예: 1일 24시간 기준 ○○만 원부터)",
+      "registered": "유료직업소개사업 등록 여부 확인 (true/false)",
+      "updated": "정보 확인일 YYYY-MM-DD",
+      "example": "true 이면 화면 확인용 예시. 실제 업체를 넣고 켜기 전에 반드시 지운다 (테스트가 막음)"
+    },
+    "policy": "업체에서 소개비·연결 수수료를 받지 않는다. 광고를 받는 경우 '광고'로 표시하고 목록 순서와 분리한다 (CLAUDE.md 원칙 5)",
+    "decision": "2026-10-06 사용자 결정: 업체 정보 목록은 진행, 문제가 생기면 바로 내린다 (R-CARE-03)"
+  },
+  "companies": [
+    { "id": "example-a", "name": "(예시) 가나다 간병", "regions": ["경기"], "area": "안양·군포·의왕", "phone": "031-000-0000", "url": "", "services": ["병원 간병", "집 간병"], "price": "업체에 문의", "registered": false, "updated": "2026-10-06", "example": true },
+    { "id": "example-b", "name": "(예시) 라마바 케어", "regions": ["서울"], "area": "서울 전역", "phone": "02-000-0000", "url": "", "services": ["병원 간병", "공동간병"], "price": "업체에 문의", "registered": false, "updated": "2026-10-06", "example": true }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "description": "간병인 찾기 (care.html, 기능 스위치 caregiverMatch). 간병인 본인이 등록·동의한 정보만 넣는다",
+    "legal": "특정 간병인을 보호자와 연결하는 것은 직업소개(직업안정법 제2조의2). 영리 회사는 유료직업소개사업 등록(제19조) 뒤에만 켠다. 소개요금은 국내유료직업소개요금 등 고시 범위 안 (R-CARE-01)",
+    "fields": {
+      "id": "고유 ID (상담 신청서에 함께 전달됨)",
+      "display_name": "보이는 이름 (예: 김○○ 선생님) — 실명 전체를 쓰지 않는다",
+      "gender": "여 / 남",
+      "age_band": "50대 등",
+      "regions": "활동 지역 (SITE.regions 값)",
+      "area": "세부 지역",
+      "experience": "경력 (예: 5년)",
+      "certs": "자격 (요양보호사, 간호조무사 등)",
+      "places": "가능한 곳 (병원, 집)",
+      "shift": "근무 형태 (24시간 상주, 시간제)",
+      "rate": "희망 일당 안내 (예: 24시간 기준 협의)",
+      "intro": "짧은 소개 (본인이 쓴 글)",
+      "consent_date": "공개 동의일 YYYY-MM-DD",
+      "example": "true 이면 화면 확인용 예시. 실제 분을 넣고 켜기 전에 반드시 지운다 (테스트가 막음)"
+    }
+  },
+  "caregivers": [
+    { "id": "example-cg1", "display_name": "(예시) 김○○ 선생님", "gender": "여", "age_band": "50대", "regions": ["경기"], "area": "안양·군포", "experience": "6년", "certs": ["요양보호사"], "places": ["병원", "집"], "shift": "24시간 상주", "rate": "협의", "intro": "치매 어르신 돌봄 경험이 많아요.", "consent_date": "2026-10-06", "example": true },
+    { "id": "example-cg2", "display_name": "(예시) 이○○ 선생님", "gender": "남", "age_band": "60대", "regions": ["서울"], "area": "강서·양천", "experience": "3년", "certs": ["요양보호사", "간병사 교육 수료"], "places": ["병원"], "shift": "24시간 상주", "rate": "협의", "intro": "거동이 불편한 남성 어르신을 주로 돌봤어요.", "consent_date": "2026-10-06", "example": true }
+  ]
+}

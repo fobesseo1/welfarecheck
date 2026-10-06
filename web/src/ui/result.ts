@@ -5,6 +5,7 @@ import { DOMAIN_KO, type DocPrep, type GradeCode } from '../engine/types.ts';
 import { LIKELIHOOD_KO } from '../engine/answers.ts';
 import { esc, attr } from './html.ts';
 import type { GuideDoc } from '../engine/guide.ts';
+import { won, type CareView, type CareData } from '../engine/care.ts';
 
 const SCALE: [GradeCode, string][] = [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['cognitive', '인지'], ['none', '등급외']];
 const SCEN_KO = { possible: '가능', conditional: '조건부', not_possible: '어려움' };
@@ -42,7 +43,28 @@ function guideDocs(docs: GuideDoc[], checks: Record<string, boolean>): string {
   return `<ul class="docs">${sorted.map((d) => check(d.key, !!checks[d.key], d.name, d.where, `<span class="who ${d.prep}">${PREP_KO[d.prep]}</span>`)).join('')}</ul>`;
 }
 
-export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | null, checks: Record<string, boolean> = {}): string {
+const CARE_ST: Record<string, string> = { yes: 'possible', limited: 'conditional', conditional: 'conditional', mixed: 'conditional', no: 'none' };
+
+/** '이용할 수 있는 돌봄' 표 (기능 스위치 careMatrix 가 켜졌을 때만) */
+export function careSection(c: CareView, data: CareData, kb: Kb): string {
+  return `
+    <div class="sec care-sec" id="care">
+      <div class="sec-h"><span>이용할 수 있는 돌봄</span><span>${esc(c.gradeLabel)} 기준</span></div>
+      <p class="care-q">지금 가장 필요한 도움은요?</p>
+      <div class="care-needs">${data.needs.map((n) => `<button type="button" class="pill care-need" data-act="need" data-val="${attr(n.id)}" aria-pressed="${c.need === n.id}">${esc(n.label)}<small>${esc(n.hint)}</small></button>`).join('')}</div>
+      <div class="rows care-rows">${c.rows.map((row) => `
+        <div class="row care-row${row.match ? ' match' : ''}">
+          <span class="txt"><b>${esc(row.name)}</b><small>${esc(row.short)}</small>${row.detail.map((d) => `<small class="care-d">${esc(d)}</small>`).join('')}</span>
+          <span class="st ${CARE_ST[row.status]}">${esc(row.label)}</span>
+        </div>`).join('')}
+      </div>
+      ${c.limit ? `<div class="cardlet care-limit"><span class="t">한 달 한도 ${c.limit.low === c.limit.high ? `약 ${won(c.limit.low)}` : `약 ${won(c.limit.low)}~${won(c.limit.high)}`} (${c.limit.year}년)</span><span class="d">다 쓰면 본인부담 약 ${c.limit.copayLow === c.limit.copayHigh ? won(c.limit.copayLow) : `${won(c.limit.copayLow)}~${won(c.limit.copayHigh)}`}. ${esc(c.limit.note)}</span></div>` : ''}
+      ${c.outside.length ? `<div class="cards care-out">${c.outside.map((o) => `<div class="cardlet${o.match ? ' match' : ''}"><span class="t">${esc(o.name)}</span><span class="d">${esc(o.short)}</span>${o.id === 'carer_private' ? `<a class="link" href="care.html" data-feature="careGuide" hidden>간병 안내 자세히${ICON.right}</a>` : ''}</div>`).join('')}</div>` : ''}
+      ${more('근거 보기', src(kb, [...c.rows.flatMap((x) => x.rules), ...(c.limit?.rules ?? []), ...c.outside.flatMap((o) => o.rules)]))}
+    </div>`;
+}
+
+export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | null, checks: Record<string, boolean> = {}, care: string = ''): string {
   const e = r.estimate; const f = r.facility; const v = r.verdict; const g = r.guide; const G = kb.guide;
   const inRange = new Set(e.grades);
 
@@ -228,7 +250,7 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
 
   return `
   <section class="card" aria-labelledby="res-title">
-    ${head}${verdict}${consult}${grade}${situation}${todo}
+    ${head}${verdict}${consult}${grade}${care}${situation}${todo}
     <div class="accs">${panels.join('')}</div>
     <div class="bottom-btns no-print">
       <button type="button" class="btn-line" data-act="edit">답 고치기</button>
