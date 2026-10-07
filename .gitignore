@@ -2,3 +2,8 @@ node_modules/
 dist/
 .claude/settings.local.json
 promo/
+# 계정별 운영 설정과 비공개 Google 파일 식별자는 로컬에서만 관리
+tools/consult-sheet/Config.gs
+tools/consult-sheet/Deploy.gs
+tools/consult-sheet/pdf-manifest.json
+tools/consult-sheet/build-deploy.mjs

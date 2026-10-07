@@ -44,6 +44,8 @@ export interface GuideResult {
   guide: Guide;
   /** '이용할 수 있는 돌봄' 표에 쓸 등급 (현재 등급이 있으면 그것, 신청 대상이 아니면 등급외, 아니면 예상 등급) */
   careGrades: GradeCode[];
+  careContext: { expired: boolean; notEligible: boolean; hasCurrentGrade: boolean; facilityInCert: boolean };
+  currentGrade?: GradeCode;
 }
 
 const hitReasons = (rs: FacilityReason[]) => rs.filter((r) => r.likelihood === 'high' || r.likelihood === 'possible');
@@ -172,6 +174,7 @@ export function buildResult(kb: Kb, raw: Answers, today: string): GuideResult {
   const domainTable = DOMAINS.map((d) => ({ domain: d, name: DOMAIN_KO[d], rawLow: ds.best.domains[d].raw, rawHigh: ds.worst.domains[d].raw, convLow: ds.best.domains[d].conv, convHigh: ds.worst.domains[d].conv, unknown: ds.best.domains[d].unknown, items: ds.best.domains[d].items }));
 
   const verdict = verdictFor(a, est, reasons, dec);
+  const daysLeft = (dec.decisions.find((d) => d.id === 'B')?.data as { days_left?: number } | undefined)?.days_left;
   return {
     today, disclaimer: DISCLAIMER, is_official_decision: false,
     verdict,
@@ -184,5 +187,7 @@ export function buildResult(kb: Kb, raw: Answers, today: string): GuideResult {
     notes: otherNotes(kb, raw),
     guide: buildGuide(kb, kb.guide, raw, a, dec, verdict.tone),
     careGrades: graded ? [g as GradeCode] : notEligible ? ['none'] : est.grades,
+    careContext: { expired: typeof daysLeft === 'number' && daysLeft < 0, notEligible, hasCurrentGrade: graded, facilityInCert: a.facility_in_cert === 'yes' },
+    currentGrade: graded ? g as GradeCode : undefined,
   };
 }

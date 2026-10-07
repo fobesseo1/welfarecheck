@@ -1,7 +1,8 @@
 // 결과 화면 (Claude Design 캔버스 4·5번 시안). 펼쳐진 것은 ① 요양원 가능 여부 ② 예상 등급 ③ 지금 할 일 뿐, 나머지는 접는 칸.
 import type { Kb } from '../engine/kb.ts';
 import type { GuideResult, Tone } from '../engine/result.ts';
-import { DOMAIN_KO, type DocPrep, type GradeCode } from '../engine/types.ts';
+import { DOMAIN_KO, GRADE_KO, type DocPrep, type GradeCode } from '../engine/types.ts';
+import { SITE, consultReady, consultMode } from '../site.ts';
 import { LIKELIHOOD_KO } from '../engine/answers.ts';
 import { esc, attr } from './html.ts';
 import type { GuideDoc } from '../engine/guide.ts';
@@ -49,7 +50,8 @@ const CARE_ST: Record<string, string> = { yes: 'possible', limited: 'conditional
 export function careSection(c: CareView, data: CareData, kb: Kb): string {
   return `
     <div class="sec care-sec" id="care">
-      <div class="sec-h"><span>이용할 수 있는 돌봄</span><span>${esc(c.gradeLabel)} 기준</span></div>
+      <div class="sec-h"><span>이용할 수 있는 돌봄</span><span>${esc(c.gradeLabel)}${c.limit || !c.notice ? ' 기준' : ''}</span></div>
+      ${c.notice ? `<p class="line">${esc(c.notice)}</p>` : ''}
       <p class="care-q">지금 가장 필요한 도움은요?</p>
       <div class="care-needs">${data.needs.map((n) => `<button type="button" class="pill care-need" data-act="need" data-val="${attr(n.id)}" aria-pressed="${c.need === n.id}">${esc(n.label)}<small>${esc(n.hint)}</small></button>`).join('')}</div>
       <div class="rows care-rows">${c.rows.map((row) => `
@@ -87,14 +89,16 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
     <div class="consult no-print">
       <span class="consult-tag">무료 상담</span>
       <p class="consult-t">${graded ? '딱 맞는 곳 찾기,<br>같이 도와드릴게요' : '등급 받기부터 맞는 곳 찾기까지,<br>같이 준비해 드릴게요'}</p>
-      <ul class="consult-l"><li>사시는 동네 가까이에서 요양원·주간보호·방문요양</li><li>지금 답하신 결과를 보고 상담해요</li><li>기관에서 소개비를 받지 않아요</li></ul>
-      <a class="consult-btn" href="consult.html?from=result">1분 상담 신청${ICON.right}</a>
-      <p class="consult-h">오전 10시~오후 7시 · 보통 2~3시간 안에 연락드려요</p>
+      <ul class="consult-l"><li>사시는 동네 가까이에서 요양원·주간보호·방문요양</li><li>원하시면 체크 결과를 함께 보내실 수 있어요</li><li>기관에서 소개비를 받지 않아요</li></ul>
+      <a class="consult-btn" href="consult.html?from=result">${consultMode() !== 'closed' ? '1분 상담 신청' : '무료 상담 안내'}${ICON.right}</a>
+      <p class="consult-h">${consultReady() ? `${esc(SITE.hours)} · ${esc(SITE.promise)}` : consultMode() === 'preview' ? '신청 화면 테스트 · 실제 접수나 상담 연락은 진행되지 않아요.' : '상담 접수를 준비하고 있어요. 지금은 3분 체크와 준비 안내를 이용하실 수 있어요.'}</p>
     </div>`;
 
   const grade = `
     <div class="sec">
-      <div class="sec-h"><span>예상 등급</span><span>추정 · 신뢰도 ${esc(e.confidence)}</span></div>
+      ${r.currentGrade ? `<div class="sec-h"><span>현재 공단 등급</span></div><p class="grade-big">${esc(GRADE_KO[r.currentGrade])}</p><p class="line">입소 안내는 현재 인정서의 등급과 유효기간을 기준으로 해요. 아래는 이번 답변만으로 계산한 참고용 예상이며 현재 등급을 바꾸지 않아요.</p>` : ''}
+      <div class="sec-h"><span>${r.currentGrade ? '이번 답변의 예상 등급' : '예상 등급'}</span><span>${e.confidence === '높음' ? '답변 정보 충분' : '추가 확인 필요'}</span></div>
+      <p class="meta">공식 항목을 바탕으로 한 참고용 예상이에요. 실제 판정 정확도를 뜻하지 않아요.</p>
       <p class="grade-big">${esc(e.label)}</p>
       <div class="scale" aria-hidden="true">${SCALE.map(([g]) => `<i class="${inRange.has(g) ? 'on' : ''}"></i>`).join('')}</div>
       <div class="scale-l" aria-label="예상 등급 ${attr(e.label)}">${SCALE.map(([g, l]) => `<span class="${inRange.has(g) ? 'on' : ''}">${esc(l)}</span>`).join('')}</div>
@@ -250,7 +254,7 @@ export function renderResult(r: GuideResult, kb: Kb, form?: { url: string } | nu
 
   return `
   <section class="card" aria-labelledby="res-title">
-    ${head}${verdict}${consult}${grade}${care}${situation}${todo}
+    ${head}${verdict}<div data-delivery class="no-print"></div>${consult}${grade}${care}${situation}${todo}
     <div class="accs">${panels.join('')}</div>
     <div class="bottom-btns no-print">
       <button type="button" class="btn-line" data-act="edit">답 고치기</button>

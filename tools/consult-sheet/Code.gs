@@ -23,7 +23,7 @@ const COLUMNS = [
   ['caregiver_id', '고른 간병인'],
   ['status', '상태'],
 ];
-const EXTRA = ['담당자', '연락한 날', '연결한 기관', '메모'];
+const EXTRA = ['담당자', '연락한 날', '연결한 기관', '메모', '접수 ID'];
 
 // 간병인 등록 신청 (care.html, kind = 'caregiver'). 등록 신청만으로 공개하지 않는다
 const CG_SHEET_NAME = '간병인등록';
@@ -40,17 +40,42 @@ const CG_COLUMNS = [
   ['privacy_consent', '개인정보 동의'],
   ['status', '상태'],
 ];
-const CG_EXTRA = ['확인한 사람', '공개 동의일', '공개 ID', '메모'];
+const CG_EXTRA = ['확인한 사람', '공개 동의일', '공개 ID', '메모', '접수 ID'];
 
+function ss_() {
+  return typeof DELIVERY_SS_ID === 'undefined' ? SpreadsheetApp.getActiveSpreadsheet() : SpreadsheetApp.openById(DELIVERY_SS_ID);
+}
 function sheet_(name, columns, extra) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = ss_();
   let sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
     sh.appendRow(columns.map((c) => c[1]).concat(extra));
     sh.setFrozenRows(1);
   }
+  const width = sh.getLastColumn();
+  if (!sh.getRange(1, 1, 1, width).getValues()[0].includes('접수 ID')) sh.getRange(1, width + 1).setValue('접수 ID');
   return sh;
+}
+
+function receipt_(id) {
+  if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(id)) return false;
+  const ss = ss_();
+  return [SHEET_NAME, CG_SHEET_NAME, '접수현황'].some((name) => {
+    const sh = ss.getSheetByName(name);
+    if (!sh || sh.getLastRow() < 2) return false;
+    const column = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].indexOf('접수 ID') + 1;
+    return column > 0 && Boolean(sh.getRange(2, column, sh.getLastRow() - 1, 1).createTextFinder(id).matchEntireCell(true).findNext());
+  });
+}
+
+// JSONP에는 성공 여부와 임의 접수 ID만 반환한다. 연락처·건강정보는 반환하지 않는다.
+function doGet(e) {
+  const id = String(e.parameter.request_id || '');
+  const callback = String(e.parameter.callback || '');
+  if (!/^mosimReceipt_[a-f0-9]{32}$/.test(callback) || !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(id)) return out_({ ok: false });
+  const body = { ok: receipt_(id), request_id: id, pending: true };
+  return ContentService.createTextOutput(callback + '(' + JSON.stringify(body) + ');').setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 
 function clean_(v, max) {
@@ -64,20 +89,26 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
+    if (String(e.postData.contents || '').length > 50000) return out_({ok:false,error:'too-large'});
     const d = JSON.parse(e.postData.contents || '{}');
+    const id = String(d.request_id || '');
+    if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(id)) return out_({ ok: false, error: 'bad-request-id' });
+    if (receipt_(id)) return out_({ ok: true, request_id: id });
     if (d.privacy_consent !== 'Y') return out_({ ok: false, error: 'no-consent' });
+    if (d.kind === 'guide_request') return out_(saveGuideRequest_(d, id));
     if (!/^01[016789]-?\d{3,4}-?\d{4}$/.test(String(d.phone || ''))) return out_({ ok: false, error: 'bad-phone' });
     if (d.kind === 'caregiver') {
       const r = CG_COLUMNS.map(([k]) => clean_(d[k], k === 'intro' ? 400 : 60));
       r[0] = new Date();
-      sheet_(CG_SHEET_NAME, CG_COLUMNS, CG_EXTRA).appendRow(r.concat(CG_EXTRA.map(() => '')));
-      return out_({ ok: true });
+      sheet_(CG_SHEET_NAME, CG_COLUMNS, CG_EXTRA).appendRow(r.concat(CG_EXTRA.map((name) => name === '접수 ID' ? id : '')));
+      return out_({ ok: true, request_id: id });
     }
     if (d.sensitive_consent !== 'Y') d.result_summary = '';
+    if (typeof saveCurrentConsult_ === 'function' && ss_().getSheetByName('접수현황')) return out_(saveCurrentConsult_(d, id));
     const row = COLUMNS.map(([k]) => clean_(d[k], k === 'result_summary' || k === 'help_text' ? 400 : 60));
     row[0] = new Date(); // 접수 시각은 서버 시각으로
-    sheet_(SHEET_NAME, COLUMNS, EXTRA).appendRow(row.concat(EXTRA.map(() => '')));
-    return out_({ ok: true });
+    sheet_(SHEET_NAME, COLUMNS, EXTRA).appendRow(row.concat(EXTRA.map((name) => name === '접수 ID' ? id : '')));
+    return out_({ ok: true, request_id: id });
   } catch (err) {
     return out_({ ok: false, error: String(err) });
   } finally {

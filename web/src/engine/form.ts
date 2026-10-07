@@ -62,9 +62,14 @@ export function buildForm(kb: Kb, form: FormDef, raw: Answers, r: GuideResult): 
     .filter((s) => s.id !== 'proxy' || proxy)
     .filter((s) => s.id !== 'reason' || procs.has('PROC-CHANGE-TYPE') || procs.has('PROC-CHANGE-GRADE'))
     .map((s) => ({
-      title: s.title,
+      title: s.id === 'proxy' && r.guide.role.value === 'other' ? '대리인 (대신 신청할 때)' : s.title,
       fields: s.fields.map((f): FilledField => {
-        if (f.fill === 'proxy_type') return { no: f.no, label: f.label, kind: 'filled', checks: (f.options ?? []).map((o) => ({ label: o, on: o === '가족' })), hint: f.hint };
+        if (f.fill === 'proxy_type') {
+          const role = r.guide.role;
+          const label = role.value === 'family' ? '가족' : role.other === 'interested' ? '이해관계인' : kb.guide.roles.other_options.find((o) => o.value === role.other)?.label ?? '';
+          const choices = f.options ?? [];
+          return { no: f.no, label: f.label, kind: 'filled', checks: choices.map((o) => ({ label: o, on: o === label })), hint: role.value === 'family' ? f.hint : `선택하신 대리인 유형은 '${label}'이에요. 대리인 신분증과 유형별 준비 서류를 확인해 주세요.` };
+        }
         if (f.fill === 'change_reason') return { no: f.no, label: f.label, kind: 'draft', value: reasonLines.map((l, i) => `${i + 1}. ${l}`).join('\n') || undefined, hint: '답하신 내용으로 만든 예시예요. 실제 사정(누가·얼마나 자주·어떤 어려움)을 더해 고쳐 쓰세요.' };
         return { no: f.no, label: f.label, kind: 'self', hint: f.hint };
       }),
@@ -74,5 +79,6 @@ export function buildForm(kb: Kb, form: FormDef, raw: Answers, r: GuideResult): 
     .filter((x) => x.when === 'always' || (x.when === 'not_change_type' && !onlyChangeType) || (x.when === 'under65_initial' && isInitial && a.age === 'under65'))
     .map((x) => ({ label: x.label, detail: x.id === 'id_card' ? (proxy ? x.detail_proxy! : x.detail_self!) : x.detail ?? '' }));
 
-  return { kinds, sections, attachments, online: form.online, cautions: form.cautions };
+  const online = r.guide.channels.under65Blocked ? { ...form.online, url: kb.guide.links.branch.url, label: '접수할 지사 찾기', note: kb.guide.channels.under65_blocked } : form.online;
+  return { kinds, sections, attachments, online, cautions: form.cautions };
 }

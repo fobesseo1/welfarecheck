@@ -41,7 +41,7 @@
       <section class="h-wrap h-hero" aria-labelledby="h-title">
         <div class="h-hero-head">
           <span class="chip">보호자를 위한 무료 돌봄 상담</span>
-          <h1 id="h-title" class="serif"><span data-feature-off="homeHub">부모님을 요양원에<br /><em>모실 수 있을까요?</em></span><span data-feature="homeHub" hidden>부모님 돌봄,<br /><em>어디서부터 시작할까요?</em></span></h1>
+          <h1 id="h-title" class="serif"><span data-feature-off="homeHub">부모님 돌봄,<br /><em>어디서부터 시작할까요?</em></span><span data-feature="homeHub" hidden>부모님 돌봄,<br /><em>어디서부터 시작할까요?</em></span></h1>
         </div>
         <div class="h-hero-visual">
           <img class="h-hero-photo" src="img/01-hero-family.webp" alt="" width="1200" height="800" />
@@ -55,12 +55,11 @@
           <p class="h-sub-strong">3분이면 예상 등급과 할 일을 알 수 있어요.</p>
           <p class="h-lead">등급 받기부터 맞는 곳 찾기까지 같이 준비해 드릴게요.</p>
           <div class="h-hero-btns">
-            <a class="h-btn mint big" href="check.html">3분 등급 체크 시작</a>
-            <a class="h-btn outline big" href="consult.html">바로 상담 신청</a>
+            <a class="h-btn mint big" href="consult.html">무료 상담 신청</a>
+            <a class="h-btn outline big" href="check.html">3분 등급 체크 시작</a>
           </div>
           <ul class="h-trust">
             <li>상담은 무료예요</li>
-            <li>서울·경기·인천</li>
             <li>기관에서 소개비를 받지 않아요</li>
             <li>공식 법령·고시 기준으로 계산</li>
           </ul>
@@ -122,7 +121,7 @@
           <div class="h-panel-text">
             <h3 class="serif">3분 등급 체크</h3>
             <p>어르신 연세, 몸 상태, 기억력, 돌봄 사정을 하나씩 물어봐요. 답하는 대로 예상 등급과 요양원 입소 조건을 보여드려요.</p>
-            <ul class="h-pills"><li>질문 하나씩</li><li>누르기만</li><li>공식 점수표</li><li>답은 이 기기에만</li></ul>
+            <ul class="h-pills"><li>질문 하나씩</li><li>누르기만</li><li>공식 점수표</li><li>답변 저장은 동의 후</li></ul>
             <a class="h-btn dark big" href="check.html">체크 시작 <span aria-hidden="true">→</span></a>
           </div>
           <div class="ui" aria-label="결과 화면 예시">
@@ -161,13 +160,13 @@
           <div class="h-panel-text">
             <h3 class="serif">딱 맞는 곳 연결</h3>
             <p>1분 신청서를 남기면 상담원이 전화로 상황을 듣고, 사시는 곳 가까이에서 맞는 요양원·주간보호·방문요양을 찾아 연결해 드려요.</p>
-            <ul class="h-pills"><li>무료 상담</li><li>서울·경기·인천</li><li>소개비 받지 않음</li></ul>
+            <ul class="h-pills"><li>무료 상담</li><li>소개비 받지 않음</li></ul>
             <a class="h-btn dark big" href="consult.html">무료 상담 신청 <span aria-hidden="true">→</span></a>
           </div>
           <div class="ui" aria-label="상담 신청 화면 예시">
             <div class="ui-top"><span>1분이면 신청돼요</span><span>무료 상담</span></div>
             <p class="ui-q">어르신이 어디 사세요?</p>
-            <div class="ui-pills"><span>서울</span><span class="on">경기</span><span>인천</span><span>그 밖의 지역</span></div>
+            <div class="ui-pills"><span>사시는 시·군·구를 알려 주세요</span></div>
             <p class="ui-q">어떤 도움이 필요하세요?</p>
             <div class="ui-checks"><span class="on">등급 받기 준비</span><span class="on">시설 매칭</span></div>
             <div class="ui-input">010-0000-0000</div>
@@ -194,7 +193,7 @@
           <div class="t t-mint h-csteps rv">
             <p class="serif">신청부터 연결까지,<br />세 단계예요</p>
             <ol>
-              <li><b>1</b><span>1분 신청서를 남기거나 카톡으로 문의해요</span></li>
+              <li><b>1</b><span data-consult-step>1분 신청서를 남겨 주세요</span></li>
               <li><b>2</b><span>상담원이 전화로 어르신 상황을 들어요</span></li>
               <li><b>3</b><span>딱 맞는 곳을 찾아 연결해 드려요</span></li>
             </ol>
@@ -202,7 +201,7 @@
           <div class="t h-cphoto rv"><img src="img/06-personal-consultation.webp" alt="" loading="lazy" width="1200" height="800" /></div>
           <div class="h-cstats">
             <div class="t t-s1 h-stat rv"><p class="serif">오전 10시~오후 7시</p><span>상담 시간</span></div>
-            <div class="t t-s1 h-stat rv"><p class="serif">2~3시간</p><span>운영 시간에 신청하면 보통 연락까지 · 늦어도 24시간 안에</span></div>
+            <div class="t t-s1 h-stat rv" data-consult-status><p class="serif">상담 준비 중</p><span>접수 창구가 준비되면 상담 신청을 받을 예정이에요</span></div>
             <div class="t t-s2 h-stat rv"><p class="serif">0원</p><span>상담비 · 기관에서 소개비도 받지 않아요</span></div>
             <a class="t t-dark h-cta-tile small rv" href="consult.html"><span>무료 상담 신청</span><span class="arrow" aria-hidden="true">→</span></a>
           </div>
@@ -214,9 +213,9 @@
         <div class="h-head rv"><span class="chip">믿을 수 있게</span><h2 class="serif">근거는 공식 기준으로,<br />정보는 꼭 필요한 만큼만</h2></div>
         <ul class="h-checks rv">
           <li>노인장기요양보험법·시행규칙과 고시를 근거로 안내해요</li>
-          <li>공단이 쓰는 52개 조사 항목 점수표로 계산해요</li>
-          <li>3분 체크 답은 이 기기에만 저장되고 서버로 보내지 않아요</li>
-          <li>연락처는 상담을 신청할 때만, 동의를 받고 받아요</li>
+          <li>공식 52개 조사 항목을 바탕으로 예상 등급을 추정해요</li>
+          <li>3분 체크 답은 기본적으로 이 기기에 저장돼요. 자료 요청 시 별도로 동의한 답변만 서버에 저장해요</li>
+          <li>연락처는 자료 요청이나 상담 신청 시 동의를 받고 받아요</li>
           <li>요양원 등 기관에서 소개비를 받지 않아요</li>
           <li>참고용 추정이에요. 등급은 국민건강보험공단이 결정해요</li>
         </ul>
@@ -228,9 +227,8 @@
         <div class="h-qa rv">
           <details open><summary>정말 무료인가요?</summary><p>네, 상담은 무료예요. 기관에서 소개비도 받지 않아요.</p></details>
           <details><summary>등급이 없어도 상담할 수 있나요?</summary><p>네. 등급이 없으면 신청 방법과 방문조사 준비부터 같이 챙겨요.</p></details>
-          <details><summary>어느 지역까지 되나요?</summary><p>서울·경기·인천을 중심으로 상담해요. 그 밖의 지역도 신청해 주시면 확인한 뒤 연락드려요.</p></details>
           <details><summary>3분 체크 결과는 얼마나 정확한가요?</summary><p>공식 항목 점수표로 계산하지만 마지막 합산은 추정식이라 참고용이에요. 실제 등급은 국민건강보험공단 등급판정위원회가 결정해요.</p></details>
-          <details><summary>입력한 정보는 어디에 저장되나요?</summary><p>3분 체크 답은 이 기기(브라우저)에만 저장되고 서버로 보내지 않아요. 상담 신청서의 연락처는 동의를 받고 상담에만 써요.</p></details>
+          <details><summary>입력한 정보는 어디에 저장되나요?</summary><p>3분 체크 답은 기본적으로 이 기기(브라우저)에 저장돼요. 자료 요청이나 상담 신청 시 동의한 연락처를 저장하고, 건강 답변과 결과는 별도로 동의한 경우에만 서버에 저장해요. 상담 종료 후 6개월 동안 보관하며, 자료만 요청하면 발송 완료를 종료로 봐요.</p></details>
         </div>
       </section>
     </main>
@@ -241,7 +239,7 @@
         <div class="h-foot-left">
           <div class="t t-soft h-foot-msg">
             <p class="serif">혼자 다 짊어지지<br />않아도 돼요.</p>
-            <span>무료 상담 · 오전 10시~오후 7시 · 서울·경기·인천</span>
+            <span>무료 상담 · 오전 10시~오후 7시</span>
           </div>
           <a class="t t-dark h-cta-tile" href="consult.html"><span>무료 상담 신청</span><span class="arrow" aria-hidden="true">→</span></a>
         </div>

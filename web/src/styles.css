@@ -305,6 +305,14 @@ th { font-weight: 500; color: var(--soft); }
 .consult-h { margin: 0; font-size: 12px; color: var(--muted); text-align: center; }
 
 /* ---------- 상담 신청 (consult.html) ---------- */
+.cs-demo { margin: 18px 0 0; padding: 12px 14px; border-radius: 12px; background: #FFF5E8; color: #805322; font-size: 12px; line-height: 1.65; }
+.cs-stages { display: flex; gap: 8px; padding: 0; margin: 24px 0 0; list-style: none; }
+.cs-stages li { flex: 1; padding: 10px 6px; border-bottom: 3px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
+.cs-stages li.active { border-color: var(--mint); color: var(--mint-ink); font-weight: 700; }
+.cs-chosen { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 22px; padding: 14px; border-radius: 14px; background: #EFFBF5; font-size: 12px; color: var(--ink2); }
+.cs-chosen b { flex: 1; min-width: 100px; font-weight: 500; }
+.cs-chosen button { padding: 0; background: transparent; border: 0; cursor: pointer; }
+.cs-example { margin-top: 10px; border: 0; background: transparent; cursor: pointer; }
 .cs .icon-btn { margin-left: -14px; }
 .cs-h { margin: 22px 0 10px; font-size: 22px; line-height: 1.4; font-weight: 700; color: var(--ink); }
 .cs-q { margin: 30px 0 0; padding: 0; border: 0; min-width: 0; }

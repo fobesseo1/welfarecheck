@@ -3,7 +3,8 @@
 // - careCompanies: 간병 업체 정보 목록
 // - caregiverMatch: 간병인 찾기·간병인 등록 (유료직업소개사업 등록 뒤에 켤 것)
 import { kb } from './data.ts';
-import { SITE } from './site.ts';
+import { SITE, consultReady } from './site.ts';
+import { sendWithReceipt, requestId } from './submission.ts';
 import companiesJson from '../../data/care_companies.json' with { type: 'json' };
 import caregiversJson from '../../data/caregivers.json' with { type: 'json' };
 import { loadFeatures, applyFeatures, isOn } from './features.ts';
@@ -61,7 +62,7 @@ function companyList(): string {
   return `
     <div class="sec" id="companies">
       <div class="sec-h"><span>간병 업체 찾기</span><span>${list.length}곳</span></div>
-      <div class="cs-pills care-regions">${['', ...SITE.regions].map((r) => `<button type="button" class="pill cs-pill" data-act="region" data-val="${attr(r)}" ${pressed(region === r)}>${esc(r || '전체')}</button>`).join('')}</div>
+      <div class="cs-pills care-regions">${['', ...new Set(companies.flatMap((c) => c.regions))].map((r) => `<button type="button" class="pill cs-pill" data-act="region" data-val="${attr(r)}" ${pressed(region === r)}>${esc(r || '전체')}</button>`).join('')}</div>
       ${list.length ? `<div class="cards">${list.map((c) => `
         <div class="cardlet care-co">
           <span class="t">${esc(c.name)}${ex(c.example)}</span>
@@ -91,7 +92,9 @@ function caregiverList(): string {
     </div>`;
 }
 
+let caregiverSubmissionId = requestId();
 function caregiverForm(): string {
+  if (!consultReady()) return '<div class="sec"><p class="meta">간병인 등록 접수를 준비하고 있어요. 지금은 개인정보를 받지 않아요.</p></div>';
   if (cgSent) return `<div class="sec" id="cg-form"><div class="cardlet"><span class="t">간병인 등록 신청이 됐어요</span><span class="d">${esc(SITE.hours)} 안에 확인하고 연락드릴게요. 공개하기 전에 한 번 더 여쭤보고 동의를 받아요.</span></div></div>`;
   const chips = (key: 'regions' | 'certs' | 'places' | 'shifts', opts: readonly string[]) =>
     `<div class="cs-pills">${opts.map((o) => `<button type="button" class="pill cs-pill" data-act="cg-multi" data-key="${key}" data-val="${attr(o)}" ${pressed(cg[key].includes(o))}>${esc(o)}</button>`).join('')}</div>`;
@@ -103,7 +106,7 @@ function caregiverForm(): string {
       <input id="cg-name" class="cs-input" data-cg="name" type="text" maxlength="30" value="${attr(cg.name)}" autocomplete="name" />${err('name')}
       <label class="cs-label" for="cg-phone">휴대폰 번호</label>
       <input id="cg-phone" class="cs-input cs-phone" data-cg="phone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000" value="${attr(cg.phone)}" autocomplete="tel" />${err('phone')}
-      <p class="cs-label">활동할 수 있는 지역</p>${chips('regions', SITE.regions)}${err('regions')}
+      <label class="cs-label" for="cg-regions">활동할 수 있는 지역</label><input id="cg-regions" class="cs-input" data-cg="regions" type="text" maxlength="150" placeholder="활동 가능한 시·군·구를 쉼표로 나눠 적어 주세요" value="${attr(cg.regions.join(', '))}" />${err('regions')}
       <p class="cs-label">간병 경력</p>
       <div class="cs-pills">${CG_EXPERIENCE.map((o) => `<button type="button" class="pill cs-pill" data-act="cg-exp" data-val="${attr(o)}" ${pressed(cg.experience === o)}>${esc(o)}</button>`).join('')}</div>${err('experience')}
       <p class="cs-label">자격 (여러 개 가능)</p>${chips('certs', CG_CERTS)}
@@ -112,7 +115,8 @@ function caregiverForm(): string {
       <label class="cs-label" for="cg-intro">짧은 소개 (선택)</label>
       <textarea id="cg-intro" class="cs-input care-ta" data-cg="intro" maxlength="300" rows="3" placeholder="예: 치매 어르신 돌봄 경험이 많아요">${esc(cg.intro)}</textarea>
       <input class="cs-hp" data-cg="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" value="" />
-      <div class="cs-agree-wrap"><label class="cs-agree"><input type="checkbox" data-cg="agreePrivacy" ${cg.agreePrivacy ? 'checked' : ''} /><span>(필수) 간병인 등록을 위한 개인정보 수집·이용에 동의해요</span></label>${err('agreePrivacy')}</div>
+      <div class="cs-agree-wrap"><label class="cs-agree"><input type="checkbox" data-cg="agreePrivacy" ${cg.agreePrivacy ? 'checked' : ''} /><span>(필수) 간병인 등록을 위한 개인정보 수집·이용에 동의해요</span></label>
+        <details class="cs-privacy"><summary>수집·이용 내용 보기</summary><ul><li>운영 주체: ${esc(SITE.company.name)}</li><li>목적: 간병인 등록 신청 확인과 연락</li><li>항목: 성함·연락처·활동 지역·경력·자격·가능한 곳·근무 형태·소개</li><li>보관 기간: ${esc(SITE.retention)}. 언제든 삭제를 요청할 수 있어요.</li><li>동의하지 않으면 등록 신청을 낼 수 없어요. 신청 내용은 별도 공개 동의를 받기 전에는 공개하지 않아요.</li></ul></details>${err('agreePrivacy')}</div>
       <button type="button" class="round cs-submit" data-act="cg-submit" ${sending ? 'disabled' : ''}>${sending ? '보내는 중…' : '간병인 등록 신청'}</button>
       ${cgNotice ? `<p class="cs-notice" role="status">${esc(cgNotice)}</p>` : ''}
       <p class="cs-note">등록 신청만으로 공개되지 않아요. 상담원이 확인하고 공개 동의를 다시 받은 뒤에만 '간병인 찾기'에 보여요. 수수료는 법에서 정한 한도 안에서만 받아요.</p>
@@ -140,19 +144,21 @@ function render() {
       <p class="fine">상담은 무료예요. 기관·업체에서 소개비를 받지 않아요.</p>
     </div>
   </section>`;
+  if (sending) app.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((el) => { el.disabled = true; });
   window.scrollTo({ top: y });
 }
 
 async function submitCaregiver() {
+  if (sending || !consultReady()) return;
   if (cg.website) return;
   cgErrors = validateCaregiver(cg); cgNotice = '';
   if (Object.keys(cgErrors).length) { render(); document.querySelector('#cg-form .cs-err')?.scrollIntoView({ block: 'center' }); return; }
   if (!SITE.consultEndpoint) { cgNotice = '등록 접수를 준비하고 있어요. 곧 열려요.'; render(); return; }
   sending = true; render();
   try {
-    await fetch(SITE.consultEndpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(buildCaregiverPayload(cg, new Date().toISOString())) });
+    await sendWithReceipt(SITE.consultEndpoint, buildCaregiverPayload(cg, new Date().toISOString()), caregiverSubmissionId);
     cgSent = true;
-  } catch { cgNotice = '보내지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; }
+  } catch { cgNotice = '등록 완료를 확인하지 못했어요. 잠시 후 다시 눌러 주세요. 같은 신청은 중복 접수되지 않아요.'; }
   sending = false; render();
 }
 
@@ -160,6 +166,8 @@ app.addEventListener('click', (ev) => {
   const t = (ev.target as HTMLElement).closest('[data-act]') as HTMLElement | null;
   if (!t) return;
   const { act, val, key } = t.dataset;
+  if (sending) return;
+  if (act === 'cg-exp' || act === 'cg-multi') caregiverSubmissionId = requestId();
   if (act === 'region') { region = val ?? ''; render(); }
   else if (act === 'cg-exp') { cg.experience = val!; delete cgErrors.experience; render(); }
   else if (act === 'cg-multi') {
@@ -172,7 +180,10 @@ app.addEventListener('input', (ev) => {
   const el = ev.target as HTMLInputElement;
   const f = el.dataset.cg as keyof CaregiverForm | undefined;
   if (!f) return;
-  if (el.type === 'checkbox') (cg as any)[f] = el.checked; else (cg as any)[f] = el.value;
+  if (sending) return;
+  caregiverSubmissionId = requestId();
+  if (f === 'regions') cg.regions = el.value.split(',').map((r) => r.trim()).filter(Boolean);
+  else if (el.type === 'checkbox') (cg as any)[f] = el.checked; else (cg as any)[f] = el.value;
 });
 app.addEventListener('change', (ev) => {
   const el = ev.target as HTMLInputElement;

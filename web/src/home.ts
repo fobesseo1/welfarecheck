@@ -1,10 +1,23 @@
 // 홈페이지: 소개 영상 팝업, 휴대폰 메뉴, 회사 정보(site.ts 에서 정해진 것만)
-import { SITE } from './site.ts';
+import { SITE, consultMode } from './site.ts';
 import { openIntro } from './ui/intro.ts';
 import { loadFeatures, applyFeatures } from './features.ts';
 
 // 기능 스위치: 켜진 새 기능만 보이게 (기본은 모두 꺼짐)
 void loadFeatures().then(() => applyFeatures());
+
+// 실제 접수 창구가 준비된 경우에만 신청과 연락 약속을 표시한다.
+if (consultMode() === 'closed') {
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="consult.html"]').forEach((a) => {
+    a.childNodes.forEach((n) => { if (n.nodeType === Node.TEXT_NODE) n.textContent = n.textContent?.replace(/바로 상담 신청|무료 상담 신청/g, '무료 상담 안내') ?? ''; });
+    a.querySelectorAll('span').forEach((s) => { s.textContent = s.textContent?.replace('무료 상담 신청', '무료 상담 안내') ?? ''; });
+  });
+  const step = document.querySelector('[data-consult-step]');
+  if (step) step.textContent = '상담 접수를 준비하고 있어요';
+} else {
+  const status = document.querySelector('[data-consult-status]');
+  if (status) { status.querySelector('p')!.textContent = consultMode() === 'preview' ? '신청 화면 테스트' : '상담 연락 안내'; status.querySelector('span')!.textContent = consultMode() === 'preview' ? '상황 선택부터 완료 화면까지 확인해 보세요. 실제 접수는 되지 않아요.' : SITE.promise; }
+}
 
 document.addEventListener('click', (ev) => {
   const t = ev.target as HTMLElement;
@@ -19,7 +32,7 @@ document.addEventListener('click', (ev) => {
     return;
   }
   // 메뉴 안 링크를 누르면 닫기
-  if (t.closest('#h-nav a')) { nav.classList.remove('open'); document.querySelector('.h-menu')?.setAttribute('aria-expanded', 'false'); }
+  if (t.closest('#h-nav a')) { nav.classList.remove('open'); const button = document.querySelector('.h-menu'); button?.setAttribute('aria-expanded', 'false'); button?.setAttribute('aria-label', '메뉴 열기'); }
 });
 
 // 첫 화면 소개 영상: 소리 없이 반복 재생. 휴대폰 폭이면 세로 20초판, 아니면 가로 45초판.
@@ -145,6 +158,7 @@ function whileVisible(el: Element, on: () => void, off: () => void) {
   };
   // 스크롤과 상관없이 화면에 보이는 동안 계속 자동으로 움직인다 (화면 밖에서는 쉬어서 전력 절약)
   draw(0);
+  if (reduceMotion) return;
   let raf = 0, t0 = 0, acc = 0;
   const loop = (now: number) => { if (!t0) t0 = now; draw(acc + now - t0); raf = requestAnimationFrame(loop); };
   whileVisible(svg, () => { if (!raf) { t0 = 0; raf = requestAnimationFrame(loop); } }, () => { if (raf) { cancelAnimationFrame(raf); raf = 0; acc += performance.now() - t0; } });

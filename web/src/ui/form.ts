@@ -18,7 +18,7 @@ export function renderForm(f: FilledForm): string {
     <h2 id="form-title" class="greet" tabindex="-1">신청서, 이렇게 쓰면 돼요</h2>
     <p class="lead" style="margin-top:10px;font-size:13px">답하신 내용으로 채울 수 있는 칸은 채웠어요.<br>'직접' 칸만 쓰시면 돼요. 이 내용은 저장되지 않아요.</p>
 
-    <a class="btn-mint no-print" style="align-self:flex-start;margin-top:22px" href="${attr(f.online.url)}" target="_blank" rel="noopener noreferrer">누리집에서 온라인 신청${ICON.out}</a>
+    <a class="btn-mint no-print" style="align-self:flex-start;margin-top:22px" href="${attr(f.online.url)}" target="_blank" rel="noopener noreferrer">${esc(f.online.label)}${ICON.out}</a>
     <span class="fhint no-print">${esc(f.online.note)}</span>
 
     <p class="sub-h" style="margin-top:36px;margin-bottom:12px">신청서 종류</p>
@@ -28,7 +28,7 @@ export function renderForm(f: FilledForm): string {
       <p class="sub-h" style="margin-top:36px">${esc(s.title)}</p>
       ${s.fields.map((x) => {
         if (x.checks) return `<div class="frow plain"><span style="display:flex;gap:12px"><span class="fno">${esc(x.no)}</span><span class="flab">${esc(x.label)}</span></span>
-          <div class="fchecks" style="padding-left:40px">${x.checks.slice(0, 3).map((c) => `<span class="kind${c.on ? ' on' : ''}">${esc(c.label)}</span>`).join('')}</div>
+          <div class="fchecks" style="padding-left:40px">${x.checks.map((c) => `<span class="kind${c.on ? ' on' : ''}">${esc(c.label)}</span>`).join('')}</div>
           ${x.hint ? `<p class="fhint" style="padding-left:40px;margin:0">${esc(x.hint)}</p>` : ''}</div>`;
         if (x.kind === 'draft') return `<div class="frow plain"><span style="display:flex;gap:12px"><span class="fno">${esc(x.no)}</span><span class="flab">${esc(x.label)} · 예시</span></span>
           ${x.value ? `<div class="fdraft" style="width:100%">${esc(x.value)}</div>` : ''}

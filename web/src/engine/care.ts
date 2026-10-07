@@ -17,6 +17,7 @@ export interface CareData {
 
 export interface CareRow { id: string; name: string; short: string; status: CareStatus | 'mixed'; label: string; detail: string[]; rules: string[]; match: boolean }
 export interface CareView {
+  notice?: string;
   grades: GradeCode[];
   gradeLabel: string;
   need?: NeedId;
@@ -30,10 +31,11 @@ export const NEED_IDS: NeedId[] = ['care', 'home', 'day', 'facility'];
 export const isNeed = (v: unknown): v is NeedId => typeof v === 'string' && (NEED_IDS as string[]).includes(v);
 
 /** 등급 여러 개(예상 범위)에 걸치면 '등급별로 달라요'로 묶고 등급별 문장을 보여준다 */
-export function careView(data: CareData, grades: GradeCode[], need?: NeedId): CareView {
+export interface CareContext { expired?: boolean; notEligible?: boolean; hasCurrentGrade?: boolean; facilityInCert?: boolean }
+export function careView(data: CareData, grades: GradeCode[], need?: NeedId, context: CareContext = {}): CareView {
   const gs = [...new Set(grades)].sort((a, b) => GRADE_RANK[b] - GRADE_RANK[a]);
   const rows: CareRow[] = data.services.map((s) => {
-    const st = gs.map((g) => s.by_grade[g] ?? 'no');
+    const st = gs.map((g): CareStatus => context.expired || context.notEligible ? 'no' : s.id === 'facility' && context.hasCurrentGrade && context.facilityInCert && ['3', '4', '5'].includes(g) ? 'yes' : s.by_grade[g] ?? 'no');
     const same = st.every((x) => x === st[0]);
     const detail: string[] = [];
     if (!same) {
@@ -44,7 +46,7 @@ export function careView(data: CareData, grades: GradeCode[], need?: NeedId): Ca
     }
     for (const g of gs) { const n = s.notes[g]; if (n && !detail.includes(n)) detail.push(n); }
     const status = same ? st[0] : 'mixed';
-    return { id: s.id, name: s.name, short: s.short, status, label: status === 'mixed' ? '등급에 따라 달라요' : STATUS_KO[status], detail, rules: s.rules, match: !!need && s.needs.includes(need) };
+    return { id: s.id, name: s.name, short: s.short, status, label: context.expired ? '유효기간 확인 필요' : status === 'mixed' ? '등급에 따라 달라요' : STATUS_KO[status], detail: context.expired || context.notEligible ? [] : detail, rules: context.expired ? [...s.rules, 'R-FAC-04'] : s.rules, match: !!need && s.needs.includes(need) };
   });
   // 고른 도움에 맞는 것을 위로 (같으면 원래 순서)
   if (need) rows.sort((a, b) => Number(b.match) - Number(a.match));
@@ -56,12 +58,13 @@ export function careView(data: CareData, grades: GradeCode[], need?: NeedId): Ca
   if (need) outside.sort((a, b) => Number(b.match) - Number(a.match));
 
   const vals = graded.map((g) => data.monthly_limit.values[g]).filter((v): v is number => typeof v === 'number');
-  const limit = vals.length ? (() => {
+  const limit = vals.length && !context.expired && !context.notEligible ? (() => {
     const low = Math.min(...vals), high = Math.max(...vals), c = data.monthly_limit.copay_home;
     return { year: data.year, low, high, copayLow: Math.round(low * c), copayHigh: Math.round(high * c), note: data.monthly_limit.note, rules: data.monthly_limit.rules };
   })() : undefined;
 
-  return { grades: gs, gradeLabel: gs.length ? formatGradeRange(gs) : GRADE_KO.none, need, rows, outside, limit };
+  const notice = context.expired ? '인정서 유효기간이 지났어요. 갱신 여부와 새 인정서를 공단에 확인한 뒤 이용할 수 있는 급여를 다시 확인해 주세요.' : context.notEligible ? '현재 답변으로는 장기요양 신청 대상이 아니에요. 아래는 공단에서 등급외 판정을 받았다는 뜻이 아니에요.' : context.hasCurrentGrade === false ? '아래는 예상 등급이 공단에서 인정되고 인정서가 유효할 때의 안내예요. 지금 바로 이용할 수 있다는 뜻은 아니에요.' : undefined;
+  return { grades: gs, gradeLabel: context.expired ? '유효기간 확인 필요' : context.notEligible ? '신청 대상 확인 필요' : gs.length ? formatGradeRange(gs) : GRADE_KO.none, notice, need, rows, outside, limit };
 }
 
 /** 금액을 '251만 원' 처럼 */

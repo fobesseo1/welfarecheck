@@ -76,7 +76,7 @@ function checklist(s: Step, raw: Answers): string {
         ${btn('other', '목록에 없어요 · 직접 적기', open, 'other-toggle')}
         ${open ? `<label for="o-${attr(s.id)}">어떤 점이 달라지셨나요?</label>
         <textarea id="o-${attr(s.id)}" data-act="other-text" data-id="${attr(s.id)}" maxlength="300" rows="4" placeholder="예: 밤마다 가스레인지를 켜려고 하세요">${esc(raw[k] ?? '')}</textarea>
-        <p>적은 내용은 점수에 넣지 않고, 결과의 '방문조사 때 말씀할 내용'과 신청서 사유 예시에 그대로 보여드려요. 이 기기에만 저장돼요.</p>` : ''}
+        <p>적은 내용은 점수에 넣지 않고, 결과의 '방문조사 때 말씀할 내용'과 신청서 사유 예시에 그대로 보여드려요. 기본적으로 이 기기에 저장되며, 자료 요청에서 답변 저장에 따로 동의하면 모심듀오에도 전달돼요.</p>` : ''}
       </div>`;
   }
   if (!s.gate) {

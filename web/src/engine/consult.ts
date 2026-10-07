@@ -72,7 +72,7 @@ export const formatPhone = (p: string) => {
 /** 빠진 것 목록 (키 → 보호자에게 보일 문장) */
 export function validate(f: ConsultForm): Record<string, string> {
   const e: Record<string, string> = {};
-  if (!f.region) e.region = '어르신이 사시는 곳을 골라 주세요.';
+  if (!f.region.trim()) e.region = '어르신이 사시는 시·군·구를 적어 주세요.';
   if (!f.help.length) e.help = '필요한 도움을 하나 이상 골라 주세요.';
   else if (f.help.length === 1 && f.help[0] === 'other' && !f.helpText.trim()) e.help = '직접 입력 칸에 짧게 적어 주세요.';
   if (!f.contact) e.contact = '연락 방법을 골라 주세요.';

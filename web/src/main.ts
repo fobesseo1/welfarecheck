@@ -1,4 +1,4 @@
-// 화면 제어: 시작 → 질문 하나씩 → 결과. 답은 이 브라우저의 localStorage 에만 저장한다.
+// 화면 제어: 시작 → 질문 하나씩 → 결과. 기본 저장은 localStorage, 자료 요청 시 동의한 현재 답변만 전송한다.
 import { kb, formDef } from './data.ts';
 import type { Answers } from './engine/types.ts';
 import { visibleSteps, expandAnswers, itemValues, dementiaAnswer, adlAnswer, isAnswered, otherKey, UNKNOWN } from './engine/answers.ts';
@@ -14,6 +14,7 @@ import { careSection } from './ui/result.ts';
 import { careData } from './data.ts';
 import { careView, isNeed, type NeedId } from './engine/care.ts';
 import { loadFeatures, applyFeatures, isOn } from './features.ts';
+import { mountDelivery } from './delivery-ui.ts';
 
 const STORE_KEY = 'ltc-selfcheck-v2';
 type Screen = 'start' | 'result' | 'form' | string; // string = 질문 ID
@@ -91,8 +92,10 @@ function draw() {
     const r = buildResult(kb, state.answers, today());
     const form = buildForm(kb, formDef, state.answers, r);
     if (state.screen === 'form' && form) { app.innerHTML = renderForm(form); return; }
-    const care = isOn('careMatrix') ? careSection(careView(careData, r.careGrades, state.need), careData, kb) : '';
-    app.innerHTML = renderResult(r, kb, form ? formDef.online : null, state.checks ?? {}, care); applyFeatures(app); return;
+    const care = isOn('careMatrix') ? careSection(careView(careData, r.careGrades, state.need, r.careContext), careData, kb) : '';
+    app.innerHTML = renderResult(r, kb, form ? formDef.online : null, state.checks ?? {}, care);
+    mountDelivery(app, kb, state.answers, `${r.verdict.title}\n참고용 예상: ${r.estimate.label}\n실제 등급과 급여는 국민건강보험공단이 결정합니다.`);
+    applyFeatures(app); return;
   }
   let i = list.findIndex((s) => s.id === state.screen);
   if (i < 0) { i = firstUnanswered(); state.screen = list[i]?.id ?? 'result'; if (state.screen === 'result') return draw(); }
@@ -229,5 +232,6 @@ try { history.replaceState({ screen: state.screen, depth: 0 } satisfies Hist, ''
 void loadFeatures().then(() => {
   applyFeatures();
   render();
+  if (new URLSearchParams(location.search).get('view') === 'result' && state.finished) { go('result'); return; }
   if (prefilled) { const i = firstUnanswered(); go(i < 0 ? 'result' : steps()[i].id); }
 });
