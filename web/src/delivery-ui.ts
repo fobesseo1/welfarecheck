@@ -19,6 +19,7 @@ export function mountDelivery(app: HTMLElement, kb: Kb, answers: Answers, summar
   ${GUIDES.map(([id, title]) => `<label><input type="checkbox" name="guide" value="${id}" ${rec.includes(id) ? 'checked' : ''}>${esc(title)}</label>`).join('')}</fieldset>
   <label for="delivery-email">받으실 이메일</label><input id="delivery-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="이메일 주소" required>
   <label for="delivery-phone">휴대전화 번호</label><input id="delivery-phone" name="phone" type="tel" autocomplete="tel" maxlength="13" placeholder="010-0000-0000" required><p class="delivery-hint">자료 전달에 문제가 생기면 확인할 수 있는 번호를 남겨 주세요.</p>
+  <div class="delivery-all"><label><input name="all-consents" type="checkbox">모두 동의하고 상담받기</label><p class="delivery-hint">상담 신청과 아래 필수·선택 동의 항목을 모두 선택해요. 원하지 않는 항목은 따로 해제할 수 있어요.</p></div>
   <label><input name="consult" type="checkbox">상담도 받고 싶어요</label>
   <fieldset><legend>자료 전달과 정보 이용</legend>
   <label><input name="privacy" type="checkbox" required>[필수] 자료 전달을 위한 개인정보 수집·이용 동의</label>
@@ -31,6 +32,19 @@ export function mountDelivery(app: HTMLElement, kb: Kb, answers: Answers, summar
   <p data-status role="status" aria-live="polite"></p><button type="submit" class="btn">${ready ? '이메일로 받기' : '요청 화면 확인하기'}</button>
   </form></details>`;
   const form = host.querySelector('form')!;
+  const allConsents = form.querySelector<HTMLInputElement>('[name="all-consents"]')!;
+  const consentItems = ['consult', 'privacy', 'sensitive', 'marketing'].map(name => form.querySelector<HTMLInputElement>(`[name="${name}"]`)!);
+  const syncConsents = () => {
+    const count = consentItems.filter(item => item.checked).length;
+    allConsents.checked = count === consentItems.length;
+    allConsents.indeterminate = count > 0 && count < consentItems.length;
+  };
+  allConsents.addEventListener('change', () => {
+    consentItems.forEach(item => { item.checked = allConsents.checked; });
+    syncConsents();
+  });
+  consentItems.forEach(item => item.addEventListener('change', syncConsents));
+  syncConsents();
   let id = requestId(); let submittedBody = ''; let busy = false;
   form.addEventListener('submit', async event => {
     event.preventDefault(); if (busy) return;
