@@ -199,7 +199,11 @@ function drawPins() {
     naver.maps.Event.addListener(m, 'click', () => select(p.id, false));
     pins.set(p.id, m);
   }
-  mapNote.textContent = inView.length > MAX_PINS ? `이 화면에 ${inView.length.toLocaleString('ko-KR')}곳이 있어 ${MAX_PINS}곳만 표시했어요. 지도를 확대해 보세요.` : '';
+  const noPos = view.filter((p) => p.lat == null).length;
+  mapNote.textContent = [
+    inView.length > MAX_PINS ? `이 화면에 ${inView.length.toLocaleString('ko-KR')}곳이 있어 ${MAX_PINS}곳만 표시했어요. 지도를 확대해 보세요.` : '',
+    noPos ? `${noPos.toLocaleString('ko-KR')}곳은 위치 정보를 모으는 중이라 목록에만 나와요.` : '',
+  ].filter(Boolean).join(' ');
 }
 
 function resetPins() { for (const m of pins.values()) m.setMap(null); pins.clear(); drawPins(); }

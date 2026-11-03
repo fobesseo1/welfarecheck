@@ -370,14 +370,48 @@ const clean = (s) => (s ? String(s).replace(/\s+/g, ' ').trim() || null : null);
 // 시군구 이름: 주소 둘째 낱말 (세종은 시군구가 없음)
 const guOf = (addr, sido) => (sido === '36' || !addr ? null : addr.split(' ')[1] ?? null);
 
+// 시군구 코드(시도 2 + 시군구 3) → 이름. 목록 API 의 코드로 지역을 정해야 상세를 아직 못 받은 기관도 시군구에 들어간다
+// 1) 우체국 주소 DB 의 도로명코드 앞 5자리와 시군구 이름 (data/facilities/sgg-names.json 에 저장해 두고 재사용)
+// 2) 우체국 DB 에 없는 코드(2026 통합 광주·전남 12 등)는 상세 주소에서 가장 많이 나온 이름
+const SGG_CACHE = join(ROOT, 'data', 'facilities', 'sgg-names.json');
+function sggNames(items) {
+  let names = readJson(SGG_CACHE, null);
+  if (!names) {
+    names = {};
+    for (const { text } of readTxtFiles(join(RAW, 'epost'), '우체국 주소 DB')) {
+      for (const line of text.split(/\r?\n/)) {
+        const c = line.split('|');
+        if (c.length < 24 || !/^\d{12}$/.test(c[7])) continue;
+        names[c[7].slice(0, 5)] ??= c[3].split(' ')[0] || null;
+      }
+    }
+    writeJson(SGG_CACHE, names, true);
+  }
+  const votes = {};
+  for (const f of items) {
+    const gu = guOf(clean(readJson(join(RAW, 'detail', `${f.sym}.json`), { ops: {} }).ops.general?.data?.adminAddr), f.siDoCd);
+    if (!gu || !/[시군구]$/.test(gu)) continue;
+    const v = (votes[f.siDoCd + f.siGunGuCd] ??= {});
+    v[gu] = (v[gu] ?? 0) + 1;
+  }
+  return (sido, sgg) => {
+    if (sido === '36') return null; // 세종은 시군구 없음
+    const k = sido + sgg;
+    const voted = Object.entries(votes[k] ?? {}).sort((a, b) => b[1] - a[1])[0]?.[0];
+    return names[k] ?? voted ?? null;
+  };
+}
+
 function build() {
   const geo = readJson(GEO_CACHE, {});
+  const ltcItems = readJson(join(RAW, 'ltc_list.json'), { items: [] }).items;
+  const sggName = sggNames(ltcItems);
   const bySido = {};
   const details = {};
   const add = (sido, place, detail) => { (bySido[sido] ??= []).push(place); (details[sido] ??= {})[place.id] = detail; };
   const round = (v) => (v == null || Number.isNaN(v) ? null : Math.round(v * 1e5) / 1e5);
 
-  for (const f of readJson(join(RAW, 'ltc_list.json'), { items: [] }).items) {
+  for (const f of ltcItems) {
     const kinds = [...new Set(f.types.map(serviceOf).filter(Boolean))].filter((k) => k !== 'welfare_tool');
     if (!kinds.length) continue;
     const ops = readJson(join(RAW, 'detail', `${f.sym}.json`), { ops: {} }).ops;
@@ -392,7 +426,7 @@ function build() {
     const addr = clean(g.adminAddr) ?? pos?.addr ?? null;
     add(f.siDoCd, {
       id, name: f.name, kind: primaryKind(kinds), kinds,
-      lat: round(pos?.lat), lng: round(pos?.lng), addr, gu: guOf(addr, f.siDoCd),
+      lat: round(pos?.lat), lng: round(pos?.lng), addr, gu: sggName(f.siDoCd, f.siGunGuCd) ?? guOf(addr, f.siDoCd),
       grade: null, // 공단 기관별 평가등급은 공개 API에 없음 (docs/FACILITY_DATA_PLAN.md 2절)
       phone: phoneOf(g),
       dementia: f.types.some(isDementiaUnit) || undefined,
