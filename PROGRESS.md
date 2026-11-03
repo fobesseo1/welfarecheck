@@ -11,6 +11,7 @@
 - 상세 수집 자동화: 윈도우 작업 스케줄러 `MosimDuo-FacilityCollect`(매일 09:00, 꺼져 있었으면 켜질 때 실행)가 `tools/facilities/run-daily.cmd` 실행 → 하루 한도까지 이어 받고 build. `detail-status.json`의 remaining이 0이면 작업을 스스로 삭제. 기록 `data/facilities/raw/daily.log`.
 - 상세 API에 글자 주소가 없어 좌표는 **도로명주소 좌표제공 API**(도로명코드+건물번호 그대로 입력, UTM-K→위경도 변환 함수 추가)로 결정. `collect.mjs geo` 작성, 매일 예약 작업에도 추가. `JUSO_COORD_API_KEY` 발급 대기. 브이월드는 도로명 글자로만 검색돼 보조용. 테스트 221개·타입 검사·빌드 통과.
 - (같은 날 변경) 주소정보누리집 키가 '부적합'으로 반려되고 자료 내려받기도 심사가 있어, **우체국 우편번호 DB(심사 없음) → 글자 주소 → 브이월드 지오코더**로 바꿈: `collect.mjs geo-addr`. 첫 시험 50곳 모두 도로명 좌표 성공, 글자 주소 생성 7,978/8,028. 매일 예약 작업도 이 방식으로 바꿈. 기관 JSON에 글자 주소(`addr`) 추가. 주소정보누리집용 `geo`·`geo-file`은 보조로 남김.
+- **Vercel 배포 추가**: 프로젝트 `mosimduo`(fobesseo1s-projects), 루트 `web`, GitHub main 푸시마다 자동 배포 → https://mosimduo.vercel.app . 환경변수 `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID`(production·preview) 등록. 네이버 지도 콘솔에 이 도메인 등록 필요(사용자). GitHub Pages 배포는 당분간 같이 둠.
 
 ## 2026-10-07 자료 요청 전체 동의
 
