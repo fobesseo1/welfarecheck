@@ -5,7 +5,7 @@ import {
   SIDO, KINDS, kindInfo, seatsLeft, filterPlaces, sortPlaces, nearestRegion, telHref,
   loadIndex, loadPlaces, type Index, type Place, type Kind,
 } from './facilities.ts';
-import { loadNaverMaps, markerHtml, type Naver } from './naver-map.ts';
+import { loadNaverMaps, markerHtml, whenAuthFails, authFailMessage, type Naver } from './naver-map.ts';
 
 const PAGE = 30;
 const MAX_PINS = 400;
@@ -153,6 +153,7 @@ let info: Naver = null;
 const pins = new Map<string, Naver>();
 
 async function initMap() {
+  whenAuthFails(() => { mapEl.classList.add('off'); mapNote.textContent = `지도를 띄우지 못했어요 (${authFailMessage}). 목록은 그대로 쓸 수 있어요.`; });
   try {
     naver = await loadNaverMaps();
     map = new naver.maps.Map(mapEl, { center: new naver.maps.LatLng(36.4, 127.8), zoom: 7, scaleControl: false, mapDataControl: false });

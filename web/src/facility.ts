@@ -1,7 +1,7 @@
 // 기관 상세 화면 (facility.html?s=시도코드&id=기관ID): 공공데이터로 알 수 있는 것을 한 장에 모아 보여 준다
 import { esc, attr } from './ui/html.ts';
 import { SIDO, kindInfo, seatsLeft, naverSearchUrl, telHref, won, loadPlaces, loadDetails, type Place, type Detail } from './facilities.ts';
-import { loadNaverMaps, markerHtml } from './naver-map.ts';
+import { loadNaverMaps, markerHtml, whenAuthFails } from './naver-map.ts';
 
 const root = document.getElementById('fd')!;
 const q = new URLSearchParams(location.search);
@@ -71,6 +71,7 @@ function render(p: Place, d: Detail) {
     <p class="fd-src">출처: ${p.kind === 'care_hospital' ? '건강보험심사평가원 병원정보·병원평가정보' : '국민건강보험공단 장기요양기관 정보'} (공공데이터${d.fetched ? `, ${esc(d.fetched.replaceAll('-', '.'))} 수집` : ''}). 실제와 다를 수 있으니 방문 전 기관에 확인해 주세요.</p>
     <a class="fx-btn mint big" href="consult.html">어디가 맞을지 모르겠다면 무료 상담</a>`;
   if (p.lat != null) {
+    whenAuthFails(() => document.getElementById('fd-map')?.remove());
     loadNaverMaps().then((naver) => {
       const pos = new naver.maps.LatLng(p.lat, p.lng);
       const map = new naver.maps.Map(document.getElementById('fd-map'), { center: pos, zoom: 16, scaleControl: false, mapDataControl: false });

@@ -4,13 +4,20 @@ export type Naver = any;
 
 const CLIENT_ID = import.meta.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 let loading: Promise<Naver> | null = null;
+let authFailed = false;
+const onAuthFail: (() => void)[] = [];
+const AUTH_MSG = '지도 인증 실패 · 네이버 클라우드 콘솔에 이 도메인 등록 필요';
+/** 지도 인증이 실패하면(등록 안 된 도메인 등) 부를 함수 */
+export function whenAuthFails(f: () => void) { if (authFailed) f(); else onAuthFail.push(f); }
+export const authFailMessage = AUTH_MSG;
 
 export function loadNaverMaps(): Promise<Naver> {
   const w = window as unknown as { naver?: Naver; navermap_authFailure?: () => void };
   if (w.naver?.maps) return Promise.resolve(w.naver);
   if (!CLIENT_ID) return Promise.reject(new Error('지도 키 없음'));
   return (loading ??= new Promise((resolve, reject) => {
-    w.navermap_authFailure = () => reject(new Error('지도 인증 실패 (네이버 콘솔에 이 도메인이 등록됐는지 확인)'));
+    // 인증 실패는 스크립트를 다 받은 뒤(지도를 만든 뒤)에도 올 수 있어 따로 알린다
+    w.navermap_authFailure = () => { authFailed = true; reject(new Error(AUTH_MSG)); onAuthFail.forEach((f) => f()); };
     const s = document.createElement('script');
     s.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${encodeURIComponent(CLIENT_ID)}`;
     s.async = true;
