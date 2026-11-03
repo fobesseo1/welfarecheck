@@ -13,7 +13,8 @@
 - (같은 날 변경) 주소정보누리집 키가 '부적합'으로 반려되고 자료 내려받기도 심사가 있어, **우체국 우편번호 DB(심사 없음) → 글자 주소 → 브이월드 지오코더**로 바꿈: `collect.mjs geo-addr`. 첫 시험 50곳 모두 도로명 좌표 성공, 글자 주소 생성 7,978/8,028. 매일 예약 작업도 이 방식으로 바꿈. 기관 JSON에 글자 주소(`addr`) 추가. 주소정보누리집용 `geo`·`geo-file`은 보조로 남김.
 - **Vercel 배포 추가**: 프로젝트 `mosimduo`(fobesseo1s-projects), 루트 `web`, GitHub main 푸시마다 자동 배포 → https://mosimduo.vercel.app . 환경변수 `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID`(production·preview) 등록. 네이버 지도 콘솔에 이 도메인 등록 필요(사용자). GitHub Pages 배포는 당분간 같이 둠.
 - **기관 찾기·상세 화면 추가**: `find.html`(시도·시군구·종류·치매 전담·남은 자리·검색, 내 위치 → 가까운 시군구·가까운 순, 네이버 지도 표시는 화면 안 400곳까지) · `facility.html?s=시도&id=`(자리 현황·방 구성·비급여 비용·인력·찾아가는 길·요양병원 평가등급). 공통 계산 `web/src/facilities.ts`(테스트 7개), 지도 불러오기 `web/src/naver-map.ts`. `build` 가 `details/<시도>.json` 과 시군구 중심 좌표 목차를 만든다. 상세 API 일반현황에 글자 주소(`adminAddr`)가 있는 것을 확인해 화면 주소로 씀. 좌표 7,928곳 전부 성공. 홈 머리·바닥에 '기관 찾기' 링크. 테스트 230개 통과.
-- 남은 것: 매일 받은 자료를 사이트에 올리려면 `web/public/facilities` 를 커밋·푸시해야 함(지금은 수동).
+- 네이버 지도 Client ID 를 모심듀오 앱 키로 바로잡음(처음 넣은 값은 다른 Application 것이라 인증 실패). Vercel 실사이트에서 지도·표시 확인.
+- 매일 오전 9시 작업(`run-daily.cmd`)이 build 뒤 `web/public/facilities` 만 커밋·푸시 → Vercel 자동 재배포. 다른 작업 중 파일은 건드리지 않음(`--only`, `pull --rebase --autostash`). 직접 한 번 돌려 확인.
 
 ## 2026-10-07 자료 요청 전체 동의
 

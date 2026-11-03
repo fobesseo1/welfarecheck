@@ -16,6 +16,20 @@ rem main path: epost address DB (data\facilities\raw\epost) -> text address -> V
 %NODE% tools\facilities\collect.mjs geo-addr >> %LOG% 2>&1
 %NODE% tools\facilities\collect.mjs build >> %LOG% 2>&1
 
+rem publish: commit only web/public/facilities and push -> Vercel redeploys the site
+git diff --quiet -- web/public/facilities
+set CHANGED=%errorlevel%
+git ls-files --others --exclude-standard -- web/public/facilities | findstr . >nul && set CHANGED=1
+if not "%CHANGED%"=="0" (
+  git add -- web/public/facilities >> %LOG% 2>&1
+  git commit -m "facility data daily update %date%" --only -- web/public/facilities >> %LOG% 2>&1
+  git pull --rebase --autostash origin main >> %LOG% 2>&1
+  git push origin main >> %LOG% 2>&1
+  echo published facility data >> %LOG%
+) else (
+  echo no facility data change >> %LOG%
+)
+
 %NODE% -e "process.exit(require('./data/facilities/raw/detail-status.json').remaining === 0 ? 0 : 1)"
 if %errorlevel%==0 (
   echo all facilities fetched - deleting scheduled task >> %LOG%
