@@ -159,7 +159,10 @@ async function initMap() {
     map = new naver.maps.Map(mapEl, { center: new naver.maps.LatLng(36.4, 127.8), zoom: 7, scaleControl: false, mapDataControl: false });
     info = new naver.maps.InfoWindow({ borderWidth: 0, backgroundColor: 'transparent', disableAnchor: true, pixelOffset: new naver.maps.Point(0, -8) });
     naver.maps.Event.addListener(map, 'idle', drawPins);
+    // 처음 열 때는 idle 이 목록보다 먼저 올 수 있어, 지도 준비가 끝나면 한 번 더 그린다
+    naver.maps.Event.once(map, 'init', () => { moveMap(); drawPins(); });
     moveMap();
+    setTimeout(drawPins, 300);
   } catch (e) {
     mapEl.classList.add('off');
     mapNote.textContent = `지도를 띄우지 못했어요 (${(e as Error).message}). 목록은 그대로 쓸 수 있어요.`;
