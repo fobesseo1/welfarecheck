@@ -24,7 +24,7 @@ function seats(p: Place, d: Detail): string {
         <div class="${left ? 'ok' : ''}"><span>남은 자리</span><b>${left ?? '-'}</b></div>
         <div><span>대기</span><b>${a.waiting}</b></div>
       </div></div>`;
-  }).join('') + (seatsLeft(p) === 0 ? '<p class="fd-note">지금은 자리가 차 있어요. 대기 등록이 되는지 전화로 물어보세요.</p>' : '');
+  }).join('') + '<p class="fd-note">공단에 신고된 숫자예요. 지금 이용할 수 있는지는 전화로 직접 확인해 주세요.</p>';
 }
 
 function rooms(d: Detail): string {

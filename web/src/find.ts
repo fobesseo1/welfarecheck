@@ -112,7 +112,7 @@ function card(p: Place & { dist?: number }): string {
     p.capacity != null ? `정원 ${p.capacity}` : '',
     p.current != null && p.capacity != null ? `현원 ${p.current}` : '',
     seats != null ? `<b class="${seats > 0 ? 'ok' : ''}">남은 자리 ${seats}</b>` : '',
-    p.waiting ? `대기 ${p.waiting}` : '',
+    p.waiting != null && p.capacity != null ? `대기 ${p.waiting}` : '',
   ].filter(Boolean).join(' · ');
   return `
     <li class="fx-card${p.id === st.selected ? ' on' : ''}" data-id="${attr(p.id)}">
@@ -132,7 +132,7 @@ function renderList() {
     listEl.innerHTML = `<div class="fx-empty"><p><b>어느 지역에서 찾으세요?</b></p><p>시·도를 고르거나 <b>내 위치</b>를 눌러 주세요.</p></div>`;
     return;
   }
-  const head = `<p class="fx-count"><b>${view.length.toLocaleString('ko-KR')}</b>곳${st.origin ? ' · 가까운 순' : ''}</p>`;
+  const head = `<p class="fx-count"><b>${view.length.toLocaleString('ko-KR')}</b>곳${st.origin ? ' · 가까운 순' : ''}</p><p class="fx-hint">정원·현원·대기는 공단에 신고된 숫자예요. 지금 이용할 수 있는지는 전화로 직접 확인해 주세요.</p>`;
   if (!view.length) { listEl.innerHTML = `${head}<div class="fx-empty"><p>조건에 맞는 기관이 없어요. 조건을 줄여 보세요.</p></div>`; return; }
   listEl.innerHTML = `${head}<ul class="fx-cards">${view.slice(0, st.shown).map(card).join('')}</ul>
     ${view.length > st.shown ? `<button type="button" class="fx-more" id="fx-more">더 보기 (${(view.length - st.shown).toLocaleString('ko-KR')}곳 남음)</button>` : ''}`;
