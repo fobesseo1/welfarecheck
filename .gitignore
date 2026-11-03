@@ -18,3 +18,5 @@ data/facilities/raw/
 
 .vercel
 .env*
+# 좌표 캐시 (수집 스크립트가 매일 갱신)
+data/facilities/geocode-cache.json

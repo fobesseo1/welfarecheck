@@ -356,10 +356,25 @@ async function geoAddr() {
   }
 }
 
+// 공단 인력현황 칸 이름 (docs/api-specs/nhis_ltc_detail_15058856.txt)
+const STAFF = [
+  ['equipLong', '시설장'], ['hdOfce', '사무국장'], ['socWel', '사회복지사'], ['chrgDoc', '의사(전임)'], ['chargeDoc', '의사(촉탁)'],
+  ['nur', '간호사'], ['nurArticle', '간호조무사'], ['dent', '치위생사'], ['physicalMTret', '물리치료사'], ['wrkMTret', '작업치료사'],
+  ['recuProt_1', '요양보호사 1급'], ['recuProt_2', '요양보호사 2급'], ['nut', '영양사'], ['cook', '조리원'], ['hygiPrsn', '위생원'],
+  ['ofceEmp', '사무원'], ['mgmtPrsn', '관리인'], ['suppPrsn', '보조원'], ['etcPer', '기타'],
+];
+const NONPAY = { 1: '식재료비', 2: '상급침실(1인실)', 3: '이·미용비', 4: '경관영양 유동식비', 5: '간식비', 6: '상급침실(2인실)', 7: '기타' };
+const SERVICE_NAME = { nursing_home: '요양원(입소)', day_care: '주야간보호', short_stay: '단기보호', home_care: '방문요양', home_bath: '방문목욕', home_nursing: '방문간호' };
+const day = (s) => (/^\d{8}$/.test(s ?? '') ? `${s.slice(0, 4)}.${s.slice(4, 6)}.${s.slice(6)}` : null);
+const clean = (s) => (s ? String(s).replace(/\s+/g, ' ').trim() || null : null);
+// 시군구 이름: 주소 둘째 낱말 (세종은 시군구가 없음)
+const guOf = (addr, sido) => (sido === '36' || !addr ? null : addr.split(' ')[1] ?? null);
+
 function build() {
   const geo = readJson(GEO_CACHE, {});
   const bySido = {};
-  const add = (sido, place) => (bySido[sido] ??= []).push(place);
+  const details = {};
+  const add = (sido, place, detail) => { (bySido[sido] ??= []).push(place); (details[sido] ??= {})[place.id] = detail; };
   const round = (v) => (v == null || Number.isNaN(v) ? null : Math.round(v * 1e5) / 1e5);
 
   for (const f of readJson(join(RAW, 'ltc_list.json'), { items: [] }).items) {
@@ -367,18 +382,39 @@ function build() {
     if (!kinds.length) continue;
     const ops = readJson(join(RAW, 'detail', `${f.sym}.json`), { ops: {} }).ops;
     const g = ops.general?.data ?? {};
-    const acc = Object.entries(ops).filter(([k]) => k.startsWith('accept:')).map(([, v]) => v.data).filter(Boolean);
+    const etc = ops.etc?.data ?? {};
+    const st = ops.staff?.data ?? null;
+    const accepts = Object.entries(ops).filter(([k]) => k.startsWith('accept:')).map(([k, v]) => [k.slice(7), v.data]).filter(([, d]) => d);
+    const acc = accepts.map(([, d]) => d);
     const sum = (field) => (acc.length ? acc.reduce((s, a) => s + (num(a[field]) ?? 0), 0) : null);
     const id = `LTC-${f.sym}`;
     const pos = geo[id];
+    const addr = clean(g.adminAddr) ?? pos?.addr ?? null;
     add(f.siDoCd, {
       id, name: f.name, kind: primaryKind(kinds), kinds,
-      lat: round(pos?.lat), lng: round(pos?.lng), addr: pos?.addr ?? null,
+      lat: round(pos?.lat), lng: round(pos?.lng), addr, gu: guOf(addr, f.siDoCd),
       grade: null, // 공단 기관별 평가등급은 공개 API에 없음 (docs/FACILITY_DATA_PLAN.md 2절)
       phone: phoneOf(g),
       dementia: f.types.some(isDementiaUnit) || undefined,
       capacity: sum('totPer'), current: acc.length ? sum('maNowPer') + sum('fmNowPer') : null, waiting: acc.length ? sum('maRsvPer') + sum('fmRsvPer') : null,
-      url: `facility.html?id=${id}`,
+    }, {
+      zip: g.hmPostNo ?? pos?.zip ?? null, since: day(g.longTermPeribRgtDt),
+      homepage: clean(etc.hmpgAddr), transit: clean(etc.tfMth), parking: clean(etc.pkngEquip),
+      accept: accepts.map(([pttn, d]) => ({ service: SERVICE_NAME[serviceOf(pttn)] ?? pttn, capacity: num(d.totPer), current: (num(d.maNowPer) ?? 0) + (num(d.fmNowPer) ?? 0), waiting: (num(d.maRsvPer) ?? 0) + (num(d.fmRsvPer) ?? 0) })),
+      rooms: (() => {
+        const r = Object.entries(ops).filter(([k]) => k.startsWith('room:')).map(([, v]) => v.data).filter(Boolean);
+        if (!r.length) return null;
+        const n = (i) => r.reduce((s, x) => s + (num(x[`prsnRoomreal${i}`]) ?? 0), 0);
+        return { 1: n(1), 2: n(2), 3: n(3), 4: n(4) };
+      })(),
+      staff: st ? STAFF.map(([k, label]) => [label, num(st[k]) ?? 0]).filter(([, n]) => n > 0) : null,
+      nonpay: (() => {
+        const seen = new Set();
+        return Object.entries(ops).filter(([k]) => k.startsWith('nonpay:')).flatMap(([, v]) => (Array.isArray(v.data) ? v.data : v.data ? [v.data] : []))
+          .map((x) => ({ item: NONPAY[x.nonpayKind] ?? '기타', amount: num(x.nonpayTgtAmt), basis: clean(x.prodBase), updated: day(x.uptDt) }))
+          .filter((x) => { const k = `${x.item}|${x.amount}|${x.basis}`; return !seen.has(k) && seen.add(k); });
+      })(),
+      fetched: ops.general?.at?.slice(0, 10) ?? null,
     });
   }
 
@@ -387,21 +423,31 @@ function build() {
     // asmGrd10 = 요양병원 적정성평가 등급 1~5 또는 '등급제외' (docs/api-specs/guide_hira_hosp_eval.txt)
     const g10 = (evals[h.ykiho]?.items ?? []).map((e) => e.asmGrd10).find(Boolean) ?? null;
     const id = `HIRA-${h.ykiho.slice(0, 24)}`;
-    add(HIRA_SIDO[h.sidoCd?.slice(0, 2)] ?? '00', {
+    const sido = HIRA_SIDO[h.sidoCd?.slice(0, 2)] ?? '00';
+    const addr = clean(h.addr);
+    add(sido, {
       id, name: h.yadmNm, kind: 'care_hospital', kinds: ['care_hospital'],
-      lat: round(num(h.YPos ?? h.yPos)), lng: round(num(h.XPos ?? h.xPos)),
+      lat: round(num(h.YPos ?? h.yPos)), lng: round(num(h.XPos ?? h.xPos)), addr, gu: guOf(addr, sido),
       grade: /^[1-5]$/.test(g10 ?? '') ? `${g10}등급` : null,
-      phone: h.telno ?? null, url: `facility.html?id=${id}`,
-    });
+      phone: h.telno ?? null,
+    }, { zip: h.postNo ?? null, since: day(h.estbDd), doctors: num(h.drTotCnt), gradeNote: g10 === '등급제외' ? '등급제외' : null });
   }
 
+  // 목차: 시도·시군구별 기관 수와 좌표 평균(내 위치에서 가까운 지역 고르기용)
+  const center = (ps) => {
+    const c = ps.filter((p) => p.lat != null);
+    return c.length ? [round(c.reduce((s, p) => s + p.lat, 0) / c.length), round(c.reduce((s, p) => s + p.lng, 0) / c.length)] : null;
+  };
   const index = {};
   for (const [sido, places] of Object.entries(bySido)) {
     writeJson(join(OUT, 'places', `${sido}.json`), places);
-    index[sido] = places.length;
+    writeJson(join(OUT, 'details', `${sido}.json`), details[sido]);
+    const byGu = {};
+    for (const p of places) if (p.gu) (byGu[p.gu] ??= []).push(p);
+    index[sido] = { count: places.length, center: center(places), gu: Object.fromEntries(Object.entries(byGu).sort().map(([g, ps]) => [g, { count: ps.length, center: center(ps) }])) };
   }
   writeJson(join(OUT, 'index.json'), { builtAt: new Date().toISOString(), sido: index }, true);
-  console.log('시도별 기관 수', index);
+  console.log('시도별 기관 수', Object.fromEntries(Object.entries(index).map(([s, v]) => [s, v.count])));
 }
 
 const commands = { probe, list, detail, hosp, geo, 'geo-file': geoFile, 'geo-addr': geoAddr, build };

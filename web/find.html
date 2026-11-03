@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="전국 방문요양·주야간보호·요양원·요양병원을 지역과 종류로 찾아보세요. 정원·남은 자리·비급여 비용까지 공공데이터로 보여 드려요." />
+    <link rel="icon" type="image/svg+xml" href="brand/mosimduo-symbol.svg" />
+    <link rel="apple-touch-icon" href="brand/apple-touch-icon.png" />
+    <meta name="theme-color" content="#4FD699" />
+    <title>돌봄 기관 찾기 · 모심듀오</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="./src/find.css" />
+  </head>
+  <body class="fx-body">
+    <header class="fx-head">
+      <a class="fx-logo" href="index.html" aria-label="모심듀오 홈"><img src="brand/mosimduo-logo.svg" alt="모심듀오" width="110" height="35" /></a>
+      <nav><a href="check.html">3분 체크</a><a class="dark" href="consult.html">무료 상담</a></nav>
+    </header>
+    <main class="fx">
+      <section class="fx-side">
+        <h1>돌봄 기관 찾기</h1>
+        <p class="fx-lead">방문요양부터 요양원·요양병원까지, 지역에서 찾아보세요.</p>
+        <div id="fx-controls"></div>
+        <div id="fx-list" aria-live="polite"></div>
+        <p class="fd-src">출처: 국민건강보험공단 장기요양기관 정보, 건강보험심사평가원 병원정보·병원평가정보 (공공데이터, <span id="fx-built">-</span> 정리). 실제와 다를 수 있으니 방문 전 기관에 확인해 주세요.</p>
+      </section>
+      <section class="fx-mapwrap">
+        <div id="fx-map" class="fx-map"></div>
+        <p id="fx-mapnote" class="fx-mapnote"></p>
+      </section>
+    </main>
+    <script type="module" src="./src/find.ts"></script>
+  </body>
+</html>
