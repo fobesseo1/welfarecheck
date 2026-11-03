@@ -1,0 +1,9 @@
+# p15059029.html host=apis.data.go.kr/B550928/searchLtcInsttService02
+
+## /getBillGreentInsttSearchList02 — 청구그린기관 목록 검색 조회 : 지역별, 급여종류별, 기관명별 청구그린기관 목록 조회
+REQ: siDoCd(공통항목 법정동 코드 설명 참조); siGunGuCd(공통항목 법정동 코드 설명 참조); serviceKind(청구그린기관 급여종별 코드 정의); adminNm(장기요양기관이름)
+RES: longTermAdminSym(장기요양기관기호); serviceKind(기관유형코드 정의); adminNm(장기요양기관이름); siDoCd(공통항목 법정동 코드 설명 참조); siGunGuCd(공통항목 법정동 코드 설명 참조); HDongCd(공통항목 코드정의 법정동 코드 설명 참조); BDongCd(공통항목 코드정의 법정동 코드 설명 참조); riCd(공통항목 코드정의 법정동 코드 설명 참조); hmPostNo(우편번호); roadNmCd(행정표준 도로명코드); gunmulMlno(건물본번); gunmulSlno(건물부번); locTelNo_1(소재지전화번호-지역); locTelNo_2(소재지전화번호-국번); locTelNo_3(소재지전화번호-번호)
+
+## /getLtcInsttSeachList02 — 장기요양기관 검색 목록 조회 : 지역별, 급여종류별, 요양시설신고일별, 지정일별, 기관명별 장기요양시설 목록 조회
+REQ: siDoCd*(공통항목 법정동 코드설명 참조); siGunGuCd(공통항목 법정동 코드설명 참조); adminPttnCd(공통항목 코드 정의 기관유형코드 정의 참조); startRgtDt(등록일 검색 시작 날짜); endRgtDt(등록일 검색 끝 날짜); startStpRptDt(지정일 검색 시작 날짜); endStpRptDt(지정일 검색 끝 날짜); adminNm(장기요양 기관이름)
+RES: longTermAdminSym(장기요양기관기호); adminPttnCd(공통항목 코드정의 기관유형 코드 정의 참조); adminNm(장기요양 기관이름); siDoCd(공통항목 법정동 코드 설명 참조); siGunGuCd(공통항목 법정동 코드 설명 참조); longTermPeribRgtDt(기관지정일); stpRptDt(등록일)

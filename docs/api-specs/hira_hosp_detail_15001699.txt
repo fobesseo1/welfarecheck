@@ -1,0 +1,45 @@
+# p15001699.html host=apis.data.go.kr/B551182/MadmDtlInfoService2.8
+
+## /getEqpInfo2.8 — 시설정보 : 의료기관의 시설정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getSpclDiagInfo2.8 — 특수진료정보(진료가능분야조회) : 의료기관의 특수진료(진료가능분야) 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getTrnsprtInfo2.8 — 교통정보 : 의료기관의 교통정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getDtlInfo2.8 — 세부정보 : 의료기관의 세부정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getSpcSbjtSdrInfo2.8 — 전문과목별 전문의 수 : 의료기관의 전문과목별 전문의 수
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getDgsbjtInfo2.8 — 진료과목정보 : 의료기관의 진료과목 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getMedOftInfo2.8 — 의료장비정보 : 의료기관의 의료장비 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getFoepAddcInfo2.8 — 식대가산정보 : 의료기관의 식대가산 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getNursigGrdInfo2.8 — 간호등급정보 : 의료기관의 간호등급 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getSpclHospAsgFldList2.8 — 전문병원지정분야 : 의료기관의 전문병원지정분야 정보 제공 (저작권에 위배되지 않는 정보)
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho)))); pageNo(페이지 번호); numOfRows(한 페이지 결과 수); _type(xml/json (Default : xml))
+RES: header(헤더); body(바디)
+
+## /getEtcHstInfo2.8 — 기타인력수 : 의료기관별 약사, 한약사, 물리치료사 등 기타 인력 수에 대한 정보 제공
+REQ: serviceKey*(공공데이터포털에서 받은 인증키); pageNo*(페이지번호); numOfRows*(한 페이지 결과 수); ykiho*(암호화된 요양기호(확인방법: 건강보험심사평가원 오픈API[병원정보서비스>병원기본목록(getHospBasisList1)](암호화된요양기호(ykiho))))
+RES: header(헤더); body(바디)

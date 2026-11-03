@@ -1,0 +1,5 @@
+# p15001698.html host=apis.data.go.kr/B551182/hospInfoServicev2
+
+## /getHospBasisList — 병원기본목록 : 의료기관 검색결과 제공 (요양기관명,주소,전화번호,URL)
+REQ: ServiceKey*(서비스키); pageNo(페이지번호); numOfRows(한 페이지 결과 수); sidoCd(시도코드); sgguCd(시군구코드); emdongNm(읍면동명); yadmNm(병원명(UTF-8 인코딩 필요)); zipCd(분류코드(활용가이드 참조)); clCd(종별코드(활용가이드 참조)); dgsbjtCd(진료과목코드(활용가이드 참조)); xPos(x좌표(소수점 15)); yPos(y좌표(소수점 15)); radius(단위 : 미터(m))
+RES: header(헤더); body(바디)

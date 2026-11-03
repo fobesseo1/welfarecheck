@@ -1,5 +1,17 @@
 # PROGRESS — 작업 재개용 진행 기록
 
+## 2026-11-03 기관 정보 데이터 조사
+
+- 방향: 전국 재가·주야간보호·요양원·요양병원 **정보 제공**이 최우선. 지도는 사용자의 별도 네이버 지도 시스템을 가져옴(요청문 전달함).
+- 공공데이터포털 API 6종의 실제 기능·항목을 확인해 `docs/api-specs/`에 저장, 계획은 [docs/FACILITY_DATA_PLAN.md](docs/FACILITY_DATA_PLAN.md).
+- 공단 상세 API로 정원·현원·대기, 1~4인실, 인력, 비급여, 교통·주차, 협약의료기관, 치매전담 유형까지 얻을 수 있음. 공단 기관별 평가등급(A~E)과 좌표는 API에 없음.
+- `.env.example` 추가(`DATA_GO_KR_SERVICE_KEY`, `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID`, `VWORLD_API_KEY`), `.gitignore`에 `.env*`·`data/facilities/raw/` 추가.
+- 수집 스크립트 `tools/facilities/collect.mjs` 작성, 전국 장기요양기관 30,465곳 목록 받음(시도코드 12 = 광주+전남 통합). 상세는 하루 한도 안에서 이어 받는 중. 요양병원 1,269곳(좌표 XPos·YPos 포함)과 적정성평가(asmGrd10 = 요양병원 1~5등급) 받음. 심평원 시도코드는 법정동 코드로 바꿔 저장. 개발계정은 초당 요청 제한(code 23)이 낮아 요청 간격 150ms + 재시도로 수집.
+- 웹 빌드가 루트 `.env.local`의 `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID`만 읽도록 설정(Secret 차단 확인). 배포용은 GitHub Actions Variables에 같은 이름 등록 필요.
+- 상세 수집 자동화: 윈도우 작업 스케줄러 `MosimDuo-FacilityCollect`(매일 09:00, 꺼져 있었으면 켜질 때 실행)가 `tools/facilities/run-daily.cmd` 실행 → 하루 한도까지 이어 받고 build. `detail-status.json`의 remaining이 0이면 작업을 스스로 삭제. 기록 `data/facilities/raw/daily.log`.
+- 상세 API에 글자 주소가 없어 좌표는 **도로명주소 좌표제공 API**(도로명코드+건물번호 그대로 입력, UTM-K→위경도 변환 함수 추가)로 결정. `collect.mjs geo` 작성, 매일 예약 작업에도 추가. `JUSO_COORD_API_KEY` 발급 대기. 브이월드는 도로명 글자로만 검색돼 보조용. 테스트 221개·타입 검사·빌드 통과.
+- (같은 날 변경) 주소정보누리집 키가 '부적합'으로 반려되고 자료 내려받기도 심사가 있어, **우체국 우편번호 DB(심사 없음) → 글자 주소 → 브이월드 지오코더**로 바꿈: `collect.mjs geo-addr`. 첫 시험 50곳 모두 도로명 좌표 성공, 글자 주소 생성 7,978/8,028. 매일 예약 작업도 이 방식으로 바꿈. 기관 JSON에 글자 주소(`addr`) 추가. 주소정보누리집용 `geo`·`geo-file`은 보조로 남김.
+
 ## 2026-10-07 자료 요청 전체 동의
 
 - 요청 화면에 '모두 동의하고 상담받기' 추가. 상담 희망·필수 개인정보 동의·선택 건강 답변 동의·선택 정보 수신의 네 항목을 함께 선택/해제하며 개별 변경도 유지합니다. 일부만 선택하면 전체 체크박스는 부분 선택 상태로 표시합니다. 기본은 모두 미선택이고 자료 선택·전송 데이터 구조는 그대로입니다.

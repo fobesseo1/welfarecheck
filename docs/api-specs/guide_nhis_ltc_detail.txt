@@ -1,0 +1,1669 @@
+
+
+
+
+
+
+
+공공데이터 개방·활용·관리체계 개발
+OpenAPI 활용가이드
+96520-698600문서번호: OA_DV_0401
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LIG시스템컨소시엄
+
+
+문서 정보
+프로젝트
+ | 공공데이터개방활용관리체계개발
+ | 단계
+ | 개발
+ | 활동
+ | 활용가이드
+ | 작업
+ | 활용가이드작성
+ | 산출물
+ | OpenAPI활용가이드
+ | 파일명
+ | IROS5_OA_DV_0401_OpenAPI활용가이드_노인장기요양기관정보(국민건강보험공단)_장기요양기관시설별상세정보조회서비스_v1.2.docx
+ | 
+
+개정 이력
+버 전
+ | 변경일
+ | 변경 사유
+ | 변경 내용
+ | 작성자
+ | 승인
+ | 1.0
+ | 2015.11.06
+ | 최초작성
+ | 최초작성
+ | 정현기
+ | 
+ | 1.1
+ | 2015.12.10
+ | 요구사항 추가
+ | 요구사항 추가
+ | 정현기
+ | 
+ | 
+ | 2019.10.15.
+ | 제공불가 작성
+ | 제공불가 사항(사진정보, 평가정보) 기재
+ | 
+ | 
+ | 
+ | 2022.02.15
+ | URL수정
+ | 서비스 URL 등 수정
+ | 
+ | 
+ | 1.2
+ | 2022.11.14
+ | URL수정
+ | 
+ | 
+ | 
+ | 
+
+
+
+
+
+center-114300목 차
+00목 차
+
+ TOC \o "1-3" \h \z \u 1. 서비스 사용 PAGEREF _Toc438113081 \h 4
+1.1. 서비스 Key 발급 및 활용 PAGEREF _Toc438113082 \h 4
+가. 서비스 Key발급(인증신청 및 발급) PAGEREF _Toc438113083 \h 4
+나. 서비스 인증키 활용 PAGEREF _Toc438113084 \h 7
+2. 서비스 명세 PAGEREF _Toc438113085 \h 7
+2.1. 장기요양기관 시설별 상세정보조회 서비스 PAGEREF _Toc438113086 \h 7
+가. 서비스 개요 PAGEREF _Toc438113087 \h 7
+나. 오퍼레이션 목록 PAGEREF _Toc438113088 \h 8
+3. 공통항목 PAGEREF _Toc438113089 \h 27
+3.1. 코드 정의 PAGEREF _Toc438113090 \h 27
+
+
+
+서비스 사용
+서비스 Key 발급 및 활용
+서비스 Key발급(인증신청 및 발급)
+공공데이터포털(https://www.data.go.kr/) 활용자
+활용 신청 하고자 하는 API를 검색하여 클릭
+643255252412500
+활용 신청 하고자 하는 서비스 항목 오른쪽 파란색 활용신청 버튼 클릭
+283591094107000
+해당되는 내용을 기재하고 이용하고자 하는 상세 기능을 체크 한 뒤 가장 아래 쪽 파란 신청 버튼을 클릭
+3665855783272500448310178752500448310362458000516255501332500
+신청이 완료 되면 아래와 같은 메시지 박스가 출력
+
+신청이 완료되면 신청목록이 조회 되어 출력
+481965227838000
+왼쪽의 메뉴에 인증키 발급현황을 클릭하면 인증키 확인 가능
+414655249809000
+서비스 인증키 활용
+REST 방식의 인증키 활용
+http://apis.data.go.kr/B550928/searchLtcInsttService/getLtcInsttSeachList?serviceKey=서비스인증키
+서비스 명세
+장기요양기관 시설별 상세정보조회 서비스
+서비스 개요
+서비스 정보
+ | 서비스 ID
+ | SC-OA-03-02
+ | 
+ | 서비스명(국문)
+ | 장기요양기관 시설별 상세정보조회 서비스
+ | 
+ | 서비스명(영문)
+ | GetLtcInsttDetailInfoService
+ | 
+ | 서비스 설명
+ | 기관코드에 해당하는 장기요양기관 상세정보 조회
+ | 서비스 제공자정보
+ | 기관명
+ | 국민건강보험공단
+ | 서비스 보안
+ | 서비스 인증/권한
+ | [O] 서비스 Key[ ] 인증서 (GPKI)
+[ ] Basic (ID/PW) [ ] 없음
+ | [ ]WS-Security
+ | 
+ | 메시지 레벨 암호화
+ | [ ] 전자서명[ ] 암호화[ ] 없음
+ |  | 
+ | 전송 레벨 암호화
+ | [ ] SSL[ ] 없음
+ | 적용 기술 수준
+ | 인터페이스 표준
+ | [ ] SOAP 1.2
+(RPC-Encoded, Document Literal, Document Literal Wrapped)
+[O] REST (GET, POST, PUT, DELETE)
+[ ] RSS 1.0 [ ] RSS 2.0 [ ] Atom 1.0 [ ] 기타
+ | 
+ | 교환 데이터 표준
+ | [O] XML[ ] JSON[ ] MIME[ ] MTOM
+ | 서비스 URL
+ | 개발환경
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02
+ | 
+ | 운영환경
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02
+ | 서비스 WADL
+ | 개발환경
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService?_wadl&type=xml
+ | 
+ | 운영환경
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService?_wadl&type=xml
+ | 서비스 배포 정보
+ | 서비스 버전
+ | 2.0
+ | 
+ | 유효일자
+ | N/A
+ | 배포일자
+ | N/A
+ | 
+ | 서비스 이력
+ | 최초 배포
+ | 메시지 교환 유형
+ | [O] Request-Response[ ] Publish-Subscribe
+[ ] Fire-and-Forgot[ ] Notification
+ | 메시지 로깅 수준
+ | 성공
+ | [O] Header [O] Body
+ | 실패
+ | [O] Header [ ] Body
+ | 사용 제약 사항 (비고)
+ |  | 오퍼레이션 목록
+일련번호
+ | 서비스명(국문)
+ | 오퍼레이션명(영문)
+ | 오퍼레이션명(국문)
+ | 1
+ | 장기요양기관 시설별 상세정보조회 서비스
+ | getGeneralSttusDetailInfoItem
+ | 일반현황 상세 정보조회
+ | 2
+ |  | getStaffSttusDetailInfoItem
+ | 인력현황 상세 정보조회
+ | 3
+ |  | getInsttSttusDetailInfoItem
+ | 시설현황 상세 정보조회
+ | 4
+ |  | getNonBenefitSttusDetailInfoList
+ | 비급여현황 상세 정보조회
+ | 5
+ |  | getProgramSttusDetailInfoList
+ | 프로그램현황 상세 정보조회
+ | 6
+ |  | getConvInsttDetailInfoList
+ | 협약기관 현황 상세 정보조회
+ | 7
+ |  | getWlfareToolDetailInfoList
+ | 복지용구 현황 상세 정보조회
+ | 8
+ |  | getAceptncNmprDetailInfoItem
+ | 입소인원 상세 정보조회
+ | 9
+ |  | getInsttEtcDetailInfoItem
+ | 기관기타 상세 정보조회
+ | 
+일반현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 1
+ | 오퍼레이션명(국문)
+ | 일반현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(상세)
+ | 오퍼레이션명(영문)
+ | getGeneralSttusDetailInfoItem
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 일반현황조회(주소, 전화번호, 기관지정일, 설치신고일)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 1200 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관기호
+ | 11
+ | 1
+ | 21130500195
+ | 장기요양기관코드
+ | adminPttnCd
+ | 장기요양 기관유형코드
+ | 3
+ | 1
+ | B03
+ |  REF _Ref437531110 \h 공통항목  REF _Ref436396151 \h 코드 정의  REF _Ref436396095 \h 기관유형코드 정의 참조
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | Item
+ |  |  | 1
+ |  | 
+ |  | longTermAdminSym
+ | 장기요양기관기호
+ | 11
+ | 1
+ | 21130500195
+ | 장기요양기관기호
+ |  | adminPttnCd
+ | 기관유형코드
+ | 3
+ | 1
+ | B03
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ |  | adminNm
+ | 장기요양기관이름
+ | 100
+ | 1
+ | 번동데이케어센터
+ | 기관이름
+ | 
+ | hmPostNo
+ | 행망우편번호
+ | 6
+ | 0
+ | 01231
+ | 우편번호
+ | 
+ | siDoCd
+ | 시도코드
+ | 2
+ | 1
+ | 11
+ | 공통항목 코드정의  REF _Ref441670987 \h 법정동 코드 설명 참조
+ | 
+ | siGunGuCd
+ | 시군구코드
+ | 3
+ | 1
+ | 305
+ | 공통항목 코드정의  REF _Ref441670987 \h 법정동 코드 설명 참조
+ | 
+ | HDongCd
+ | 행정동코드
+ | 3
+ | 0
+ | 590
+ | 공통항목 코드정의  REF _Ref441670987 \h 법정동 코드 설명 참조
+ | 
+ | BDongCd
+ | 법정동코드
+ | 3
+ | 0
+ | 102
+ | 공통항목 코드정의  REF _Ref441670987 \h 법정동 코드 설명 참조
+ | 
+ | riCd
+ | 리코드
+ | 2
+ | 0
+ | 00
+ | 공통항목 코드정의  REF _Ref441670987 \h 법정동 코드 설명 참조
+ | 
+ | detailAddr
+ | 상세주소
+ | 1000
+ | 0
+ |  | 상세주소
+ | 
+ | roadNmCd
+ | 도로명코드
+ | 12
+ | 0
+ | 113053107018
+ | 행정표준 도로명코드
+ | 
+ | gunmulMlno
+ | 건물본번
+ | 5
+ | 0
+ | 187
+ | 건물본번
+ | 
+ | gunmulSlno
+ | 건물부번
+ | 5
+ | 0
+ | 0
+ | 건물부번
+ | 
+ | fl
+ | 층
+ | 10
+ | 0
+ | 2
+ | 층
+ | 
+ | locTelNo1
+ | 소재지전화번호-지역
+ | 4
+ | 0
+ | 02
+ | 소재지전화번호-지역
+ | 
+ | locTelNo2
+ | 소재지전화번호-국번
+ | 4
+ | 0
+ | 980
+ | 소재지전화번호-국번
+ | 
+ | locTelNo3
+ | 소재지전화번호-번호
+ | 10
+ | 0
+ | 3004
+ | 소재지전화번호-번호
+ |  | longTermPeribRgtDt
+ | 장기요양기관지정일
+ | 8
+ | 1
+ | 20131224
+ | 기관지정일
+ |  | stpRptDt
+ | 설치신고일자
+ | 8
+ | 1
+ | 20131224
+ | 등록일
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getGeneralSttusDetailInfoItem02?longTermAdminSym=21130500195&adminPttnCd=B03&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<item>
+<adminNm>번동데이케어센터</adminNm>
+<adminPttnCd>B03</adminPttnCd>
+<BDongCd>102</BDongCd>
+<fl>2</fl>
+<gunmulMlno>187</gunmulMlno>
+<gunmulSlno>0</gunmulSlno>
+<HDongCd>590</HDongCd>
+<hmPostNo>01231</hmPostNo>
+<locTelNo_1>02</locTelNo_1>
+<locTelNo_2>980</locTelNo_2>
+<locTelNo_3>3004</locTelNo_3>
+<longTermAdminSym>21130500195</longTermAdminSym>
+<longTermPeribRgtDt>20131224</longTermPeribRgtDt>
+<riCd>00</riCd>
+<roadNmCd>113053107018</roadNmCd>
+<siDoCd>11</siDoCd>
+<siGunGuCd>305</siGunGuCd>
+<stpRptDt>20131224</stpRptDt>
+</item>
+</body>
+</response>
+
+ | 인력현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 2
+ | 오퍼레이션명(국문)
+ | 인력현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(상세)
+ | 오퍼레이션명(영문)
+ | getStaffSttusDetailInfoItem
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 인력현황조회(시설장, 사무국장, 사회복지사, 간호(조무)사, 영양사, 조리사 등)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 500 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 31171000081
+ | 장기요양기관코드
+ | adminPttnCd
+ | 장기요양기관유형코드
+ | 3
+ | 1
+ | C06
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | Item
+ |  |  | 0
+ |  |  |  | longTermAdminSym
+ | 기관코드
+ | 11
+ | 1
+ | 31171000081
+ | 기관코드
+ |  | adminPttnCd
+ | 기관유형코드
+ | 3
+ | 1
+ | C06
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ |  | equipLong
+ | 시설장
+ | 10
+ | 1
+ | 1
+ | 시설장 인원 수
+ |  | hdOfce
+ | 사무국장
+ | 10
+ | 1
+ | 0
+ | 사무국장 인원 수
+ |  | socWel
+ | 사회복지사
+ | 10
+ | 1
+ | 0
+ | 사회복지사 인원 수
+ |  | chrgDoc
+ | 의사_전임
+ | 10
+ | 1
+ | 0
+ | 의사_전임 인원 수
+ |  | chargeDoc
+ | 의사_촉탁
+ | 10
+ | 1
+ | 0
+ | 의사_촉탁 인원 수
+ |  | nur
+ | 간호사
+ | 10
+ | 1
+ | 0
+ | 간호사 인원 수
+ |  | nurArticle
+ | 간호조무사
+ | 10
+ | 1
+ | 0
+ | 간호조무사 인원 수
+ |  | dent
+ | 치위생사
+ | 10
+ | 1
+ | 0
+ | 치위생사 인원 수
+ |  | physicalMTret
+ | 물리치료사
+ | 10
+ | 1
+ | 0
+ | 물리치료사 인원 수
+ |  | wrkMTret
+ | 작업치료사
+ | 10
+ | 1
+ | 0
+ | 작업치료사 인원 수
+ |  | recuProt1
+ | 요양보호사1급
+ | 10
+ | 1
+ | 0
+ | 요양보호사1급 인원 수
+ |  | recuProt2
+ | 요양보호사2급
+ | 10
+ | 1
+ | 0
+ | 요양보호사2급 인원 수
+ |  | recuProtDelay
+ | 요양보호사유예인원
+ | 10
+ | 1
+ | 0
+ | 요양보호사유예인원 수
+ |  | ofceEmp
+ | 사무원
+ | 10
+ | 1
+ | 1
+ | 사무원 수
+ |  | nut
+ | 영양사
+ | 10
+ | 1
+ | 0
+ | 영양사 인원 수
+ |  | cook
+ | 조리원
+ | 10
+ | 1
+ | 0
+ | 조리원 수
+ |  | hygiPrsn
+ | 위생원
+ | 10
+ | 1
+ | 0
+ | 위생원 수
+ |  | mgmtPrsn
+ | 관리인
+ | 10
+ | 1
+ | 0
+ | 관리인 인원 수
+ |  | suppPrsn
+ | 보조원
+ | 10
+ | 1
+ | 0
+ | 보조원 수
+ |  | etcPer
+ | 기타인원
+ | 10
+ | 1
+ | 0
+ | 기타인원 수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getStaffSttusDetailInfoItem02?longTermAdminSym=31171000081&adminPttnCd=C06&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<item>
+<adminPttnCd>C06</adminPttnCd>
+<chargeDoc>0</chargeDoc>
+<chrgDoc>0</chrgDoc>
+<cook>0</cook>
+<dent>0</dent>
+<equipLong>1</equipLong>
+<etcPer>0</etcPer>
+<hdOfce>0</hdOfce>
+<hygiPrsn>0</hygiPrsn>
+<longTermAdminSym>31171000081</longTermAdminSym>
+<mgmtPrsn>0</mgmtPrsn>
+<nur>0</nur>
+<nurArticle>0</nurArticle>
+<nut>0</nut>
+<ofceEmp>1</ofceEmp>
+<physicalMTret>0</physicalMTret>
+<recuProtDelay>0</recuProtDelay>
+<recuProt_1>0</recuProt_1>
+<recuProt_2>0</recuProt_2>
+<socWel>0</socWel>
+<suppPrsn>0</suppPrsn>
+<wrkMTret>0</wrkMTret>
+</item>
+</body>
+</response>
+ | 시설현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 3
+ | 오퍼레이션명(국문)
+ | 시설현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(상세)
+ | 오퍼레이션명(영문)
+ | getInsttSttusDetailInfoItem
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 현황조회(침실, 특수침실, 의료 및 간호사실, 작업 및 일상동작훈련실, 화장실 등)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 800 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 31171000081
+ | 장기요양기관코드
+ | adminPttnCd
+ | 기관유형코드
+ | 3
+ | 1
+ | C06
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | Item
+ |  |  | 0
+ |  | 
+ |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 31171000081
+ | 장기요양기관코드
+ |  | adminPttnCd
+ | 장기요양기관유형코드
+ | 3
+ | 1
+ | C06
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ |  | prsnRoomReal1
+ | 1인실
+ | 11
+ | 1
+ | 0
+ | 1인실 수
+ |  | prsnRoomReal2
+ | 2인실
+ | 11
+ | 1
+ | 0
+ | 2인실 수
+ |  | prsnRoomReal3
+ | 3인실
+ | 11
+ | 1
+ | 0
+ | 3인실 수
+ |  | prsnRoomReal4
+ | 4인실
+ | 11
+ | 1
+ | 0
+ | 4인실 수
+ |  | spcAcupRoomReal
+ | 특수침실
+ | 11
+ | 1
+ | 0
+ | 특수침실 수
+ |  | ofce
+ | 사무실
+ | 11
+ | 1
+ | 0
+ | 사무실 수
+ |  | medRoomReal
+ | 의료 및 간호사실
+ | 11
+ | 1
+ | 0
+ | 의료 및 간호사실 수
+ |  | funcTrnRoomReal
+ | 작업 및 일상동작훈련실
+ | 11
+ | 1
+ | 0
+ | 작업 및 일상동작훈련실 수
+ |  | pgmRoomReal
+ | 프로그램실
+ | 11
+ | 1
+ | 0
+ | 프로그램실 수
+ |  | crmnyPrst
+ | 식당 및 조리실
+ | 11
+ | 1
+ | 0
+ | 식당 및 조리실 수
+ |  | batRoom
+ | 화장실
+ | 11
+ | 1
+ | 0
+ | 화장실 수
+ |  | taxPageLong
+ | 세면장 및 목욕실
+ | 11
+ | 1
+ | 0
+ | 세면장 및 목욕실 수
+ |  | taxRoom
+ | 세탁장 및 건조장
+ | 11
+ | 1
+ | 0
+ | 세탁장 및 건조장 수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getInsttSttusDetailInfoItem02?longTermAdminSym=31171000081&adminPttnCd=C06&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<item>
+<adminPttnCd>C06</adminPttnCd>
+<batRoom>0</batRoom>
+<funcTrnRoomreal>0</funcTrnRoomreal>
+<longTermAdminSym>31171000081</longTermAdminSym>
+<medRoomreal>0</medRoomreal>
+<ofce>1</ofce>
+<pgmRoomreal>0</pgmRoomreal>
+<prsnRoomreal1>0</prsnRoomreal1>
+<prsnRoomreal2>0</prsnRoomreal2>
+<prsnRoomreal3>0</prsnRoomreal3>
+<prsnRoomreal4>0</prsnRoomreal4>
+<spcAcupRoomreal>0</spcAcupRoomreal>
+<taxPageLong>0</taxPageLong>
+<taxRoom>0</taxRoom>
+</item>
+</body>
+</response>
+ | 비급여현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 4
+ | 오퍼레이션명(국문)
+ | 비급여현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(목록)
+ | 오퍼레이션명(영문)
+ | getNonBenefitSttusDetailInfoList
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 비급여현황 목록 조회(비급여항목, 금액, 산출근거, 등록일)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 800 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 31132000227
+ | 장기요양기관코드
+ | pageNo
+ | 페이지번호
+ | 8
+ | 0
+ | 1
+ | 목록의 페이지 번호
+ | numOfRows
+ | 행개수
+ | 8
+ | 0
+ | 1
+ | 페이지당 행의 개수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | Item
+ |  |  | 0..n
+ |  |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 31132000227
+ | 장기요양기관코드
+ |  | nonpayKind
+ | 비급여항목 종류
+ | 4
+ | 1
+ | 3
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396580 \h  \* MERGEFORMAT 비급여항목 종류 코드 정의 참조
+ |  | prodBase
+ | 산출근거
+ | 100
+ | 1
+ | 지급하지 않음
+ | 산출근거
+ |  | nonpayTgtAmt
+ | 비급여항목 금액
+ | 12
+ | 1
+ | 0
+ | 비급여항목 금액
+ |  | uptDt
+ | 등록일
+ | 10
+ | 1
+ | 20150831
+ | 등록일
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getNonBenefitSttusDetailInfoList02?longTermAdminSym=31132000227&pageNo=1&numOfRows=1&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<longTermAdminSym>31132000227</longTermAdminSym>
+<nonpayKind>1</nonpayKind>
+<nonpayTgtAmt>7500</nonpayTgtAmt>
+<prodBase>2500*3회</prodBase>
+<uptDt>20170303</uptDt>
+</item>
+</items>
+<numOfRows>1</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>3</totalCount>
+</body>
+</response>
+ | 프로그램현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 5
+ | 오퍼레이션명(국문)
+ | 프로그램현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(목록)
+ | 오퍼레이션명(영문)
+ | getProgramSttusDetailInfoList
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 프로그램운영사항 목록 조회(프로그램종류, 제목, 대상, 주기, 장소)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 800 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 12817000042
+ | 장기요양기관코드
+ | pageNo
+ | 페이지번호
+ | 8
+ | 0
+ | 1
+ | 목록의 페이지 번호
+ | numOfRows
+ | 행개수
+ | 8
+ | 0
+ | 1
+ | 페이지당 행의 개수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | Item
+ |  |  | 0..n
+ |  |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 12817000042
+ | 장기요양기관코드
+ |  | pgmType
+ | 종류
+ | 1
+ | 1
+ | 2
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396952 \h  \* MERGEFORMAT 프로그램 종류 코드 정의 참조
+ |  | pgmNm
+ | 제목
+ | 50
+ | 1
+ | 몸으로 말해요
+ | 프로그램 이름
+ |  | tgtNop
+ | 대상
+ | 5
+ | 1
+ | 5
+ | 대상 인원 수
+ |  | cyclTm
+ | 주기
+ | 20
+ | 1
+ | 월 2회(20시간)
+ | 주기, 회수, 시간
+ |  | runPlc
+ | 장소
+ | 50
+ | 1
+ | 한마음노인요양원 거실
+ | 프로그램 운영 장소
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getProgramSttusDetailInfoList02?longTermAdminSym=14127000432&pageNo=1&numOfRows=1&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<cyclTm>1</cyclTm>
+<longTermAdminSym>14127000432</longTermAdminSym>
+<pgmNm>관절구축 체조하기</pgmNm>
+<pgmType>2</pgmType>
+<runPlc>프로그램실</runPlc>
+<tgtNop>8</tgtNop>
+</item>
+</items>
+<numOfRows>1</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>5</totalCount>
+</body>
+</response>
+ | 협약기관 현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 6
+ | 오퍼레이션명(국문)
+ | 협약기관 현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(목록)
+ | 오퍼레이션명(영문)
+ | getConvInsttDetailInfoList
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 협약기관 현황 목록 조회(협약기관명, 협약기간)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 500 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 14139000308
+ | 장기요양기관코드
+ | pageNo
+ | 페이지번호
+ | 8
+ | 0
+ | 1
+ | 목록의 페이지 번호
+ | numOfRows
+ | 행개수
+ | 8
+ | 0
+ | 1
+ | 페이지당 행의 개수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | item
+ |  |  | 0..n
+ | 
+ |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 14139000308
+ | 장기요양기관코드
+ |  | yoyangNm
+ | 협약기관명
+ | 1
+ | 1
+ | 더베스트내과의원
+ | 협약기관명
+ |  | adptFrDt
+ | 협약기간_시작날짜
+ | 50
+ | 1
+ | 20150601
+ | 협약 기간 체결 시작 날짜
+ |  | adptToDt
+ | 협약기간_끝날짜
+ | 50
+ | 1
+ | 99991231
+ | 협약 기간 체결 끝 날짜
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getConvInsttDetailInfoList02?longTermAdminSym=14139000308&pageNo=1&numOfRows=1&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<adptFrDt>20160101</adptFrDt>
+<adptToDt>99991231</adptToDt>
+<longTermAdminSym>14139000308</longTermAdminSym>
+<yoyangNm>의료법인석경의료재단센트럴병원</yoyangNm>
+</item>
+</items>
+<numOfRows>1</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>2</totalCount>
+</body>
+</response>
+ | 복지용구 현황 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 7
+ | 오퍼레이션명(국문)
+ | 복지용구 현황 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(목록)
+ | 오퍼레이션명(영문)
+ | getWlfareToolDetailInfoList
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 복지용구현황 목록 조회(신고내역, 장비명, 제조사, 모델명, 용도, 기타)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 500 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 34115000052
+ | 장기요양기관코드
+ | pageNo
+ | 페이지번호
+ | 8
+ | 0
+ | 1
+ | 목록의 페이지 번호
+ | numOfRows
+ | 행개수
+ | 8
+ | 0
+ | 1
+ | 페이지당 행의 개수
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | item
+ |  |  | 0..n
+ |  |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 34115000052
+ | 장기요양기관코드
+ |  | witemRptDesc
+ | 신고내역
+ | 1
+ | 1
+ | A
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436398085 \h  \* MERGEFORMAT 복지용구 신고내역 코드 정의 참조
+ |  | itemName
+ | 장비명
+ | 50
+ | 1
+ | 하이크로 S
+ | 장비명
+ |  | mnfCo
+ | 제조사
+ | 50
+ | 1
+ | 수산이엔씨
+ | 제조사 이름
+ |  | modelNm
+ | 모델명
+ | 50
+ | 1
+ | 하이크로 S
+ | 모델명
+ |  | usage
+ | 용도
+ | 50
+ | 1
+ | 소독
+ | 용도
+ |  | rmk
+ | 기타
+ | 50
+ | 1
+ |  | 기타
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getWlfareToolDetailInfoList02?longTermAdminSym=34115000052&pageNo=1&numOfRows=1&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<items>
+<item>
+<itemName>하이크로 S</itemName>
+<longTermAdminSym>34115000052</longTermAdminSym>
+<mnfCo>수산이엔씨</mnfCo>
+<modelNm>하이크로 S</modelNm>
+<usage>소독</usage>
+<witemRptDesc>A</witemRptDesc>
+</item>
+</items>
+<numOfRows>1</numOfRows>
+<pageNo>1</pageNo>
+<totalCount>1</totalCount>
+</body>
+</response>
+ | 입소인원 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 9
+ | 오퍼레이션명(국문)
+ | 입소인원 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(상세)
+ | 오퍼레이션명(영문)
+ | getAceptncNmprDetailInfoItem
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 입소인원 상세 정보조회(정원, 현원, 대기인원)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 500 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 11156000023
+ | 장기요양기관코드
+ | adminPttnCd
+ | 기관유형코드
+ | 3
+ | 1
+ | A03
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | item
+ |  |  | 0
+ |  |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 11156000023
+ | 장기요양기관코드
+ |  | adminPttnCd
+ | 장기요양기관유형코드
+ | 3
+ | 1
+ | A03
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의  REF _Ref436396095 \h  \* MERGEFORMAT 기관유형코드 정의 참조
+ |  | totPer
+ | 정원
+ | 10
+ | 0
+ | 65
+ | 정원
+ |  | maNowPer
+ | 현원_남
+ | 10
+ | 0
+ | 14
+ | 현원_남
+ |  | fmNowPer
+ | 현원_여
+ | 10
+ | 0
+ | 51
+ | 현원_여
+ |  | maRsvPer
+ | 대기_남
+ | 10
+ | 0
+ | 36
+ | 대기_남
+ |  | fmRsvPer
+ | 대기_여
+ | 10
+ | 0
+ | 58
+ | 대기_여
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getAceptncNmprDetailInfoItem02?longTermAdminSym=11156000023&adminPttnCd=A03&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<item>
+<adminPttnCd>A03</adminPttnCd>
+<fmNowPer>102</fmNowPer>
+<fmRsvPer>96</fmRsvPer>
+<longTermAdminSym>11156000023</longTermAdminSym>
+<maNowPer>16</maNowPer>
+<maRsvPer>99</maRsvPer>
+<totPer>118</totPer>
+</item>
+</body>
+</response>
+ | 기관기타 상세 정보조회 오퍼레이션 명세
+오퍼레이션 정보
+ | 오퍼레이션 번호
+ | 10
+ | 오퍼레이션명(국문)
+ | 기관기타 상세 정보조회
+ | 
+ | 오퍼레이션 유형
+ | 조회(상세)
+ | 오퍼레이션명(영문)
+ | getInsttEtcDetailInfoItem
+ | 
+ | 오퍼레이션 설명
+ | 장기요양기관 기타 상세 정보조회(홈페이지주소, 교통편, 주차시설)
+ | 
+ | Call Back URL
+ | N/A
+ | 
+ | 최대 메시지 사이즈
+ | [ 500 bytes]
+ | 
+ | 평균 응답 시간
+ | [ 0.5ms]
+ | 초당 최대 트랜잭션
+ | [ 30tps]
+ | HTTP Method
+ | [O] REST (GET, POST, PUT, DELETE)
+ | 요청 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 14421000065
+ | 장기요양기관코드
+ | adminPttnCd
+ | 장기요양기관유형코드
+ | 3
+ | 1
+ | A04
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의 기관유형코드 참조
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+응답 메시지 명세
+항목명(영문)
+ | 항목명(국문)
+ | 항목크기
+ | 항목구분
+ | 샘플데이터
+ | 항목설명
+ | item
+ |  |  | 0
+ | 
+ |  |  | longTermAdminSym
+ | 장기요양기관코드
+ | 11
+ | 1
+ | 14421000065
+ | 장기요양기관코드
+ |  | adminPttnCd
+ | 장기요양기관유형코드
+ | 3
+ | 1
+ | A04
+ |  REF _Ref437531110 \h  \* MERGEFORMAT 공통항목  REF _Ref436396151 \h  \* MERGEFORMAT 코드 정의 기관유형코드 참조
+ | 
+ | hmpgAddr
+ | 홈페이지주소
+ | 500
+ | 0
+ | http://www.cafe.daum.net/sampol728
+ | 홈페이지주소
+ |  | tfMth
+ | 교통편
+ | 2000
+ | 1
+ | 서산에서 홍성방향으로 고북에서 사기리 방향으로 들어오신 후 봉생2리 입구에서 좌회전 후 600미터 가량 오신 후 오른편에 요양원 위치 (안내표지판 참고) 고속도로 : 서해안고속도로 해미IC 이용.
+ | 교통편
+ |  | pkngEquip
+ | 주차시설
+ | 2000
+ | 1
+ | 10대 이상 수용 가능
+ | 주차시설
+ | ※ 항목구분 : 필수(1), 옵션(0), 1건 이상 복수건(1..n), 0건 또는 복수건(0..n)
+요청 / 응답 메시지 예제
+REST(URI)
+ | http://apis.data.go.kr/B550928/getLtcInsttDetailInfoService02/getInsttEtcDetailInfoItem02?longTermAdminSym=11156000023&adminPttnCd=A03&serviceKey=서비스인증키
+ | 응답 메시지
+ | <response>
+<header>
+<resultCode>00</resultCode>
+<resultMsg>NORMAL SERVICE.</resultMsg>
+</header>
+<body>
+<item>
+<adminPttnCd>A03</adminPttnCd>
+<hmpgAddr>www.elimtown.org</hmpgAddr>
+<longTermAdminSym>11156000023</longTermAdminSym>
+<pkngEquip>지하12대,지상6대</pkngEquip>
+<tfMth>지하철 : 2호선 문래역 1번출구 버 스 : 6625번, 5번, 7612번자 차 : 지하 및 지상주차 </tfMth>
+</item>
+</body>
+</response>
+ | 공통항목
+코드 정의
+기관유형코드 정의
+코드
+ | 이름
+ | A01
+ | 노인요양시설
+ | A02
+ | 노인전문요양시설
+ | A03
+ | 노인요양시설(개정법)
+ | A04
+ | 노인요양공동생활가정
+ | A05
+ | 노인요양시설(단기보호 전환)
+ | AAA
+ | 입소시설
+ | B01
+ | 재가노인복지시설 방문요양
+ | B02
+ | 재가노인복지시설 방문목욕
+ | B03
+ | 재가노인복지시설 주야간보호
+ | B04
+ | 재가노인복지시설 단기보호
+ | B05
+ | 재가노인복지시설 방문간호
+ | C01
+ | 재가장기요양기관 방문요양
+ | C02
+ | 재가장기요양기관 방문목욕
+ | C03
+ | 재가장기요양기관 주야간보호
+ | C04
+ | 재가장기요양기관 단기보호
+ | C05
+ | 재가장기요양기관 방문간호
+ | C06
+ | 재가장기요양기관 복지용구
+ | Z01
+ | 기타
+ | G31
+G32
+︙
+G99
+ | 치매전담실 가형 1실
+치매전담실 가형 2실
+︙
+치매전담실 가형 69실
+ | M31
+M32
+︙
+M99
+ | 치매전담실 나형 1실
+치매전담실 나형 2실
+︙
+치매전담실 나형 69실
+ | H31
+H32
+︙
+H99
+ | 주야간보호 내 치매전담 1실
+주야간보호 내 치매전담 2실
+︙
+주야간보호 내 치매전담 69실
+ | I31
+I32
+︙
+I99
+ | 주야간보호 내 치매전담 1실
+주야간보호 내 치매전담 2실
+︙
+주야간보호 내 치매전담 69실
+ | S41
+ | 치매전담형 노인요양공동생활가정
+ | 비급여항목 종류 코드 정의
+코드
+ | 이름
+ | 1
+ | 식재료비
+ | 2
+ | 상급침실사용료
+ | 3
+ | 이미용비
+ | 4
+ | 경관영양유동식비
+ | 5
+ | 간식비 
+ | 6
+ | 상급침실사용료(2인실)
+ | 7
+ | 기타(실비수납항목등을 기재함)
+ | 프로그램 종류 코드 정의
+코드
+ | 이름
+ | 1
+ | 인지기능향상
+ | 2
+ | 운동보조
+ | 3
+ | 기타
+ | 복지용구 신고내역 코드 정의
+코드
+ | 이름
+ | A
+ | 소독장비
+ | B
+ | 세정장비
+ | C
+ | 기타
+ | 법정동 코드 설명
+시도(2) + 시군구(3) + 읍면동(3) + 리(2)
+ex) 경기도(41) + 화성시(590) + 향남면(390) + 수직리(32)
+행정표준코드 관리시스템 URL - https://code.mogaha.go.kr/jsp/index.jsp

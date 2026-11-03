@@ -7,3 +7,11 @@ tools/consult-sheet/Config.gs
 tools/consult-sheet/Deploy.gs
 tools/consult-sheet/pdf-manifest.json
 tools/consult-sheet/build-deploy.mjs
+
+# API 키 등 비밀값 (커밋 금지)
+.env
+.env.*
+!.env.example
+
+# 공공 API 원본 캐시 (다시 받을 수 있음)
+data/facilities/raw/
