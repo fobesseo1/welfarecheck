@@ -198,7 +198,8 @@ async function hosp() {
 // 도로명코드·건물번호만 있어, 이 값을 그대로 받는 이 API로 좌표를 만든다. 결과는 UTM-K → 위경도로 바꿔 저장
 async function geo() {
   const key = process.env.JUSO_COORD_API_KEY;
-  if (!key) throw new Error('.env.local 에 JUSO_COORD_API_KEY 가 없습니다');
+  // 키가 없으면 건너뜀: 좌표는 geo-addr(우체국 주소 DB → 브이월드)가 키 승인 없이 받는다
+  if (!key) { console.log('좌표 ① 건너뜀 — JUSO_COORD_API_KEY 없음 (geo-addr 로 받음)'); return; }
   const max = Number(opt('max', 20000));
   const cachePath = join(ROOT, 'data', 'facilities', 'geocode-cache.json');
   const cache = readJson(cachePath, {});
@@ -486,4 +487,7 @@ function build() {
 
 const commands = { probe, list, detail, hosp, geo, 'geo-file': geoFile, 'geo-addr': geoAddr, build };
 if (!commands[cmd]) { console.log('사용법: node tools/facilities/collect.mjs <probe|list|detail|hosp|geo|geo-file|geo-addr|build>'); process.exit(1); }
+// 시작·끝 표시: 진행 상황 창(tools/facilities/status.mjs)이 daily.log 에서 단계별 시각을 읽는다
+console.log(`>> ${cmd} start ${new Date().toISOString()}`);
 await commands[cmd]();
+console.log(`>> ${cmd} end ${new Date().toISOString()}`);
