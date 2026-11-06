@@ -107,11 +107,16 @@ async function probe() {
 
 async function list() {
   const all = new Map(); // key = 기관기호, value = { sym, name, siDoCd, siGunGuCd, types: [...] }
+  const failed = [];
   for (const sido of SIDO) {
     let page = 1, got = 0, total = null;
     do {
       const r = await call(LTC_SEARCH, 'getLtcInsttSeachList02', { siDoCd: sido, pageNo: page, numOfRows: 1000 });
-      if (!ok(r)) { console.log(`시도 ${sido} p${page}: ${r.code} ${r.msg ?? ''}`); break; }
+      if (!ok(r)) {
+        console.log(`시도 ${sido} p${page}: ${r.code} ${r.msg ?? ''}`);
+        if (r.code !== '03') failed.push(sido); // 03 = 자료 없음 (쓰지 않는 옛 시도코드)
+        break;
+      }
       total = r.total ?? 0;
       for (const it of r.items) {
         const sym = it.longTermAdminSym;
@@ -126,6 +131,10 @@ async function list() {
     if (total) console.log(`시도 ${sido}: ${got}/${total}`);
   }
   const out = [...all.values()];
+  // 목록이 덜 받아진 채로 덮어쓰면 그 기관들이 사이트에서 사라진다 → 이전 목록을 그대로 두고 이번 단계만 실패로 끝낸다
+  const before = readJson(join(RAW, 'ltc_list.json'), { items: [] }).items.length;
+  if (failed.length) throw new Error(`시도 ${failed.join(', ')} 목록을 받지 못해 이전 목록 유지`);
+  if (out.length < before * 0.9) throw new Error(`기관 수가 ${before}곳에서 ${out.length}곳으로 크게 줄어 이전 목록 유지`);
   writeJson(join(RAW, 'ltc_list.json'), { fetchedAt: new Date().toISOString(), count: out.length, items: out });
   console.log(`장기요양기관 ${out.length}곳 (기관기호 기준) → data/facilities/raw/ltc_list.json`);
 }
@@ -168,7 +177,7 @@ async function detail() {
     writeJson(cachePath(f), cache); // 중간에 멈춰도 받은 것은 저장
     if (++done % 200 === 0) console.log(`  ${done}곳 받음`, used);
   });
-  // 남은 기관 수 → 매일 자동 실행(run-daily.cmd)이 0이면 예약 작업을 지운다
+  // 이번 실행 뒤에도 받을 차례인 기관 수 (진행 상황 기록용)
   const remaining = items.filter((f) => jobsFor(f, readJson(cachePath(f), { ops: {} })).length).length;
   writeJson(join(RAW, 'detail-status.json'), { at: new Date().toISOString(), total: items.length, remaining, used }, true);
   console.log(`상세 ${done}곳 받음, ${skipped}곳은 최근 자료 있음, 남은 기관 ${remaining}곳${stopped ? ' — 한도에서 멈춤, 다시 실행하면 이어 받음' : ''}`, used);
@@ -473,15 +482,24 @@ function build() {
     const c = ps.filter((p) => p.lat != null);
     return c.length ? [round(c.reduce((s, p) => s + p.lat, 0) / c.length), round(c.reduce((s, p) => s + p.lng, 0) / c.length)] : null;
   };
+  // 내용이 그대로면 파일도 기준일(builtAt)도 건드리지 않는다 → 바뀐 게 없는 날은 커밋·재배포도 없다
+  let changed = false;
+  const writeIfChanged = (p, v) => {
+    if (existsSync(p) && readFileSync(p, 'utf8') === JSON.stringify(v)) return;
+    changed = true;
+    writeJson(p, v);
+  };
   const index = {};
   for (const [sido, places] of Object.entries(bySido)) {
-    writeJson(join(OUT, 'places', `${sido}.json`), places);
-    writeJson(join(OUT, 'details', `${sido}.json`), details[sido]);
+    writeIfChanged(join(OUT, 'places', `${sido}.json`), places);
+    writeIfChanged(join(OUT, 'details', `${sido}.json`), details[sido]);
     const byGu = {};
     for (const p of places) if (p.gu) (byGu[p.gu] ??= []).push(p);
     index[sido] = { count: places.length, center: center(places), gu: Object.fromEntries(Object.entries(byGu).sort().map(([g, ps]) => [g, { count: ps.length, center: center(ps) }])) };
   }
-  writeJson(join(OUT, 'index.json'), { builtAt: new Date().toISOString(), sido: index }, true);
+  const prev = readJson(join(OUT, 'index.json'), null);
+  if (JSON.stringify(prev?.sido) !== JSON.stringify(index)) changed = true;
+  if (changed || !prev?.builtAt) writeJson(join(OUT, 'index.json'), { builtAt: new Date().toISOString(), sido: index }, true);
   console.log('시도별 기관 수', Object.fromEntries(Object.entries(index).map(([s, v]) => [s, v.count])));
 }
 

@@ -17,10 +17,12 @@ const RAW = join(ROOT, 'data', 'facilities', 'raw');
 const LOG = join(RAW, 'daily.log');
 const TASK = 'MosimDuo-FacilityCollect';
 const DAILY_MAX = 9000; // run-daily.cmd 의 --max (기능별 하루 호출 상한)
+const REFRESH_DAYS = 14; // run-daily.cmd 의 --days (이보다 오래된 기관을 다시 받음)
 
 // 단계 순서는 run-daily.cmd 와 같다. 마지막 칸 = 그 단계가 끝났음을 알리는 로그 줄
 const STEPS = [
-  ['detail', '기관 상세 받기', '공단 기관별 정보·정원·인력·비급여 (하루 9,000곳까지, 다음 날 이어 받음)', /^상세 \d/],
+  ['list', '기관 목록 받기', '새로 생기거나 문 닫은 기관 확인 (실패하면 이전 목록 유지)', /^장기요양기관 \d/],
+  ['detail', '기관 상세 받기', `받은 지 ${REFRESH_DAYS}일 지난 기관을 다시 받음 (하루 9,000곳까지, 다음 날 이어 받음)`, /^상세 \d/],
   ['geo', '지도 좌표 ①', '도로명주소 API (키가 있을 때만, 없으면 건너뜀)', /^좌표 성공/],
   ['geo-addr', '지도 좌표 ②', '새 기관 위치 — 실제로 쓰는 길 (우체국 주소 → 브이월드)', /^좌표 성공/],
   ['build', '사이트 자료 만들기', '시도별 기관 목록 파일 생성', /^시도별 기관 수/],
@@ -108,13 +110,15 @@ function detailTargets() {
 function detailFiles(since) {
   const dir = join(RAW, 'detail');
   const want = detailTargets();
-  let got = 0, recent = 0;
+  let got = 0, recent = 0, due = 0;
   for (const f of existsSync(dir) ? readdirSync(dir) : []) {
     if (!want.has(f.slice(0, -5))) continue;
     got++;
-    if (since && statSync(join(dir, f)).mtimeMs >= since) recent++;
+    const at = statSync(join(dir, f)).mtimeMs;
+    if (since && at >= since) recent++;
+    if (Date.now() - at > REFRESH_DAYS * 864e5) due++;
   }
-  return { total: want.size, got, recent };
+  return { total: want.size, got, recent, due };
 }
 
 function stepNote(key, s, run, prev, live) {
@@ -138,7 +142,7 @@ function stepNote(key, s, run, prev, live) {
   const spent = Date.now() - (s.start ?? run.start);
   if (key === 'detail') {
     const rate = live.recent / Math.max(1, spent); // 곳/ms
-    const goal = Math.min(DAILY_MAX, live.total - live.got + live.recent);
+    const goal = Math.min(DAILY_MAX, live.total - live.got + live.due + live.recent);
     s.left = rate > 0 ? Math.max(0, goal - live.recent) / rate : NaN;
     return `진행 중 ${dur(spent)} · 오늘 ${n(live.recent)} / 약 ${n(goal)}곳${Number.isFinite(s.left) ? ` · 약 ${dur(s.left)} 남음` : ''}`;
   }
@@ -213,16 +217,17 @@ function render() {
 
   lines.push('', '── 전체 진행 ──');
   const left = live.total - live.got;
-  lines.push(`  기관 상세  ${n(live.got)} / ${n(live.total)}곳 받음 (남음 ${n(left)}곳${left > 0 ? ` · 하루 9,000곳씩이면 약 ${Math.ceil(left / DAILY_MAX)}일 더` : ' · 전부 받음'})`);
+  const todo = left + live.due;
+  lines.push(`  기관 상세  ${n(live.got)} / ${n(live.total)}곳 받음 (받을 차례 ${n(todo)}곳${todo > 0 ? ` · 하루 9,000곳씩이면 약 ${Math.ceil(todo / DAILY_MAX)}일` : ' · 모두 최근 자료'})`);
   const pub = lastPublish();
   lines.push(`  사이트 반영  마지막 ${pub ? when(pub) : '기록 없음'}`);
-  lines.push(`  다음 실행  ${taskExists() ? '매일 오전 9시 (다 받으면 예약이 저절로 지워짐)' : '예약 없음 (다 받아서 지워졌거나 아직 등록 안 됨)'}`);
+  lines.push(`  다음 실행  ${taskExists() ? `매일 오전 9시 (${REFRESH_DAYS}일 지난 기관만 다시 받음)` : '예약 없음'}`);
 
   const history = runs.slice(-5, -1).filter((r) => r.end).reverse(); // 맨 위에 보이는 실행은 빼고
   if (history.length) {
     lines.push('', '── 지난 실행 ──');
     for (const r of history) {
-      const got = [...r.steps[0].lines].reverse().map((l) => l.match(/^상세 (\d+)곳 받음/)).find(Boolean);
+      const got = [...r.steps[STEPS.findIndex(([k]) => k === 'detail')].lines].reverse().map((l) => l.match(/^상세 (\d+)곳 받음/)).find(Boolean);
       lines.push(`  ${when(r.start)} → ${time(r.end)}  ${result(r)}${got ? ` · 상세 ${n(+got[1])}곳` : ''}`);
     }
   }
